@@ -1,7 +1,7 @@
 # MedOrqis — Language & Dialect Clinical Coverage Matrix
 
-**Generated Automatically from Benchmark Execution**: `2026-10-26T09:08:21.802635+00:00`  
-**Commit**: `15b0309d2da4e42a6fa3a86e8c4aec65c53b6a03`  
+**Generated Automatically from Benchmark Execution**: `2026-10-26T09:09:43.063087+00:00`  
+**Commit**: `02ed97ff93a0e773e02a9d4797931bd0ef3f9fea`  
 **Total Verified Benchmark Test Cases**: `34 cases`
 
 ## 1. Verified Language & Dialect Tiers
