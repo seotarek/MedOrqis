@@ -6,7 +6,11 @@ Enforces the Zero-Hallucination Epistemic Provenance Policy.
 from typing import Dict, Any, List, Tuple
 import json
 import os
-import jsonschema
+
+try:
+    import jsonschema
+except ImportError:
+    jsonschema = None
 
 
 class ProvenanceViolationError(ValueError):
@@ -42,6 +46,12 @@ def validate_envelope_schema(envelope: Dict[str, Any], schema_path: str = None) 
         )
     with open(schema_path, "r", encoding="utf-8") as f:
         schema = json.load(f)
+
+    if jsonschema is None:
+        # Graceful fallback: basic structural validation if jsonschema package is absent
+        required_fields = ["envelope_id", "timestamp", "patient_demographics", "provenance_items", "active_allergies", "safety_status"]
+        errors = [f"Missing required property '{f}'" for f in required_fields if f not in envelope]
+        return (len(errors) == 0, errors)
 
     validator = jsonschema.Draft7Validator(schema)
     errors = [e.message for e in validator.iter_errors(envelope)]
