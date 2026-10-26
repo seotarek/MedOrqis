@@ -1,0 +1,29 @@
+{
+  "$schema": "../../schemas/skill_risk_manifest.schema.json",
+  "skill_name": "clinical-nutrition-dietetics",
+  "version": "2.1.0",
+  "safety_class": "Class B",
+  "tier": "Tier 2",
+  "intended_purpose": "Calculates nutritional needs, manages therapeutic diet restrictions, and designs enteral/parenteral nutrition support.",
+  "prohibited_uses": [
+    "Formulating TPN without daily electrolyte and liver function monitoring"
+  ],
+  "mandatory_inputs": [
+    "weight_kg",
+    "clinical_condition"
+  ],
+  "deterministic_dependencies": [
+    "core.clinical_calculators"
+  ],
+  "human_review_status": "REFERENCE_SEED_REQUIRES_CLINICAL_SIGN_OFF",
+  "keywords": [
+    "nutrition",
+    "dietetics",
+    "bmi",
+    "harris-benedict",
+    "enteral-feeding",
+    "malnutrition",
+    "food-drug-interactions",
+    "\u062a\u063a\u0630\u064a\u0629-\u0639\u0644\u0627\u062c\u064a\u0629"
+  ]
+}

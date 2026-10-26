@@ -1,0 +1,32 @@
+{
+  "$schema": "../../schemas/skill_risk_manifest.schema.json",
+  "skill_name": "internal-medicine-chronic",
+  "version": "2.1.0",
+  "safety_class": "Class B",
+  "tier": "Tier 2",
+  "intended_purpose": "Provides guideline-concordant chronic care plans for diabetes, hypertension, heart failure, and CKD.",
+  "prohibited_uses": [
+    "Autonomous dose titration of insulin without patient SMBG log review"
+  ],
+  "mandatory_inputs": [
+    "chronic_conditions",
+    "current_medications"
+  ],
+  "deterministic_dependencies": [
+    "core.clinical_calculators",
+    "core.safety_guardrails"
+  ],
+  "human_review_status": "REFERENCE_SEED_REQUIRES_CLINICAL_SIGN_OFF",
+  "keywords": [
+    "internal-medicine",
+    "chronic-disease",
+    "diabetes",
+    "hypertension",
+    "ckd",
+    "copd",
+    "heart-failure",
+    "kdigo",
+    "\u0628\u0627\u0637\u0646\u0629",
+    "\u0623\u0645\u0631\u0627\u0636-\u0645\u0632\u0645\u0646\u0629"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "../../schemas/skill_risk_manifest.schema.json",
+  "skill_name": "geriatrics-polypharmacy",
+  "version": "2.1.0",
+  "safety_class": "Class C",
+  "tier": "Tier 3",
+  "intended_purpose": "Reviews elderly medication lists, flags potentially inappropriate medications (PIMs), and guides structured deprescribing.",
+  "prohibited_uses": [
+    "Abruptly stopping chronic psychotropic or cardiac medications without tapering"
+  ],
+  "mandatory_inputs": [
+    "medication_list",
+    "patient_age_years"
+  ],
+  "deterministic_dependencies": [
+    "core.clinical_calculators",
+    "core.context_validator"
+  ],
+  "human_review_status": "REFERENCE_SEED_REQUIRES_CLINICAL_SIGN_OFF",
+  "keywords": [
+    "geriatrics",
+    "polypharmacy",
+    "beers-criteria",
+    "stopp-start",
+    "fall-risk",
+    "anticholinergic-burden",
+    "\u0637\u0628-\u0627\u0644\u0645\u0633\u0646\u064a\u0646",
+    "\u062a\u0639\u062f\u062f-\u0627\u0644\u0623\u062f\u0648\u064a\u0629"
+  ]
+}

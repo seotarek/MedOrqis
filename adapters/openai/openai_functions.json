@@ -1,0 +1,194 @@
+{
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "calculate_clinical_score",
+        "description": "Calculates deterministic, guideline-grounded clinical scores (CHA2DS2-VA ESC 2024, CHA2DS2-VASc AHA 2023, CKD-EPI 2021 eGFR, Bedside Schwartz Pediatric eGFR, Cockcroft-Gault CrCl, Pediatric Dose Capping, Mosteller BSA, HAS-BLED, NEWS2, CURB-65, Wells DVT/PE).",
+        "strict": true,
+        "parameters": {
+          "type": "object",
+          "required": [
+            "calculator_id",
+            "params"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "calculator_id": {
+              "type": "string",
+              "enum": [
+                "cha2ds2_va_esc2024",
+                "cha2ds2_vasc_aha2023",
+                "ckd_epi_2021_egfr",
+                "bedside_schwartz_egfr",
+                "cockcroft_gault_crcl",
+                "pediatric_dose_calculator",
+                "mosteller_bsa",
+                "has_bled_score",
+                "news2_score",
+                "curb65_score",
+                "wells_dvt_score",
+                "wells_pe_score"
+              ]
+            },
+            "params": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "check_red_flags",
+        "description": "Evaluates patient clinical context against multi-layered safety guardrails, detecting acute emergencies, critical DDIs, and inter-skill conflicts.",
+        "strict": true,
+        "parameters": {
+          "type": "object",
+          "required": [
+            "envelope"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "envelope": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "check_drug_interactions",
+        "description": "Screens a list of patient medications for severe or fatal drug-drug interactions, normalizes regional trade names to INN, and flags contraindications.",
+        "strict": true,
+        "parameters": {
+          "type": "object",
+          "required": [
+            "medications",
+            "patient_demographics"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "medications": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "List of medication trade names or INN generic names (e.g. ['concor', 'voltaren', 'warfarin'])"
+            },
+            "patient_demographics": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "age_years": {
+                  "type": "number"
+                },
+                "biological_sex": {
+                  "type": "string"
+                },
+                "pregnancy_status": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "verify_evidence",
+        "description": "Two-stage evidence verification: checks citation existence/authenticity and evaluates claim entailment with GRADE certainty.",
+        "strict": true,
+        "parameters": {
+          "type": "object",
+          "required": [
+            "ref_id",
+            "claim",
+            "patient_age_years",
+            "patient_is_pregnant"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "ref_id": {
+              "type": "string"
+            },
+            "claim": {
+              "type": "string"
+            },
+            "patient_age_years": {
+              "type": "number"
+            },
+            "patient_is_pregnant": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "scrub_phi",
+        "description": "De-identifies Protected Health Information (HIPAA 18, Egyptian NID, Saudi Iqama/NID, phone, MRN) from clinical narratives.",
+        "strict": true,
+        "parameters": {
+          "type": "object",
+          "required": [
+            "text"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "text": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "scan_prompt_security",
+        "description": "Scans untrusted patient text or system prompts for prompt injection, jailbreak attempts, or clinical safety constraint overrides.",
+        "strict": true,
+        "parameters": {
+          "type": "object",
+          "required": [
+            "text"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "text": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "normalize_terminology",
+        "description": "Maps regional trade brand names (e.g. Concor, Augmentin, Plavix, Voltaren) to international nonproprietary names (INN) and checks negation/unit fidelity.",
+        "strict": true,
+        "parameters": {
+          "type": "object",
+          "required": [
+            "brand_name"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "brand_name": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

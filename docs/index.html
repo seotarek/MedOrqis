@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MedOrqis — Medical AI Skills Ecosystem (v2.1.0)</title>
+  <meta name="description" content="MedOrqis: 24 Evidence-Grounded Medical AI Skills, Zero-Token Deterministic Calculators, and Cross-Platform Adapters (Claude Code, Gemini CLI, MCP, OpenAI).">
+  <meta name="keywords" content="Medical AI, Healthcare Skills, MCP Server, Claude Code, Gemini CLI, Clinical Decision Support, Zero-Token AI, Deterministic Calculators, CHA2DS2-VA, CKD-EPI 2021">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f172a'/><path d='M50 20 v60 M20 50 h60' stroke='%2300e5a3' stroke-width='16' stroke-linecap='round'/></svg>">
+  <style>
+    :root {
+      --bg: #070a13;
+      --bg-surface: #0e1526;
+      --bg-surface-elevated: #162035;
+      --border: #1e293b;
+      --border-focus: #00e5a3;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-subtle: #64748b;
+      --accent-primary: #00e5a3;
+      --accent-primary-dim: rgba(0, 229, 163, 0.12);
+      --accent-cyan: #0ea5e9;
+      --accent-cyan-dim: rgba(14, 165, 233, 0.12);
+      --class-a: #10b981;
+      --class-a-bg: rgba(16, 185, 129, 0.12);
+      --class-b: #0ea5e9;
+      --class-b-bg: rgba(14, 165, 233, 0.12);
+      --class-c: #f43f5e;
+      --class-c-bg: rgba(244, 63, 94, 0.14);
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
+    }
+
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-surface-elevated: #f1f5f9;
+      --border: #e2e8f0;
+      --border-focus: #059669;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-subtle: #94a3b8;
+      --accent-primary: #059669;
+      --accent-primary-dim: rgba(5, 150, 105, 0.1);
+      --accent-cyan: #0284c7;
+      --accent-cyan-dim: rgba(2, 132, 199, 0.1);
+      --class-a: #059669;
+      --class-a-bg: rgba(5, 150, 105, 0.1);
+      --class-b: #0284c7;
+      --class-b-bg: rgba(2, 132, 199, 0.1);
+      --class-c: #e11d48;
+      --class-c-bg: rgba(225, 29, 72, 0.1);
+      --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    [dir="rtl"] {
+      font-family: system-ui, -apple-system, "Cairo", "Segoe UI", Tahoma, sans-serif;
+    }
+
+    a { color: var(--accent-primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Top Navigation */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(7, 10, 19, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    [data-theme="light"] .nav {
+      background: rgba(248, 250, 252, 0.88);
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      background: var(--accent-primary-dim);
+      border: 1px solid var(--accent-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-primary);
+      font-weight: 900;
+    }
+    .nav-badges {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.25rem 0.55rem;
+      border-radius: 9999px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .badge-teal { background: var(--accent-primary-dim); color: var(--accent-primary); border: 1px solid rgba(0,229,163,0.3); }
+    .badge-cyan { background: var(--accent-cyan-dim); color: var(--accent-cyan); border: 1px solid rgba(14,165,233,0.3); }
+    .badge-class-a { background: var(--class-a-bg); color: var(--class-a); border: 1px solid var(--class-a); }
+    .badge-class-b { background: var(--class-b-bg); color: var(--class-b); border: 1px solid var(--class-b); }
+    .badge-class-c { background: var(--class-c-bg); color: var(--class-c); border: 1px solid var(--class-c); }
+
+    .nav-actions {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    .btn-icon {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 0.4rem 0.75rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.15s ease;
+    }
+    .btn-icon:hover {
+      background: var(--bg-surface-elevated);
+      border-color: var(--accent-primary);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    .hero-pre {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+    .hero h1 {
+      font-size: 2.75rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 760px;
+      margin: 0 auto 1.75rem auto;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .stat-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-md);
+      text-align: center;
+    }
+    .stat-val {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--accent-primary);
+      font-family: var(--font-mono);
+    }
+    .stat-lbl {
+      font-size: 0.75rem;
+      color: var(--text-subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Search & Filter Bar */
+    .search-filter-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow-card);
+    }
+    .search-input-wrap {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+    .search-input {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1rem 0.85rem 2.75rem;
+      font-size: 1rem;
+      color: var(--text-main);
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+    [dir="rtl"] .search-input {
+      padding: 0.85rem 2.75rem 0.85rem 1rem;
+    }
+    .search-input:focus {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 2px var(--accent-primary-dim);
+    }
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-subtle);
+      pointer-events: none;
+    }
+    [dir="rtl"] .search-icon {
+      left: auto;
+      right: 1rem;
+    }
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .filter-pill {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 0.4rem 0.8rem;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .filter-pill:hover {
+      background: var(--bg-surface-elevated);
+      color: var(--text-main);
+      border-color: var(--text-subtle);
+    }
+    .filter-pill.active {
+      background: var(--accent-primary);
+      color: #070a13;
+      border-color: var(--accent-primary);
+      font-weight: 700;
+    }
+
+    /* Skills Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+    .skill-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+    }
+    .skill-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--text-subtle);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+    .skill-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+    .skill-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.35rem;
+      font-family: var(--font-mono);
+    }
+    .skill-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      line-height: 1.5;
+    }
+    .skill-keywords {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 1.25rem;
+    }
+    .kw-tag {
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text-subtle);
+      padding: 0.2rem 0.45rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .kw-tag:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+    .skill-card-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-copy-install {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      padding: 0.4rem 0.75rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.15s ease;
+    }
+    .btn-copy-install:hover {
+      color: var(--accent-primary);
+      border-color: var(--accent-primary);
+    }
+    .btn-view-spec {
+      background: var(--accent-primary-dim);
+      border: 1px solid rgba(0, 229, 163, 0.4);
+      color: var(--accent-primary);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.4rem 0.75rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-view-spec:hover {
+      background: var(--accent-primary);
+      color: #070a13;
+    }
+
+    /* Live Calculator Demo */
+    .demo-section {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 2rem;
+      margin-bottom: 4rem;
+    }
+    .demo-header {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .demo-header h2 {
+      font-size: 1.85rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+    .demo-header p {
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto;
+    }
+    .calc-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    .calc-tab {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.55rem 1.25rem;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .calc-tab.active {
+      background: var(--accent-primary-dim);
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+    .calc-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    @media (max-width: 768px) {
+      .calc-body { grid-template-columns: 1fr; }
+    }
+    .calc-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .form-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .form-input, .form-select {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 0.85rem;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      font-family: inherit;
+    }
+    .form-checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--text-main);
+      cursor: pointer;
+    }
+    .calc-result-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+    .result-score {
+      font-size: 3rem;
+      font-weight: 900;
+      font-family: var(--font-mono);
+      color: var(--accent-primary);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .result-status {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .result-detail {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Installation Hub */
+    .install-section {
+      margin-bottom: 4rem;
+    }
+    .install-section h2 {
+      font-size: 1.85rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+    .install-section > p {
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .install-tabs {
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+    }
+    .install-tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      white-space: nowrap;
+    }
+    .install-tab-btn.active {
+      background: var(--bg-surface);
+      color: var(--accent-primary);
+      border: 1px solid var(--border);
+    }
+    .code-block-wrap {
+      position: relative;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+    }
+    .code-pre {
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      color: var(--accent-primary);
+      overflow-x: auto;
+      line-height: 1.6;
+    }
+    .btn-copy-code {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      padding: 0.35rem 0.65rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+    [dir="rtl"] .btn-copy-code {
+      right: auto;
+      left: 0.75rem;
+    }
+    .btn-copy-code:hover {
+      color: var(--accent-primary);
+      border-color: var(--accent-primary);
+    }
+
+    /* Modal / Drawer */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .modal-content {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 680px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 2rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: transparent;
+      border: none;
+      color: var(--text-subtle);
+      font-size: 1.5rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+    [dir="rtl"] .modal-close {
+      right: auto;
+      left: 1.25rem;
+    }
+    .modal-close:hover { color: var(--text-main); }
+    .modal-section { margin-bottom: 1.25rem; }
+    .modal-sec-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-subtle);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 1.5rem;
+      text-align: center;
+      color: var(--text-subtle);
+      font-size: 0.85rem;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--accent-primary);
+      color: #070a13;
+      font-weight: 700;
+      padding: 0.6rem 1.2rem;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      z-index: 200;
+      display: none;
+      font-size: 0.85rem;
+    }
+    [dir="rtl"] .toast {
+      right: auto;
+      left: 2rem;
+    }
+  </style>
+</head>
+<body data-theme="dark">
+
+  <!-- Navigation Bar -->
+  <header class="nav">
+    <div class="nav-brand">
+      <div class="brand-icon">+</div>
+      <span>MedOrqis</span>
+      <span class="badge badge-teal">v2.1.0</span>
+    </div>
+    <div class="nav-badges" id="nav-badges-desktop">
+      <span class="badge badge-cyan" id="badge-skills-count">24 Skills</span>
+      <span class="badge badge-teal" id="badge-zero-token">Zero-Token Core</span>
+      <span class="badge badge-class-a" id="badge-verified">100% Verified</span>
+    </div>
+    <div class="nav-actions">
+      <button class="btn-icon" id="btn-lang-toggle" onclick="toggleLanguage()">
+        <span id="lang-label">عربي</span>
+      </button>
+      <button class="btn-icon" id="btn-theme-toggle" onclick="toggleTheme()">
+        <span id="theme-icon">☀️</span>
+      </button>
+      <a class="btn-icon" href="https://github.com/seotarek/MedOrqis" target="_blank" rel="noopener">
+        <span>GitHub</span> ↗
+      </a>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-pre" id="hero-pre">Evidence-Grounded Medical Intelligence</div>
+      <h1 id="hero-title">MedOrqis Skills Ecosystem</h1>
+      <p id="hero-desc">24 Risk-Stratified Clinical AI Skills, Deterministic Zero-Token Calculators, and Cross-Platform Adapters for Claude Code, Gemini CLI, Model Context Protocol, and OpenAI.</p>
+      
+      <div class="hero-stats">
+        <div class="stat-box">
+          <div class="stat-val">24</div>
+          <div class="stat-lbl" id="lbl-skills">Clinical Skills</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">0</div>
+          <div class="stat-lbl" id="lbl-token">Token Overhead</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">100%</div>
+          <div class="stat-lbl" id="lbl-pass">Test Pass Rate</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">&lt; 0.4s</div>
+          <div class="stat-lbl" id="lbl-runtime">Deterministic Speed</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search & Filter Card -->
+    <div class="search-filter-card">
+      <div class="search-input-wrap">
+        <span class="search-icon">🔍</span>
+        <input 
+          type="text" 
+          id="search-input" 
+          class="search-input" 
+          placeholder="Search by skill name, symptoms, clinical keywords, or guidelines (e.g., triage, stroke, ckd, beers)..." 
+          oninput="handleSearch()"
+        />
+      </div>
+      <div class="filter-pills" id="filter-pills">
+        <button class="filter-pill active" onclick="setFilter('all')">All Skills (24)</button>
+        <button class="filter-pill" onclick="setFilter('tier1')">Tier 1: Governance & Ops (6)</button>
+        <button class="filter-pill" onclick="setFilter('tier2')">Tier 2: Diagnostic & Clinical (8)</button>
+        <button class="filter-pill" onclick="setFilter('tier3')">Tier 3: Emergency & High Risk (10)</button>
+        <button class="filter-pill" onclick="setFilter('class-c')">Class C (High Risk)</button>
+        <button class="filter-pill" onclick="setFilter('class-b')">Class B (Moderate)</button>
+        <button class="filter-pill" onclick="setFilter('class-a')">Class A (Low Risk)</button>
+      </div>
+    </div>
+
+    <!-- Skills Grid -->
+    <div class="skills-grid" id="skills-grid">
+      <!-- Injected via JavaScript -->
+    </div>
+
+    <!-- Live Calculator Demo Section -->
+    <section class="demo-section">
+      <div class="demo-header">
+        <div class="hero-pre" id="demo-pre">Local Deterministic Execution</div>
+        <h2 id="demo-title">Interactive Clinical Calculator (Zero-Token Execution)</h2>
+        <p id="demo-desc">Experience real-time clinical calculation without sending data or consuming LLM API tokens.</p>
+      </div>
+
+      <div class="calc-tabs">
+        <button class="calc-tab active" id="tab-btn-cha2ds2" onclick="switchCalc('cha2ds2')">CHA2DS2-VA (ESC 2024 vs AHA 2023)</button>
+        <button class="calc-tab" id="tab-btn-egfr" onclick="switchCalc('egfr')">CKD-EPI 2021 Race-Free eGFR</button>
+      </div>
+
+      <!-- CHA2DS2 Calculator -->
+      <div id="calc-cha2ds2" class="calc-body">
+        <div class="calc-form">
+          <div class="form-group">
+            <label class="form-label" id="lbl-sex">Biological Sex</label>
+            <select id="cha-sex" class="form-select" onchange="runChaCalc()">
+              <option value="MALE">Male</option>
+              <option value="FEMALE">Female</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" id="lbl-age-group">Age Category</label>
+            <select id="cha-age" class="form-select" onchange="runChaCalc()">
+              <option value="under_65">&lt; 65 years (0 pts)</option>
+              <option value="65_74">65 – 74 years (+1 pt)</option>
+              <option value="75_plus">≥ 75 years (+2 pts)</option>
+            </select>
+          </div>
+          <label class="form-checkbox-label">
+            <input type="checkbox" id="cha-chf" onchange="runChaCalc()">
+            <span id="lbl-chf">Congestive Heart Failure / LVEF ≤ 40% (+1 pt)</span>
+          </label>
+          <label class="form-checkbox-label">
+            <input type="checkbox" id="cha-htn" onchange="runChaCalc()">
+            <span id="lbl-htn">Hypertension / Resting BP &gt; 140/90 (+1 pt)</span>
+          </label>
+          <label class="form-checkbox-label">
+            <input type="checkbox" id="cha-dm" onchange="runChaCalc()">
+            <span id="lbl-dm">Diabetes Mellitus (+1 pt)</span>
+          </label>
+          <label class="form-checkbox-label">
+            <input type="checkbox" id="cha-stroke" onchange="runChaCalc()">
+            <span id="lbl-stroke">Prior Stroke / TIA / Thromboembolism (+2 pts)</span>
+          </label>
+          <label class="form-checkbox-label">
+            <input type="checkbox" id="cha-vasc" onchange="runChaCalc()">
+            <span id="lbl-vasc">Vascular Disease (prior MI, PAD, aortic plaque) (+1 pt)</span>
+          </label>
+        </div>
+
+        <div class="calc-result-box">
+          <div class="form-label" id="lbl-esc-head">ESC 2024 Sex-Neutral Score</div>
+          <div class="result-score" id="res-esc-score">0</div>
+          <div class="result-status" id="res-esc-status">Low Stroke Risk</div>
+          <p class="result-detail" id="res-esc-desc">Anticoagulation generally not indicated.</p>
+          <hr style="border:0; border-top:1px solid var(--border); margin: 1.25rem 0;">
+          <div class="form-label" id="lbl-aha-head">AHA 2023 CHA2DS2-VASc Score</div>
+          <div style="font-size: 1.5rem; font-weight:800; color: var(--accent-cyan);" id="res-aha-score">0</div>
+          <p class="result-detail" id="res-aha-desc">Standard sex-differentiated scoring.</p>
+        </div>
+      </div>
+
+      <!-- eGFR Calculator -->
+      <div id="calc-egfr" class="calc-body" style="display:none;">
+        <div class="calc-form">
+          <div class="form-group">
+            <label class="form-label">Serum Creatinine (mg/dL)</label>
+            <input type="number" id="egfr-scr" class="form-input" value="1.2" step="0.1" min="0.1" max="20" oninput="runEgfrCalc()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Patient Age (years)</label>
+            <input type="number" id="egfr-age" class="form-input" value="55" min="1" max="120" oninput="runEgfrCalc()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Biological Sex</label>
+            <select id="egfr-sex" class="form-select" onchange="runEgfrCalc()">
+              <option value="MALE">Male</option>
+              <option value="FEMALE">Female</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="calc-result-box">
+          <div class="form-label">CKD-EPI 2021 Race-Free eGFR</div>
+          <div class="result-score" id="res-egfr-score">68</div>
+          <div class="result-status" id="res-egfr-stage">Stage G2 (Mildly Decreased)</div>
+          <p class="result-detail" id="res-egfr-desc">Normal or mild decline for age. Regular annual renal monitoring recommended.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Installation Hub -->
+    <section class="install-section">
+      <h2 id="inst-title">Cross-Platform Installation Hub</h2>
+      <p id="inst-desc">Deploy MedOrqis skills across your preferred agentic runtime with zero setup friction.</p>
+
+      <div class="install-tabs">
+        <button class="install-tab-btn active" onclick="switchInstallTab('skills-cli')">Skills CLI (Vercel Labs)</button>
+        <button class="install-tab-btn" onclick="switchInstallTab('mcp')">Model Context Protocol (MCP)</button>
+        <button class="install-tab-btn" onclick="switchInstallTab('claude')">Claude Code</button>
+        <button class="install-tab-btn" onclick="switchInstallTab('gemini')">Gemini CLI</button>
+        <button class="install-tab-btn" onclick="switchInstallTab('openai')">OpenAI Assistant</button>
+        <button class="install-tab-btn" onclick="switchInstallTab('python')">Python Developer</button>
+      </div>
+
+      <div class="code-block-wrap">
+        <button class="btn-copy-code" onclick="copyCurrentCode()">Copy Command</button>
+        <pre class="code-pre" id="install-code-snippet">npx skills add seotarek/MedOrqis</pre>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal / Slide-Over for Skill Specs -->
+  <div class="modal-backdrop" id="modal-backdrop" onclick="closeModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <div id="modal-body">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">Copied to clipboard!</div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links">
+      <a href="https://github.com/seotarek/MedOrqis" target="_blank">GitHub Repository</a>
+      <a href="https://github.com/seotarek/MedOrqis/blob/main/SKILLS.md" target="_blank">SKILLS.md Catalog</a>
+      <a href="https://github.com/seotarek/MedOrqis/blob/main/LICENSE" target="_blank">Apache-2.0 License</a>
+      <a href="https://github.com/seotarek/MedOrqis/blob/main/MEDICAL_DISCLAIMER.md" target="_blank">Medical Disclaimer</a>
+      <a href="https://github.com/seotarek/MedOrqis/blob/main/SAFETY_AND_GOVERNANCE.md" target="_blank">ISO 14971 Safety</a>
+    </div>
+    <p>MedOrqis is an open-source clinical reference ecosystem aligned with IEC 62304 and ISO 14971. It is not an autonomous SaMD medical device and requires licensed clinician supervision.</p>
+  </footer>
+
+  <script>
+    // 24 Skills Data
+    const SKILLS_DATA = [
+      {
+        name: "medorqis-orchestrator",
+        tier: "Tier 1",
+        safety_class: "Class A",
+        desc: "Core router and clinical context envelope manager for the MedOrqis ecosystem. Coordinates workflow handoffs, validates epistemic provenance, and detects inter-skill conflicts.",
+        desc_ar: "الموجه الأساسي ومدير غلاف السياق السريري. ينسق تدفق العمليات ويتحقق من المصدر المعرفي ويكتشف التعارضات بين المهارات.",
+        inputs: ["clinical_query", "patient_demographics"],
+        deps: ["core.context_validator", "core.safety_guardrails"],
+        authority: "MedOrqis Governance Framework v2.0 (ISO 14971/IEC 62304)",
+        prohibited: ["Autonomous final diagnosis", "Prescribing medications directly"],
+        keywords: ["orchestrator", "routing", "clinical-context", "epistemic-provenance", "conflict-detection", "workflow", "توجيه-سريري", "سياق-سريري"]
+      },
+      {
+        name: "ebm-research-biostatistics",
+        tier: "Tier 1",
+        safety_class: "Class A",
+        desc: "Evidence-Based Medicine research assistant. Formulates PICO questions, conducts CASP and RoB-2 appraisals, evaluates GRADE certainty, and interprets biostatistical metrics.",
+        desc_ar: "مساعد أبحاث الطب المبني على الدليل. يصيغ أسئلة PICO، ويجري التقييم النقدي CASP و RoB-2، ويقيم يقين أدلة GRADE.",
+        inputs: ["study_abstract_or_claim", "study_type"],
+        deps: ["core.citation_validator", "core.claim_entailment_verifier"],
+        authority: "Cochrane Handbook for Systematic Reviews / GRADE Working Group",
+        prohibited: ["Fabricating citations or clinical trial results", "Direct clinical care without clinician review"],
+        keywords: ["ebm", "biostatistics", "pico", "casp", "rob-2", "grade", "odds-ratio", "relative-risk", "cochrane", "طب-مسند-بالدليل", "إحصاء-حيوي"]
+      },
+      {
+        name: "medical-documentation-translation",
+        tier: "Tier 1",
+        safety_class: "Class A",
+        desc: "Clinical documentation and translation engine. Generates structured SOAP notes, SBAR handoffs, and multilingual translations preserving negation polarity and numeric unit fidelity.",
+        desc_ar: "محرك التوثيق والترجمة السريرية. ينشئ مذكرات SOAP وتسليمات SBAR وترجمات طبية متعددة اللغات مع حفظ النفي ودقة الوحدات.",
+        inputs: ["encounter_narrative", "format_type"],
+        deps: ["core.terminology_normalizer", "core.phi_deidentifier"],
+        authority: "Joint Commission SBAR Standards / AAHIM Guidelines",
+        prohibited: ["Altering documented clinical facts", "Unsupervised patient discharge"],
+        keywords: ["soap", "sbar", "clinical-notes", "medical-translation", "bidi", "negation", "terminology", "ترجمة-طبية", "توثيق-طبي"]
+      },
+      {
+        name: "healthcare-ops-telemedicine-ehr",
+        tier: "Tier 1",
+        safety_class: "Class A",
+        desc: "Health operations and EHR integration skill. Maps unstructured clinical narratives to HL7 FHIR resources and verifies telemedicine intake safety criteria.",
+        desc_ar: "عمليات الرعاية الصحية وإدماج السجلات. يربط السرد السريري بموارد HL7 FHIR ويدقق معايير أمان التطبيب عن بعد.",
+        inputs: ["intake_payload", "target_fhir_resource"],
+        deps: ["core.phi_deidentifier", "core.terminology_connectors"],
+        authority: "HL7 FHIR R4 Specification / ATA Telemedicine Guidelines",
+        prohibited: ["Bypassing patient informed consent", "Altering audit trails"],
+        keywords: ["telemedicine", "hl7", "fhir", "ehr", "intake-triage", "scheduling", "interoperability", "طب-عن-بعد", "سجلات-صحية"]
+      },
+      {
+        name: "health-cybersecurity-privacy",
+        tier: "Tier 1",
+        safety_class: "Class A",
+        desc: "Health cybersecurity and patient privacy guardian. De-identifies PHI (HIPAA Safe Harbor, GDPR, Egyptian PDPL, Saudi PDPL) and blocks prompt injections.",
+        desc_ar: "حارس الأمن السيبراني وخصوصية المرضى. يحجب البيانات الحساسة (HIPAA، GDPR، وقوانين حماية البيانات المصرية والسعودية) ويصد حقن الأوامر.",
+        inputs: ["clinical_text"],
+        deps: ["core.phi_deidentifier", "core.prompt_security_guard"],
+        authority: "HIPAA Privacy Rule / EU GDPR Article 9 / ISO 27799",
+        prohibited: ["Transmitting identified patient data to public services"],
+        keywords: ["phi", "hipaa", "gdpr", "pdpl", "de-identification", "prompt-injection", "redaction", "أمان-صحي", "خصوصية-المرضى"]
+      },
+      {
+        name: "public-health-epidemiology",
+        tier: "Tier 1",
+        safety_class: "Class A",
+        desc: "Public health, epidemiology, and outbreak investigation skill. Evaluates diagnostic screening metrics (sensitivity, specificity, PPV, NPV) and advises on IPC protocols.",
+        desc_ar: "الصحة العامة والوبائيات. يقيم معايير الفحص التشخيصي (الحساسية والنوعية) ويوجه بروتوكولات مكافحة العدوى والوقاية.",
+        inputs: ["disease_metrics_or_outbreak_data"],
+        deps: ["core.citation_validator"],
+        authority: "WHO Outbreak Communication & IPC Guidelines / CDC Manual",
+        prohibited: ["Issuing unverified public quarantine orders"],
+        keywords: ["epidemiology", "public-health", "screening", "sensitivity", "specificity", "ipc", "outbreak", "صحة-عامة", "وبائيات"]
+      },
+      {
+        name: "differential-diagnosis-cds",
+        tier: "Tier 2",
+        safety_class: "Class B",
+        desc: "Diagnostic decision support skill. Constructs structured VINDICATE differential diagnoses, highlights must-not-miss life-threatening conditions, and proposes workups.",
+        desc_ar: "دعم القرارات التشخيصية السريرية. يبني تشخيصات تفريقية عبر VINDICATE ويبرز الحالات المهددة للحياة ويقترح الفحوصات.",
+        inputs: ["presenting_symptoms", "patient_demographics"],
+        deps: ["core.context_validator", "core.safety_guardrails"],
+        authority: "Society to Improve Diagnosis in Medicine (SIDM) / BMJ Best Practice",
+        prohibited: ["Autonomous definitive diagnosis", "Excluding emergency etiologies without objective testing"],
+        keywords: ["differential-diagnosis", "vindicate", "clinical-decision-support", "cds", "symptom-checker", "workup", "تشخيص-تفريقي"]
+      },
+      {
+        name: "laboratory-medicine-pathology",
+        tier: "Tier 2",
+        safety_class: "Class B",
+        desc: "Laboratory medicine and pathology interpretation skill. Flags critical panic values, resolves metric unit discrepancies, and maps lab parameters to LOINC concepts.",
+        desc_ar: "الطب المخبري وعلم الأمراض. ينبه للقيم الحرجة الخطيرة ويضبط تحويل الوحدات القياسية ويربط التحاليل بمفاهيم LOINC.",
+        inputs: ["test_name", "value", "unit"],
+        deps: ["core.context_validator"],
+        authority: "CLSI Laboratory Safety & Panic Value Guidelines / IFCC LOINC",
+        prohibited: ["Overriding clinical lab delta checks", "Ignoring critical laboratory panic alerts"],
+        keywords: ["laboratory", "panic-values", "loinc", "critical-labs", "biochemistry", "hematology", "pathology", "تحاليل-طبية", "قيم-حرجة"]
+      },
+      {
+        name: "radiology-medical-imaging",
+        tier: "Tier 2",
+        safety_class: "Class B",
+        desc: "Medical imaging appropriateness skill. Implements ACR Appropriateness Criteria, checks contrast nephropathy/allergy risks, and ensures radiation/pregnancy safety.",
+        desc_ar: "ملاءمة الأشعة والتصوير الطبي. يطبق معايير ACR Appropriateness، ويفحص مخاطر صبغة الأشعة والحساسية وأمان الحمل والإشعاع.",
+        inputs: ["clinical_indication", "patient_demographics"],
+        deps: ["core.clinical_calculators", "core.context_validator"],
+        authority: "ACR Appropriateness Criteria (2024) / ESUR Guidelines",
+        prohibited: ["Primary reading of raw DICOM images", "Ordering contrast in severe acute kidney injury without prophylaxis"],
+        keywords: ["radiology", "imaging", "mri", "ct-scan", "x-ray", "ultrasound", "acr-criteria", "alara", "أشعة", "تصوير-طبي"]
+      },
+      {
+        name: "internal-medicine-chronic",
+        tier: "Tier 2",
+        safety_class: "Class B",
+        desc: "Internal medicine and chronic disease management skill. Evaluates multi-morbidity interactions across cardiology, endocrinology, nephrology, and pulmonology.",
+        desc_ar: "الأمراض الباطنية المزمنة. يدير تداخلات الأمراض المتعددة للسكري، وارتفاع ضغط الدم، والقصور الكلوي، وفشل القلب.",
+        inputs: ["chronic_conditions", "current_medications"],
+        deps: ["core.clinical_calculators", "core.safety_guardrails"],
+        authority: "ADA Standards of Care in Diabetes 2024 / KDIGO CKD Guidelines",
+        prohibited: ["Autonomous dose titration of insulin without patient SMBG log review"],
+        keywords: ["internal-medicine", "chronic-disease", "diabetes", "hypertension", "ckd", "copd", "heart-failure", "kdigo", "باطنة", "أمراض-مزمنة"]
+      },
+      {
+        name: "infectious-diseases-stewardship",
+        tier: "Tier 2",
+        safety_class: "Class B",
+        desc: "Antimicrobial stewardship and infectious diseases skill. Guides empiric vs targeted antibiotic selection, prevents unnecessary broad-spectrum usage, and checks antibiograms.",
+        desc_ar: "ترشيد استخدام المضادات الحيوية والأمراض المعدية. يوجه العلاج التجريبي والموجه، ويمنع الاستخدام العشوائي للمضادات واسعة المجال.",
+        inputs: ["infection_site", "patient_demographics", "allergies"],
+        deps: ["core.clinical_calculators", "core.context_validator"],
+        authority: "IDSA Guidelines / Sanford Guide to Antimicrobial Therapy / WHO AWaRe",
+        prohibited: ["Ignoring local antibiograms or positive blood culture sensitivities"],
+        keywords: ["infectious-diseases", "antimicrobial-stewardship", "antibiotics", "sepsis", "antibiogram", "resistance", "idsa", "مضادات-حيوية", "أمراض-معدية"]
+      },
+      {
+        name: "nursing-clinical-care",
+        tier: "Tier 2",
+        safety_class: "Class B",
+        desc: "Inpatient nursing and bedside clinical care skill. Computes NEWS2 early warning scores, monitors pressure injury risks (Braden Scale), and formulates patient care plans.",
+        desc_ar: "الرعاية التمريضية والسريرية. يحسب درجات الإنذار المبكر NEWS2، ويراقب قرح الفراش عبر Braden Scale، ويضع خطط الرعاية التمريضية.",
+        inputs: ["vital_signs", "mental_status"],
+        deps: ["core.clinical_calculators", "core.safety_guardrails"],
+        authority: "Royal College of Physicians NEWS2 Guidelines / NPUAP Braden Scale",
+        prohibited: ["Discontinuing nursing vital checks in high-risk patients"],
+        keywords: ["nursing", "news2", "braden-scale", "vital-signs", "wound-care", "patient-safety", "care-plan", "تمريض", "رعاية-سريرية"]
+      },
+      {
+        name: "clinical-nutrition-dietetics",
+        tier: "Tier 2",
+        safety_class: "Class B",
+        desc: "Clinical nutrition and medical dietetics skill. Computes basal caloric/protein requirements, manages diabetic/renal diets, and flags food-drug interactions.",
+        desc_ar: "التغذية السريرية والعلاجية. يحسب الاحتياجات الحرارية والبروتينية، ويدير الحميات الكلوية وحميات السكري والتفاعلات بين الغذاء والدواء.",
+        inputs: ["weight_kg", "clinical_condition"],
+        deps: ["core.clinical_calculators"],
+        authority: "ASPEN / ESPEN Clinical Nutrition Guidelines",
+        prohibited: ["Formulating TPN without daily electrolyte and liver function monitoring"],
+        keywords: ["nutrition", "dietetics", "bmi", "harris-benedict", "enteral-feeding", "malnutrition", "food-drug-interactions", "تغذية-علاجية"]
+      },
+      {
+        name: "rehabilitation-physical-therapy",
+        tier: "Tier 2",
+        safety_class: "Class B",
+        desc: "Physical therapy and rehabilitation skill. Designs post-operative, stroke, and musculoskeletal recovery protocols while evaluating hemodynamic contraindications.",
+        desc_ar: "العلاج الطبيعي والتأهيل. يصمم بروتوكولات التعافي بعد الجراحات والجلطات الدماغية مع تقييم موانع الحركة الديناميكية.",
+        inputs: ["surgical_or_neurological_status", "mobility_level"],
+        deps: ["core.clinical_calculators", "core.safety_guardrails"],
+        authority: "AHA/ASA Stroke Rehabilitation Guidelines / APTA Practice Guidelines",
+        prohibited: ["Mobilizing patients with unstable spinal fractures or acute untreated DVT"],
+        keywords: ["physical-therapy", "rehabilitation", "stroke-rehab", "post-op-rehab", "mobility", "fim", "علاج-طبيعي", "تأهيل"]
+      },
+      {
+        name: "emergency-triage-redflags",
+        tier: "Tier 3",
+        safety_class: "Class C",
+        desc: "High-urgency emergency triage and red-flag escalation gate. Evaluates ABCDE primary survey stability, screens for Sepsis, ACS, Stroke, and Anaphylaxis.",
+        desc_ar: "فرز الطوارئ والعلامات الخطيرة المهددة للحياة. يقيم مسح ABCDE الأولي، ويكتشف حالات الإنتان والجلطات والصدمات التحسسية ويوجه للإسعاف فوراً.",
+        inputs: ["presenting_symptoms", "vital_signs"],
+        deps: ["core.safety_guardrails"],
+        authority: "Manchester Triage System / ESI / Surviving Sepsis 2021 / AHA ACLS",
+        prohibited: ["Delaying emergency medical transfer", "Attempting outpatient management of unstable patients"],
+        keywords: ["emergency", "red-flags", "triage", "abcde", "chest-pain", "stroke", "anaphylaxis", "trauma", "طوارئ", "علامات-خطيرة"]
+      },
+      {
+        name: "clinical-safety-auditor",
+        tier: "Tier 3",
+        safety_class: "Class C",
+        desc: "Final pre-output clinical safety auditor. Intercepts contradictions (e.g., anticoagulation during active bleed), enforces dose caps, and checks epistemic provenance.",
+        desc_ar: "مدقق الأمان السريري النهائي. يعترض التناقضات السريرية (مثل مضادات التجلط مع النزيف النشط) ويفرض حدود الجرعات القصوى والمصدر المعرفي.",
+        inputs: ["proposed_output", "context_envelope"],
+        deps: ["core.context_validator", "core.citation_validator", "core.safety_guardrails"],
+        authority: "FDA Clinical Decision Support Guidance / ISO 14971 Risk Controls",
+        prohibited: ["Suppressing detected clinical safety warnings"],
+        keywords: ["safety-gate", "audit", "contraindications", "anticoagulation-bleed", "inter-skill-conflict", "safe-abstention", "تدقيق-أمان", "أمان-سريري"]
+      },
+      {
+        name: "pharmacology-dosing-interactions",
+        tier: "Tier 3",
+        safety_class: "Class C",
+        desc: "High-risk pharmacology, dosing, and drug interaction engine. Enforces strict renal and hepatic dose adjustments, checks NTI levels, and blocks lethal DDIs.",
+        desc_ar: "الصيدلة الإكلينيكية وحساب الجرعات والتفاعلات الدوائية. يفرض التعديل الكلوي والكبدي للجرعات ويعترض التفاعلات الدوائية القاتلة.",
+        inputs: ["drug_inn", "patient_demographics", "renal_function"],
+        deps: ["core.clinical_calculators", "core.context_validator"],
+        authority: "FDA Drug Labeling / BNF / Stockley's Drug Interactions (2024)",
+        prohibited: ["Calculating chemotherapy or NTI dosing without serum drug levels and renal/hepatic markers"],
+        keywords: ["pharmacology", "drug-interactions", "renal-dosing", "cockcroft-gault", "hepatic-adjustment", "crcl", "ddi", "صيدلة-إكلينيكية", "جرعات-دوائية"]
+      },
+      {
+        name: "clinical-toxicology-overdose",
+        tier: "Tier 3",
+        safety_class: "Class C",
+        desc: "Clinical toxicology and acute overdose skill. Recognizes acute toxidromes, advises on specific antidotes (e.g. naloxone), and coordinates Poison Control escalation.",
+        desc_ar: "علم السموم والجرعات الزائدة. يميز المتلازمات السمية الحادة (Toxidromes) ويوجه لمضادات التسمم المحددة (مثل النالوكسون) ومراكز السموم.",
+        inputs: ["substance_ingested", "time_since_ingestion", "vital_signs"],
+        deps: ["core.safety_guardrails"],
+        authority: "American Academy of Clinical Toxicology (AACT) / EAPCCT Guidelines",
+        prohibited: ["Recommending induction of emesis or home remedies for caustic ingestions"],
+        keywords: ["toxicology", "overdose", "toxidrome", "antidote", "naloxone", "poison-control", "paracetamol-overdose", "تسمم", "جرعة-زائدة"]
+      },
+      {
+        name: "pediatrics-neonatology",
+        tier: "Tier 3",
+        safety_class: "Class C",
+        desc: "Pediatric and neonatal clinical safety skill. Enforces strict weight-based dose caps (never exceeding adult maximums) and screens for neonatal red flags.",
+        desc_ar: "طب الأطفال وحديثي الولادة. يفرض حسابات الجرعات بالوزن مع سقف حتمي يمنع تجاوز جرعات البالغين وينبه للعلامات الخطيرة عند الرضع.",
+        inputs: ["age_years", "weight_kg"],
+        deps: ["core.clinical_calculators", "core.context_validator", "core.safety_guardrails"],
+        authority: "Nelson Textbook of Pediatrics (22nd Ed) / AAP Guidelines / WHO IMCI",
+        prohibited: ["Dosing pediatric medication without verified weight in kilograms"],
+        keywords: ["pediatrics", "neonatology", "pediatric-dosing", "weight-based-dosing", "dose-capping", "apgar", "طب-أطفال", "حديثي-الولادة"]
+      },
+      {
+        name: "obstetrics-gynecology",
+        tier: "Tier 3",
+        safety_class: "Class C",
+        desc: "Obstetrics, gynecology, and maternal safety skill. Screens for pre-eclampsia/eclampsia, ectopic pregnancy, postpartum hemorrhage, and checks drug safety in pregnancy/lactation.",
+        desc_ar: "النساء والتوليد وأمان الأم والجنين. يفحص تسمم الحمل والنزيف والحمل خارج الرحم وأمان الأدوية أثناء الحمل والرضاعة.",
+        inputs: ["pregnancy_status", "gestational_age_weeks"],
+        deps: ["core.clinical_calculators", "core.context_validator", "core.safety_guardrails"],
+        authority: "ACOG Practice Bulletins / RCOG Green-top / Briggs Drugs in Pregnancy",
+        prohibited: ["Prescribing Category X or known teratogenic drugs (ACEi, ARBs, isotretinoin, methotrexate) in pregnancy"],
+        keywords: ["obgyn", "pregnancy", "lactation", "teratogenic", "pre-eclampsia", "gestational-diabetes", "postpartum", "نساء-وتوليد", "حمل-ورضاعة"]
+      },
+      {
+        name: "geriatrics-polypharmacy",
+        tier: "Tier 3",
+        safety_class: "Class C",
+        desc: "Geriatric medicine, polypharmacy, and deprescribing skill. Implements 2023 AGS Beers Criteria and STOPP/START, assesses anticholinergic burden, and identifies fall risks.",
+        desc_ar: "طب المسنين وتعدد الأدوية. يطبق معايير Beers 2023 و STOPP/START v3 لتخفيف الأدوية غير الملائمة وتقليل مخاطر السقوط.",
+        inputs: ["medication_list", "patient_age_years"],
+        deps: ["core.clinical_calculators", "core.context_validator"],
+        authority: "2023 AGS Beers Criteria / STOPP/START Criteria Version 3 (2023)",
+        prohibited: ["Abruptly stopping chronic psychotropic or cardiac medications without tapering"],
+        keywords: ["geriatrics", "polypharmacy", "beers-criteria", "stopp-start", "fall-risk", "anticholinergic-burden", "طب-المسنين", "تعدد-الأدوية"]
+      },
+      {
+        name: "mental-health-psychiatry",
+        tier: "Tier 3",
+        safety_class: "Class C",
+        desc: "Psychiatry and mental health crisis skill. Implements emergency crisis protocols for suicidal ideation, screens for psychosis, and monitors psychotropic drug interactions.",
+        desc_ar: "الطب النفسي وأزمات الصحة النفسية. يطبق بروتوكولات الطوارئ لأفكار الانتحار، ويرصد الذهان وتفاعلات الأدوية النفسية (متلازمة السيروتونين).",
+        inputs: ["mental_health_symptoms"],
+        deps: ["core.safety_guardrails"],
+        authority: "APA Practice Guidelines / Columbia Suicide Severity Rating Scale (C-SSRS)",
+        prohibited: ["Delaying crisis intervention for suicidal patients", "Autonomous medication adjustments for severe psychiatric conditions"],
+        keywords: ["psychiatry", "mental-health", "suicide-screening", "crisis-triage", "ssri", "qt-prolongation", "depression", "صحة-نفسية", "طب-نفسي"]
+      },
+      {
+        name: "perioperative-surgical-care",
+        tier: "Tier 3",
+        safety_class: "Class C",
+        desc: "Perioperative surgical care and risk assessment skill. Calculates Revised Cardiac Risk Index (RCRI), manages anticoagulation bridging, and screens for acute abdomen.",
+        desc_ar: "الرعاية الجراحية والتخدير. يحسب مؤشر الخطورة القلبية RCRI، ويدير إيقاف وتجسير مضادات التجلط قبل الجراحة، ويفحص البطن الجراحي الحاد.",
+        inputs: ["surgical_procedure", "patient_demographics", "cardiac_history"],
+        deps: ["core.clinical_calculators", "core.safety_guardrails"],
+        authority: "2024 AHA/ACC Perioperative Guidelines / ASA Physical Status",
+        prohibited: ["Permitting elective surgery in unstratified high-risk cardiac patients"],
+        keywords: ["surgery", "perioperative", "rcri", "pre-op-clearance", "anticoagulation-bridging", "who-surgical-checklist", "جراحة", "تخدير"]
+      },
+      {
+        name: "oncology-palliative-care",
+        tier: "Tier 3",
+        safety_class: "Class C",
+        desc: "Oncology emergencies and palliative symptom management skill. Screens for febrile neutropenia, cord compression, tumor lysis syndrome, and guides opioid conversion.",
+        desc_ar: "طوارئ الأورام والرعاية التلطيفية. يفحص طوارئ الأورام (الحمى مع نقص المناعة، ضغط الحبل الشوكي) ويوجه تحويل مسكنات الأفيون وإدارة الألم.",
+        inputs: ["cancer_type", "current_treatment", "symptoms"],
+        deps: ["core.clinical_calculators", "core.safety_guardrails"],
+        authority: "ASCO / NCCN Clinical Practice Guidelines / ESMO Palliative Guidelines",
+        prohibited: ["Delaying broad-spectrum antibiotics in suspected neutropenic fever", "Calculating cytotoxic chemotherapy doses without oncologist sign-off"],
+        keywords: ["oncology", "palliative-care", "febrile-neutropenia", "pain-management", "opioid-conversion", "tumor-lysis", "أورام", "رعاية-تلطيفية"]
+      }
+    ];
+
+    let currentFilter = 'all';
+    let currentLang = 'en';
+
+    function renderSkills() {
+      const grid = document.getElementById('skills-grid');
+      const searchTerm = document.getElementById('search-input').value.toLowerCase().trim();
+
+      const filtered = SKILLS_DATA.filter(skill => {
+        // Filter match
+        if (currentFilter === 'tier1' && skill.tier !== 'Tier 1') return false;
+        if (currentFilter === 'tier2' && skill.tier !== 'Tier 2') return false;
+        if (currentFilter === 'tier3' && skill.tier !== 'Tier 3') return false;
+        if (currentFilter === 'class-a' && skill.safety_class !== 'Class A') return false;
+        if (currentFilter === 'class-b' && skill.safety_class !== 'Class B') return false;
+        if (currentFilter === 'class-c' && skill.safety_class !== 'Class C') return false;
+
+        // Search match
+        if (searchTerm) {
+          const matchName = skill.name.toLowerCase().includes(searchTerm);
+          const matchDesc = skill.desc.toLowerCase().includes(searchTerm) || (skill.desc_ar && skill.desc_ar.includes(searchTerm));
+          const matchKw = skill.keywords.some(k => k.toLowerCase().includes(searchTerm));
+          return matchName || matchDesc || matchKw;
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; background: var(--bg-surface); border-radius: var(--radius-lg); border: 1px dashed var(--border);">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔍</div>
+            <div style="font-size: 1.1rem; font-weight: 700;">No skills found</div>
+            <div style="color: var(--text-muted); font-size: 0.9rem;">Try adjusting your search query or filter pills.</div>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(skill => {
+        const classBadge = skill.safety_class === 'Class A' ? 'badge-class-a' : (skill.safety_class === 'Class B' ? 'badge-class-b' : 'badge-class-c');
+        const displayDesc = (currentLang === 'ar' && skill.desc_ar) ? skill.desc_ar : skill.desc;
+
+        return `
+          <div class="skill-card">
+            <div>
+              <div class="skill-card-header">
+                <div>
+                  <div class="skill-title">${skill.name}</div>
+                  <span class="badge ${classBadge}">${skill.safety_class}</span>
+                  <span class="badge badge-teal">${skill.tier}</span>
+                </div>
+                <span class="badge badge-cyan">v2.1.0</span>
+              </div>
+              <p class="skill-desc">${displayDesc}</p>
+              <div class="skill-keywords">
+                ${skill.keywords.map(k => `<span class="kw-tag" onclick="filterByKeyword('${k}')">#${k}</span>`).join('')}
+              </div>
+            </div>
+            <div class="skill-card-footer">
+              <button class="btn-copy-install" onclick="copyInstallCmd('${skill.name}')">
+                <span>📋</span> <span>npx add</span>
+              </button>
+              <button class="btn-view-spec" onclick="openSkillModal('${skill.name}')">
+                ${currentLang === 'ar' ? 'عرض المواصفات' : 'View Specs'} →
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function setFilter(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-pill').forEach(pill => pill.classList.remove('active'));
+      event.target.classList.add('active');
+      renderSkills();
+    }
+
+    function handleSearch() {
+      renderSkills();
+    }
+
+    function filterByKeyword(kw) {
+      document.getElementById('search-input').value = kw;
+      renderSkills();
+      window.scrollTo({ top: document.querySelector('.search-filter-card').offsetTop - 80, behavior: 'smooth' });
+    }
+
+    function copyInstallCmd(skillName) {
+      const cmd = `npx skills add seotarek/MedOrqis --skill ${skillName}`;
+      navigator.clipboard.writeText(cmd).then(() => {
+        showToast(currentLang === 'ar' ? 'تم نسخ أمر التثبيت!' : `Copied: ${cmd}`);
+      });
+    }
+
+    function openSkillModal(skillName) {
+      const skill = SKILLS_DATA.find(s => s.name === skillName);
+      if (!skill) return;
+
+      const modalBody = document.getElementById('modal-body');
+      const classBadge = skill.safety_class === 'Class A' ? 'badge-class-a' : (skill.safety_class === 'Class B' ? 'badge-class-b' : 'badge-class-c');
+
+      modalBody.innerHTML = `
+        <div style="margin-bottom: 1.5rem;">
+          <div style="font-size: 1.4rem; font-weight: 800; font-family: var(--font-mono); margin-bottom: 0.5rem;">${skill.name}</div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <span class="badge ${classBadge}">${skill.safety_class}</span>
+            <span class="badge badge-teal">${skill.tier}</span>
+            <span class="badge badge-cyan">Version 2.0.0</span>
+            <span class="badge badge-teal">ISO 14971 Aligned</span>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-sec-title">${currentLang === 'ar' ? 'الوصف السريري والهدف' : 'Clinical Purpose'}</div>
+          <p style="font-size: 0.92rem; line-height: 1.6; color: var(--text-main);">${currentLang === 'ar' && skill.desc_ar ? skill.desc_ar : skill.desc}</p>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-sec-title">${currentLang === 'ar' ? 'الاستخدامات المحظورة' : 'Prohibited Uses'}</div>
+          <ul style="font-size: 0.88rem; color: var(--class-c); padding-left: 1.25rem;">
+            ${skill.prohibited.map(p => `<li>${p}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-sec-title">${currentLang === 'ar' ? 'المدخلات الإلزامية' : 'Mandatory Input Parameters'}</div>
+          <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+            ${skill.inputs.map(inp => `<code style="background:var(--bg); padding:0.25rem 0.5rem; border-radius:4px; font-size:0.8rem; border:1px solid var(--border);">${inp}</code>`).join('')}
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-sec-title">${currentLang === 'ar' ? 'الاعتمادات القطعية المحلية' : 'Deterministic Dependencies (Zero-Token Core)'}</div>
+          <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+            ${skill.deps.map(d => `<code style="background:var(--accent-primary-dim); color:var(--accent-primary); padding:0.25rem 0.5rem; border-radius:4px; font-size:0.8rem; border:1px solid rgba(0,229,163,0.3);">${d}</code>`).join('')}
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-sec-title">${currentLang === 'ar' ? 'المرجع الطبي المعتمد' : 'Clinical Guideline Authority'}</div>
+          <p style="font-size: 0.88rem; color: var(--text-muted);">${skill.authority}</p>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-sec-title">${currentLang === 'ar' ? 'أمر التثبيت السريع' : 'One-Line Installation'}</div>
+          <div class="code-block-wrap" style="padding: 0.75rem 1rem;">
+            <pre class="code-pre" style="font-size: 0.8rem;">npx skills add seotarek/MedOrqis --skill ${skill.name}</pre>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('modal-backdrop').style.display = 'flex';
+    }
+
+    function closeModal(e) {
+      if (!e || e.target.id === 'modal-backdrop' || e.target.classList.contains('modal-close')) {
+        document.getElementById('modal-backdrop').style.display = 'none';
+      }
+    }
+
+    // Interactive Clinical Calculators (Local Zero-Token Logic)
+    function switchCalc(type) {
+      document.getElementById('calc-cha2ds2').style.display = type === 'cha2ds2' ? 'grid' : 'none';
+      document.getElementById('calc-egfr').style.display = type === 'egfr' ? 'grid' : 'none';
+      document.getElementById('tab-btn-cha2ds2').classList.toggle('active', type === 'cha2ds2');
+      document.getElementById('tab-btn-egfr').classList.toggle('active', type === 'egfr');
+    }
+
+    function runChaCalc() {
+      const sex = document.getElementById('cha-sex').value;
+      const ageGroup = document.getElementById('cha-age').value;
+      const chf = document.getElementById('cha-chf').checked;
+      const htn = document.getElementById('cha-htn').checked;
+      const dm = document.getElementById('cha-dm').checked;
+      const stroke = document.getElementById('cha-stroke').checked;
+      const vasc = document.getElementById('cha-vasc').checked;
+
+      // ESC 2024 (Sex Neutral)
+      let esc = 0;
+      if (chf) esc += 1;
+      if (htn) esc += 1;
+      if (ageGroup === '75_plus') esc += 2;
+      else if (ageGroup === '65_74') esc += 1;
+      if (dm) esc += 1;
+      if (stroke) esc += 2;
+      if (vasc) esc += 1;
+
+      // AHA 2023 (Sex Differentiated)
+      let aha = esc;
+      if (sex === 'FEMALE') aha += 1;
+
+      document.getElementById('res-esc-score').innerText = esc;
+      document.getElementById('res-aha-score').innerText = aha;
+
+      const statusEl = document.getElementById('res-esc-status');
+      const descEl = document.getElementById('res-esc-desc');
+
+      if (esc >= 2) {
+        statusEl.innerText = currentLang === 'ar' ? 'خطر مرتفع للجلطة الدماغية (توصية الفئة الأولى)' : 'High Stroke Risk (Class I Recommendation)';
+        statusEl.style.color = 'var(--class-c)';
+        descEl.innerText = currentLang === 'ar' ? 'يُوصى ببدء مضادات التخثر الفموية (DOAC) ما لم يوجد مانع نزفي مطلق.' : 'Oral anticoagulation (DOAC) strongly indicated unless absolute contraindication exists.';
+      } else if (esc === 1) {
+        statusEl.innerText = currentLang === 'ar' ? 'خطر متوسط (توصية الفئة 2a)' : 'Moderate Stroke Risk (Class 2a Recommendation)';
+        statusEl.style.color = '#f59e0b';
+        descEl.innerText = currentLang === 'ar' ? 'يجب تقييم فائدة مضادات التجلط مقارنة بخطر النزيف الفردي.' : 'Oral anticoagulation should be considered based on clinical judgment and bleeding risk.';
+      } else {
+        statusEl.innerText = currentLang === 'ar' ? 'خطر منخفض جداً' : 'Low Stroke Risk (Class III - No Anticoagulation)';
+        statusEl.style.color = 'var(--class-a)';
+        descEl.innerText = currentLang === 'ar' ? 'لا يوصى بمضادات التجلط لحماية المريض من السكتة الدماغية.' : 'Anticoagulation generally not indicated.';
+      }
+    }
+
+    function runEgfrCalc() {
+      const scr = parseFloat(document.getElementById('egfr-scr').value) || 1.0;
+      const age = parseInt(document.getElementById('egfr-age').value) || 40;
+      const sex = document.getElementById('egfr-sex').value;
+
+      const scoreEl = document.getElementById('res-egfr-score');
+      const stageEl = document.getElementById('res-egfr-stage');
+      const descEl = document.getElementById('res-egfr-desc');
+
+      if (age < 18) {
+        scoreEl.innerText = "N/A";
+        scoreEl.style.color = "var(--class-c)";
+        stageEl.innerText = currentLang === 'ar' ? "رفض آمن: مريض أطفال" : "Safe Refusal: Pediatric Patient";
+        descEl.innerText = currentLang === 'ar' ? "معادلة CKD-EPI 2021 مخصصة للبالغين فقط. استخدم معادلة Schwartz للأطفال." : "CKD-EPI 2021 is adult-only. Use Bedside Schwartz for pediatric patients.";
+        return;
+      }
+
+      // CKD-EPI 2021 Race-Free formula
+      let kappa = sex === 'FEMALE' ? 0.7 : 0.9;
+      let alpha = sex === 'FEMALE' ? -0.241 : -0.302;
+      let sexMult = sex === 'FEMALE' ? 1.012 : 1.0;
+
+      let scrDivK = scr / kappa;
+      let minVal = Math.min(scrDivK, 1.0);
+      let maxVal = Math.max(scrDivK, 1.0);
+
+      let egfr = 142 * Math.pow(minVal, alpha) * Math.pow(maxVal, -1.200) * Math.pow(0.9938, age) * sexMult;
+      egfr = Math.round(egfr * 10) / 10;
+
+      scoreEl.innerText = egfr;
+      scoreEl.style.color = "var(--accent-primary)";
+
+      if (egfr >= 90) {
+        stageEl.innerText = "Stage G1 (Normal / High eGFR)";
+        descEl.innerText = "Normal renal filtration rate.";
+      } else if (egfr >= 60) {
+        stageEl.innerText = "Stage G2 (Mildly Decreased)";
+        descEl.innerText = "Mildly reduced renal function. Annual monitoring recommended.";
+      } else if (egfr >= 45) {
+        stageEl.innerText = "Stage G3a (Mild-to-Moderate)";
+        descEl.innerText = "Dose adjustments required for renally cleared medications.";
+      } else if (egfr >= 30) {
+        stageEl.innerText = "Stage G3b (Moderate-to-Severe)";
+        descEl.innerText = "Strict renal dosing mandatory; avoid NSAIDs and nephrotoxins.";
+      } else if (egfr >= 15) {
+        stageEl.innerText = "Stage G4 (Severely Decreased)";
+        descEl.innerText = "Nephrology referral; prepare for kidney replacement therapy.";
+      } else {
+        stageEl.innerText = "Stage G5 (Kidney Failure)";
+        descEl.innerText = "End-stage renal disease (ESRD). Dialysis or transplantation indicated.";
+      }
+    }
+
+    // Installation Snippet Manager
+    const INSTALL_SNIPPETS = {
+      'skills-cli': `npx skills add seotarek/MedOrqis`,
+      'mcp': `// claude_desktop_config.json
+{
+  "mcpServers": {
+    "medorqis": {
+      "command": "python3",
+      "args": ["/path/to/MedOrqis/mcp_server/medorqis_mcp_server.py"]
+    }
+  }
+}`,
+      'claude': `# Claude Code Skill Installation
+git clone https://github.com/seotarek/MedOrqis.git ~/.claude/skills/medorqis
+# MedOrqis skills are now active across your Claude Code CLI sessions`,
+      'gemini': `# Gemini CLI Extension
+gemini extensions install https://github.com/seotarek/MedOrqis
+# Guided by adapters/gemini/gemini-extension.json and GEMINI.md`,
+      'openai': `// OpenAI Strict Structured Tool Definition
+// Load schemas from adapters/openai/openai_functions.json
+const functions = require('./adapters/openai/openai_functions.json');
+const assistant = await openai.beta.assistants.create({
+  name: "MedOrqis Clinical CDS",
+  tools: functions.tools
+});`,
+      'python': `# Local Python Installation & Verification
+git clone https://github.com/seotarek/MedOrqis.git
+cd MedOrqis
+python3 -m pip install -e .
+python3 tests/run_all_tests.py`
+    };
+
+    let currentInstallTab = 'skills-cli';
+
+    function switchInstallTab(tabKey) {
+      currentInstallTab = tabKey;
+      document.querySelectorAll('.install-tab-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById('install-code-snippet').innerText = INSTALL_SNIPPETS[tabKey];
+    }
+
+    function copyCurrentCode() {
+      const code = document.getElementById('install-code-snippet').innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        showToast(currentLang === 'ar' ? 'تم نسخ الكود!' : 'Code copied to clipboard!');
+      });
+    }
+
+    // Toast Manager
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 2400);
+    }
+
+    // Theme Toggle
+    function toggleTheme() {
+      const current = document.body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.body.setAttribute('data-theme', next);
+      document.getElementById('theme-icon').innerText = next === 'dark' ? '☀️' : '🌙';
+    }
+
+    // Language Toggle (English / Arabic RTL)
+    function toggleLanguage() {
+      currentLang = currentLang === 'en' ? 'ar' : 'en';
+      const isAr = currentLang === 'ar';
+
+      document.documentElement.setAttribute('dir', isAr ? 'rtl' : 'ltr');
+      document.documentElement.setAttribute('lang', currentLang);
+      document.getElementById('lang-label').innerText = isAr ? 'English' : 'عربي';
+
+      // UI Text replacements
+      document.getElementById('hero-pre').innerText = isAr ? 'منظومة الذكاء الاصطناعي الطبي المسند بالدليل' : 'Evidence-Grounded Medical Intelligence';
+      document.getElementById('hero-title').innerText = isAr ? 'منظومة مهارات ميدأوركيس (MedOrqis)' : 'MedOrqis Skills Ecosystem';
+      document.getElementById('hero-desc').innerText = isAr 
+        ? '24 مهارة طبية ذكية موزعة حسب المخاطر، مع محركات حسابية قطعية محلية (Zero-Token Cost)، ومحولات لمنصات Claude Code و Gemini CLI و MCP و OpenAI.'
+        : '24 Risk-Stratified Clinical AI Skills, Deterministic Zero-Token Calculators, and Cross-Platform Adapters for Claude Code, Gemini CLI, Model Context Protocol, and OpenAI.';
+
+      document.getElementById('lbl-skills').innerText = isAr ? 'مهارة سريرية' : 'Clinical Skills';
+      document.getElementById('lbl-token').innerText = isAr ? 'استهلاك توكنز للحسابات' : 'Token Overhead';
+      document.getElementById('lbl-pass').innerText = isAr ? 'نسبة نجاح الاختبارات' : 'Test Pass Rate';
+      document.getElementById('lbl-runtime').innerText = isAr ? 'سرعة المعالجة القطعية' : 'Deterministic Speed';
+
+      document.getElementById('search-input').placeholder = isAr
+        ? 'ابحث باسم المهارة، الأعراض، الكلمات المفتاحية، أو الدليل السريري (مثال: طوارئ، جلطة، كلى، مسنين)...'
+        : 'Search by skill name, symptoms, clinical keywords, or guidelines (e.g., triage, stroke, ckd, beers)...';
+
+      document.getElementById('demo-pre').innerText = isAr ? 'تنفيذ محلي قطعي مجاني' : 'Local Deterministic Execution';
+      document.getElementById('demo-title').innerText = isAr ? 'حاسبة سريرية تفاعلية (بدون توكنز نهائياً)' : 'Interactive Clinical Calculator (Zero-Token Execution)';
+      document.getElementById('demo-desc').innerText = isAr
+        ? 'جرب الحساب السريري الفوري محلياً بدون إرسال بيانات المريض وبدون استهلاك توكنز الـ LLM.'
+        : 'Experience real-time clinical calculation without sending data or consuming LLM API tokens.';
+
+      document.getElementById('inst-title').innerText = isAr ? 'مركز التثبيت لكافة المنصات' : 'Cross-Platform Installation Hub';
+      document.getElementById('inst-desc').innerText = isAr
+        ? 'ثبّت مهارات MedOrqis عبر بيئة وكيل الذكاء الاصطناعي المفضلة لديك بخطوة واحدة.'
+        : 'Deploy MedOrqis skills across your preferred agentic runtime with zero setup friction.';
+
+      renderSkills();
+      runChaCalc();
+      runEgfrCalc();
+    }
+
+    // Keyboard shortcut '/' to search
+    window.addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+        e.preventDefault();
+        document.getElementById('search-input').focus();
+      }
+    });
+
+    // Initialize
+    renderSkills();
+    runChaCalc();
+    runEgfrCalc();
+  </script>
+</body>
+</html>

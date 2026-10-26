@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SkillRiskManifest",
+  "description": "Risk declaration and intended purpose manifest for a MedOrqis skill.",
+  "type": "object",
+  "required": [
+    "skill_name",
+    "version",
+    "safety_class",
+    "tier",
+    "intended_purpose",
+    "prohibited_uses",
+    "mandatory_inputs",
+    "deterministic_dependencies",
+    "human_review_status"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "skill_name": { "type": "string" },
+    "version": { "type": "string" },
+    "safety_class": {
+      "type": "string",
+      "enum": ["Class A", "Class B", "Class C"]
+    },
+    "tier": {
+      "type": "string",
+      "enum": ["Tier 1", "Tier 2", "Tier 3"]
+    },
+    "intended_purpose": { "type": "string" },
+    "prohibited_uses": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "mandatory_inputs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "deterministic_dependencies": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "human_review_status": {
+      "type": "string",
+      "enum": ["CLINICALLY_VALIDATED", "REFERENCE_SEED_REQUIRES_CLINICAL_SIGN_OFF"]
+    },
+    "keywords": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

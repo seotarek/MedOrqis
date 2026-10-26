@@ -1,0 +1,16 @@
+{
+  "name": "medorqis-claude-skills",
+  "version": "2.1.0",
+  "description": "Evidence-grounded medical AI skills ecosystem for Claude Code.",
+  "skills_directory": "../../skills",
+  "skills_count": 24,
+  "entrypoint_skill": "medorqis-orchestrator",
+  "mcp_server_config": {
+    "medorqis_core": {
+      "command": "python3",
+      "args": [
+        "mcp_server/medorqis_mcp_server.py"
+      ]
+    }
+  }
+}

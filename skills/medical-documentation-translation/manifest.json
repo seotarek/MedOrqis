@@ -1,0 +1,32 @@
+{
+  "$schema": "../../schemas/skill_risk_manifest.schema.json",
+  "skill_name": "medical-documentation-translation",
+  "version": "2.1.0",
+  "safety_class": "Class A",
+  "tier": "Tier 1",
+  "intended_purpose": "Synthesizes medical encounters into standardized clinical documentation formats and provides semantic-preserving cross-lingual translation.",
+  "prohibited_uses": [
+    "Altering documented clinical facts",
+    "Unsupervised patient discharge"
+  ],
+  "mandatory_inputs": [
+    "encounter_narrative",
+    "format_type"
+  ],
+  "deterministic_dependencies": [
+    "core.terminology_normalizer",
+    "core.phi_deidentifier"
+  ],
+  "human_review_status": "REFERENCE_SEED_REQUIRES_CLINICAL_SIGN_OFF",
+  "keywords": [
+    "soap",
+    "sbar",
+    "clinical-notes",
+    "medical-translation",
+    "bidi",
+    "negation",
+    "terminology",
+    "\u062a\u0631\u062c\u0645\u0629-\u0637\u0628\u064a\u0629",
+    "\u062a\u0648\u062b\u064a\u0642-\u0637\u0628\u064a"
+  ]
+}

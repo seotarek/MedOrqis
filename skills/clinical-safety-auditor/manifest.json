@@ -1,0 +1,31 @@
+{
+  "$schema": "../../schemas/skill_risk_manifest.schema.json",
+  "skill_name": "clinical-safety-auditor",
+  "version": "2.1.0",
+  "safety_class": "Class C",
+  "tier": "Tier 3",
+  "intended_purpose": "Acts as an immutable quality gate auditing all outgoing clinical advice against patient safety policies.",
+  "prohibited_uses": [
+    "Suppressing detected clinical safety warnings"
+  ],
+  "mandatory_inputs": [
+    "proposed_output",
+    "context_envelope"
+  ],
+  "deterministic_dependencies": [
+    "core.context_validator",
+    "core.citation_validator",
+    "core.safety_guardrails"
+  ],
+  "human_review_status": "REFERENCE_SEED_REQUIRES_CLINICAL_SIGN_OFF",
+  "keywords": [
+    "safety-gate",
+    "audit",
+    "contraindications",
+    "anticoagulation-bleed",
+    "inter-skill-conflict",
+    "safe-abstention",
+    "\u062a\u062f\u0642\u064a\u0642-\u0623\u0645\u0627\u0646",
+    "\u0623\u0645\u0627\u0646-\u0633\u0631\u064a\u0631\u064a"
+  ]
+}

@@ -1,0 +1,43 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDE & OS
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Scratch and internal prompts / chat history (NEVER TRACK IN GIT)
+scratch/
+chat/
+MedOrqis.md
+medorqis_audit_and_v2_1_hardening_prompt.md
+*.prompt.md
+*.prompt
+docs/superpowers/

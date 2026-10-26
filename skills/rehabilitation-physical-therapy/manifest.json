@@ -1,0 +1,30 @@
+{
+  "$schema": "../../schemas/skill_risk_manifest.schema.json",
+  "skill_name": "rehabilitation-physical-therapy",
+  "version": "2.1.0",
+  "safety_class": "Class B",
+  "tier": "Tier 2",
+  "intended_purpose": "Proposes progressive mobility protocols, assesses functional recovery scales, and checks post-surgical weight-bearing restrictions.",
+  "prohibited_uses": [
+    "Mobilizing patients with unstable spinal fractures or acute deep vein thrombosis without clearance"
+  ],
+  "mandatory_inputs": [
+    "surgical_or_neurological_status",
+    "mobility_level"
+  ],
+  "deterministic_dependencies": [
+    "core.clinical_calculators",
+    "core.safety_guardrails"
+  ],
+  "human_review_status": "REFERENCE_SEED_REQUIRES_CLINICAL_SIGN_OFF",
+  "keywords": [
+    "physical-therapy",
+    "rehabilitation",
+    "stroke-rehab",
+    "post-op-rehab",
+    "mobility",
+    "fim",
+    "\u0639\u0644\u0627\u062c-\u0637\u0628\u064a\u0639\u064a",
+    "\u062a\u0623\u0647\u064a\u0644"
+  ]
+}

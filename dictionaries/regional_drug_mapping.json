@@ -1,0 +1,38 @@
+{
+  "catalog_version": "2.0.0",
+  "scope": "Egyptian, Gulf, and International Brand Names mapped to INN",
+  "brand_to_inn": {
+    "concor": { "inn": "bisoprolol", "atc": "C07AB07", "standard_form": "oral tablet" },
+    "كونكور": { "inn": "bisoprolol", "atc": "C07AB07", "standard_form": "oral tablet" },
+    "augmentin": { "inn": "amoxicillin_clavulanate", "atc": "J01CR02", "standard_form": "oral suspension / tablet" },
+    "أوجمنتين": { "inn": "amoxicillin_clavulanate", "atc": "J01CR02", "standard_form": "oral suspension / tablet" },
+    "plavix": { "inn": "clopidogrel", "atc": "B01AC04", "standard_form": "oral tablet 75mg" },
+    "بلافيكس": { "inn": "clopidogrel", "atc": "B01AC04", "standard_form": "oral tablet 75mg" },
+    "glucophage": { "inn": "metformin", "atc": "A10BA02", "standard_form": "oral tablet" },
+    "جلوكوفاج": { "inn": "metformin", "atc": "A10BA02", "standard_form": "oral tablet" },
+    "voltaren": { "inn": "diclofenac", "atc": "M01AB05", "standard_form": "oral / injection / gel" },
+    "فولتارين": { "inn": "diclofenac", "atc": "M01AB05", "standard_form": "oral / injection / gel" },
+    "panadol": { "inn": "paracetamol", "atc": "N02BE01", "standard_form": "oral tablet 500mg" },
+    "بانادول": { "inn": "paracetamol", "atc": "N02BE01", "standard_form": "oral tablet 500mg" },
+    "adol": { "inn": "paracetamol", "atc": "N02BE01", "standard_form": "oral suspension / tablet" },
+    "ادول": { "inn": "paracetamol", "atc": "N02BE01", "standard_form": "oral suspension / tablet" },
+    "eliquis": { "inn": "apixaban", "atc": "B01AF02", "standard_form": "oral tablet" },
+    "إليكويس": { "inn": "apixaban", "atc": "B01AF02", "standard_form": "oral tablet" },
+    "lasix": { "inn": "furosemide", "atc": "C03CA01", "standard_form": "oral tablet 40mg / ampoule" },
+    "لازيكس": { "inn": "furosemide", "atc": "C03CA01", "standard_form": "oral tablet 40mg / ampoule" },
+    "cataflam": { "inn": "diclofenac", "atc": "M01AB05", "standard_form": "oral tablet 50mg" },
+    "كاتافلام": { "inn": "diclofenac", "atc": "M01AB05", "standard_form": "oral tablet 50mg" },
+    "brufen": { "inn": "ibuprofen", "atc": "M01AE01", "standard_form": "oral suspension / tablet" },
+    "بروفين": { "inn": "ibuprofen", "atc": "M01AE01", "standard_form": "oral suspension / tablet" },
+    "lipitor": { "inn": "atorvastatin", "atc": "C10AA05", "standard_form": "oral tablet" },
+    "ليبيتور": { "inn": "atorvastatin", "atc": "C10AA05", "standard_form": "oral tablet" },
+    "crestor": { "inn": "rosuvastatin", "atc": "C10AA07", "standard_form": "oral tablet" },
+    "كرستور": { "inn": "rosuvastatin", "atc": "C10AA07", "standard_form": "oral tablet" },
+    "viagra": { "inn": "sildenafil", "atc": "G04BE03", "standard_form": "oral tablet" },
+    "فياجرا": { "inn": "sildenafil", "atc": "G04BE03", "standard_form": "oral tablet" },
+    "amaryl": { "inn": "glimepiride", "atc": "A10BB12", "standard_form": "oral tablet" },
+    "أماريل": { "inn": "glimepiride", "atc": "A10BB12", "standard_form": "oral tablet" },
+    "اماريل": { "inn": "glimepiride", "atc": "A10BB12", "standard_form": "oral tablet" }
+  }
+}
+

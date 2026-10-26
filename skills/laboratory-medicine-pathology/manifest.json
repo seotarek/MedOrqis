@@ -1,0 +1,32 @@
+{
+  "$schema": "../../schemas/skill_risk_manifest.schema.json",
+  "skill_name": "laboratory-medicine-pathology",
+  "version": "2.1.0",
+  "safety_class": "Class B",
+  "tier": "Tier 2",
+  "intended_purpose": "Interprets lab profiles (CBC, BMP, LFTs, Coagulation, ABG), flags critical panic thresholds, and suggests confirmatory testing.",
+  "prohibited_uses": [
+    "Overriding clinical lab delta checks",
+    "Ignoring critical laboratory panic alerts"
+  ],
+  "mandatory_inputs": [
+    "test_name",
+    "value",
+    "unit"
+  ],
+  "deterministic_dependencies": [
+    "core.context_validator"
+  ],
+  "human_review_status": "REFERENCE_SEED_REQUIRES_CLINICAL_SIGN_OFF",
+  "keywords": [
+    "laboratory",
+    "panic-values",
+    "loinc",
+    "critical-labs",
+    "biochemistry",
+    "hematology",
+    "pathology",
+    "\u062a\u062d\u0627\u0644\u064a\u0644-\u0637\u0628\u064a\u0629",
+    "\u0642\u064a\u0645-\u062d\u0631\u062c\u0629"
+  ]
+}

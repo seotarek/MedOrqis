@@ -1,0 +1,303 @@
+{
+  "test_cases_version": "2.1.0",
+  "cases": [
+    {
+      "id": "AR-MSA-NEG-01",
+      "language": "Arabic (MSA)",
+      "dialect": "Modern Standard Arabic",
+      "input_text": "المريض ينفي وجود أي حساسية للبنسلين أو مشتقاته.",
+      "concept": "حساسية للبنسلين",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-MSA-NEG-02",
+      "language": "Arabic (MSA)",
+      "dialect": "Modern Standard Arabic",
+      "input_text": "الفحص السريري يؤكد أن المريض خالي من الوذمة الرئوية.",
+      "concept": "الوذمة الرئوية",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-EGY-NEG-01",
+      "language": "Arabic (Egyptian)",
+      "dialect": "Egyptian Vernacular",
+      "input_text": "العيان بيقول مفيش وجع في الصدر خالص دلوقتي.",
+      "concept": "وجع في الصدر",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-EGY-NEG-02",
+      "language": "Arabic (Egyptian)",
+      "dialect": "Egyptian Vernacular",
+      "input_text": "المريض معندوش سخونية ولا كحة.",
+      "concept": "سخونية",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-GULF-NEG-01",
+      "language": "Arabic (Gulf)",
+      "dialect": "Gulf Vernacular",
+      "input_text": "الوالد ما عنده حساسية من الأسبرين.",
+      "concept": "حساسية من الأسبرين",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-GULF-NEG-02",
+      "language": "Arabic (Gulf)",
+      "dialect": "Gulf Vernacular",
+      "input_text": "المريض مافي ضيق في التنفس اليوم.",
+      "concept": "ضيق في التنفس",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-LEV-NEG-01",
+      "language": "Arabic (Levantine)",
+      "dialect": "Levantine Vernacular",
+      "input_text": "المريض ما عم يشتكي من دوخة أو غثيان.",
+      "concept": "دوخة",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-MAG-NEG-01",
+      "language": "Arabic (Maghrebi)",
+      "dialect": "Maghrebi Vernacular",
+      "input_text": "المريض ما كاينش ضيق في الصدر عنده.",
+      "concept": "ضيق في الصدر",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-CLAUSE-STOP-01",
+      "language": "Arabic (MSA)",
+      "dialect": "Multi-clause Adversative",
+      "input_text": "المريض لا يعاني من السكري لكنه يعاني من ألم بالصدر حاد.",
+      "concept": "السكري",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-CLAUSE-STOP-02",
+      "language": "Arabic (MSA)",
+      "dialect": "Multi-clause Adversative Affirmed Post-Boundary",
+      "input_text": "المريض لا يعاني من السكري لكنه يعاني من ألم بالصدر حاد.",
+      "concept": "ألم بالصدر",
+      "expected_negation": false,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-CLAUSE-STOP-03",
+      "language": "Arabic (Egyptian)",
+      "dialect": "Egyptian Multi-clause",
+      "input_text": "معندوش سكر لكن بدأ يحس بضيق تنفس.",
+      "concept": "سكر",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-CLAUSE-STOP-04",
+      "language": "Arabic (Egyptian)",
+      "dialect": "Egyptian Multi-clause Post-Boundary",
+      "input_text": "معندوش سكر لكن بدأ يحس بضيق تنفس.",
+      "concept": "ضيق تنفس",
+      "expected_negation": false,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "EN-NEG-01",
+      "language": "English",
+      "dialect": "Standard Medical English",
+      "input_text": "Patient denies any history of bronchial asthma or wheezing.",
+      "concept": "bronchial asthma",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "EN-NEG-02",
+      "language": "English",
+      "dialect": "Standard Medical English",
+      "input_text": "Physical examination: negative for peripheral edema and calf tenderness.",
+      "concept": "peripheral edema",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "EN-CLAUSE-STOP-01",
+      "language": "English",
+      "dialect": "English Multi-clause Adversative",
+      "input_text": "Patient has no chest pain, but reports acute shortness of breath on exertion.",
+      "concept": "chest pain",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "EN-CLAUSE-STOP-02",
+      "language": "English",
+      "dialect": "English Multi-clause Affirmed",
+      "input_text": "Patient has no chest pain, but reports acute shortness of breath on exertion.",
+      "concept": "shortness of breath",
+      "expected_negation": false,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "FR-NEG-01",
+      "language": "French",
+      "dialect": "Standard Medical French",
+      "input_text": "Le patient est sans antécédent d'infarctus du myocarde.",
+      "concept": "infarctus du myocarde",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "FR-CLAUSE-STOP-01",
+      "language": "French",
+      "dialect": "French Multi-clause",
+      "input_text": "Pas de douleur thoracique, mais le patient signale une dyspnée d'effort.",
+      "concept": "douleur thoracique",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "FR-CLAUSE-STOP-02",
+      "language": "French",
+      "dialect": "French Multi-clause Affirmed",
+      "input_text": "Pas de douleur thoracique, mais le patient signale une dyspnée d'effort.",
+      "concept": "dyspnée",
+      "expected_negation": false,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "ES-NEG-01",
+      "language": "Spanish",
+      "dialect": "Standard Medical Spanish",
+      "input_text": "El paciente niega antecedentes de diabetes mellitus.",
+      "concept": "diabetes mellitus",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "ES-CLAUSE-STOP-01",
+      "language": "Spanish",
+      "dialect": "Spanish Multi-clause",
+      "input_text": "Sin dolor precordial, pero refiere disnea paroxística nocturna.",
+      "concept": "dolor precordial",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "ES-CLAUSE-STOP-02",
+      "language": "Spanish",
+      "dialect": "Spanish Multi-clause Affirmed",
+      "input_text": "Sin dolor precordial, pero refiere disnea paroxística nocturna.",
+      "concept": "disnea",
+      "expected_negation": false,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "BIDI-UNIT-01",
+      "language": "Arabic (BiDi)",
+      "dialect": "BiDi Mixed Arabic-English",
+      "input_text": "تم إعطاء المريض جرعة دواء الديجوكسين 0.25 mg صباحاً.",
+      "expected_val": 0.25,
+      "expected_unit": "mg",
+      "task": "BIDI_UNIT_FIDELITY"
+    },
+    {
+      "id": "BIDI-UNIT-02",
+      "language": "Arabic (BiDi)",
+      "dialect": "BiDi Mixed Arabic-English",
+      "input_text": "تحليل هرمون الغدة الدرقية 500 mcg يومياً.",
+      "expected_val": 500.0,
+      "expected_unit": "mcg",
+      "task": "BIDI_UNIT_FIDELITY"
+    },
+    {
+      "id": "BIDI-UNIT-03",
+      "language": "Arabic (BiDi)",
+      "dialect": "BiDi Decimal Hazard Check",
+      "input_text": "جرعة ليفوثيروكسين الحالية هي 0.125 mg عن طريق الفم.",
+      "expected_val": 0.125,
+      "expected_unit": "mg",
+      "task": "BIDI_UNIT_FIDELITY"
+    },
+    {
+      "id": "BIDI-UNIT-04",
+      "language": "Arabic (BiDi)",
+      "dialect": "BiDi Gram High-Dose Check",
+      "input_text": "تم بدء جرعة أمبيسيلين وريدي 1.5 g كل 6 ساعات.",
+      "expected_val": 1.5,
+      "expected_unit": "g",
+      "task": "BIDI_UNIT_FIDELITY"
+    },
+    {
+      "id": "BRAND-EGY-01",
+      "language": "Arabic (Egyptian)",
+      "dialect": "Egyptian Trade Brand",
+      "brand_input": "كونكور",
+      "expected_inn": "bisoprolol",
+      "task": "BRAND_TO_INN"
+    },
+    {
+      "id": "BRAND-EGY-02",
+      "language": "Arabic (Egyptian)",
+      "dialect": "Egyptian Trade Brand",
+      "brand_input": "أوجمنتين",
+      "expected_inn": "amoxicillin_clavulanate",
+      "task": "BRAND_TO_INN"
+    },
+    {
+      "id": "BRAND-EGY-03",
+      "language": "Arabic (Egyptian)",
+      "dialect": "Egyptian Trade Brand",
+      "brand_input": "كاتافلام",
+      "expected_inn": "diclofenac",
+      "task": "BRAND_TO_INN"
+    },
+    {
+      "id": "BRAND-GULF-01",
+      "language": "Arabic (Gulf)",
+      "dialect": "Gulf Trade Brand",
+      "brand_input": "بانادول",
+      "expected_inn": "paracetamol",
+      "task": "BRAND_TO_INN"
+    },
+    {
+      "id": "BRAND-GULF-02",
+      "language": "Arabic (Gulf)",
+      "dialect": "Gulf Trade Brand",
+      "brand_input": "إليكويس",
+      "expected_inn": "apixaban",
+      "task": "BRAND_TO_INN"
+    },
+    {
+      "id": "BRAND-LEV-01",
+      "language": "Arabic (Levantine)",
+      "dialect": "Levantine Trade Brand",
+      "brand_input": "بروفين",
+      "expected_inn": "ibuprofen",
+      "task": "BRAND_TO_INN"
+    },
+    {
+      "id": "BRAND-INT-01",
+      "language": "English (International)",
+      "dialect": "International Trade Brand",
+      "brand_input": "Plavix",
+      "expected_inn": "clopidogrel",
+      "task": "BRAND_TO_INN"
+    },
+    {
+      "id": "BRAND-INT-02",
+      "language": "English (International)",
+      "dialect": "International Trade Brand",
+      "brand_input": "Lipitor",
+      "expected_inn": "atorvastatin",
+      "task": "BRAND_TO_INN"
+    }
+  ]
+}

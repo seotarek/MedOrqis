@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ClinicalRuleEntry",
+  "description": "Schema for deterministic clinical safety rules and drug-drug interactions.",
+  "type": "object",
+  "required": [
+    "rule_id",
+    "clinical_domain",
+    "rule_name",
+    "severity",
+    "target_population",
+    "trigger_criteria",
+    "clinical_action",
+    "source_authority",
+    "source_version_year",
+    "last_reviewed_date",
+    "review_status",
+    "known_limitations"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "rule_id": { "type": "string" },
+    "clinical_domain": { "type": "string" },
+    "rule_name": { "type": "string" },
+    "severity": {
+      "type": "string",
+      "enum": ["NEVER_EVENT_ABSOLUTE", "HIGH_CRITICAL", "MODERATE_WARNING", "INFORMATIONAL"]
+    },
+    "target_population": {
+      "type": "object",
+      "required": ["age_group", "pregnancy_risk"],
+      "additionalProperties": false,
+      "properties": {
+        "age_group": { "type": "string", "enum": ["ALL", "NEONATE", "PEDIATRIC", "ADULT", "GERIATRIC"] },
+        "min_age_years": { "type": "number" },
+        "max_age_years": { "type": "number" },
+        "biological_sex": { "type": "string", "enum": ["MALE", "FEMALE", "BOTH"] },
+        "pregnancy_risk": { "type": "boolean" }
+      }
+    },
+    "trigger_criteria": {
+      "type": "object",
+      "required": ["conditions"],
+      "additionalProperties": false,
+      "properties": {
+        "drug_a_inn": { "type": "string" },
+        "drug_b_inn": { "type": "string" },
+        "symptom_keys": { "type": "array", "items": { "type": "string" } },
+        "conditions": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "clinical_action": {
+      "type": "object",
+      "required": ["contraindicated", "explanation", "immediate_action"],
+      "additionalProperties": false,
+      "properties": {
+        "contraindicated": { "type": "boolean" },
+        "explanation": { "type": "string" },
+        "immediate_action": { "type": "string" }
+      }
+    },
+    "source_authority": { "type": "string" },
+    "source_version_year": { "type": "integer" },
+    "last_reviewed_date": { "type": "string", "format": "date" },
+    "review_status": {
+      "type": "string",
+      "enum": ["CLINICIAN_VERIFIED", "REFERENCE_SEED_REQUIRES_CLINICAL_SIGN_OFF"]
+    },
+    "known_limitations": { "type": "string" }
+  }
+}

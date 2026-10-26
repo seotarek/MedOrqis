@@ -1,0 +1,72 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Emergency Triage & Clinical Safety Gates",
+      "description": "High-urgency primary surveys, life-threatening symptom escalation, toxic ingestions, and pre-output safety audits.",
+      "skills": [
+        "emergency-triage-redflags",
+        "clinical-safety-auditor",
+        "clinical-toxicology-overdose"
+      ]
+    },
+    {
+      "title": "Pharmacology, Polypharmacy & Renal Dosing",
+      "description": "Deterministic Cockcroft-Gault / eGFR renal dose adjustments, 2023 AGS Beers Criteria deprescribing, and drug-drug interaction defense.",
+      "skills": [
+        "pharmacology-dosing-interactions",
+        "geriatrics-polypharmacy"
+      ]
+    },
+    {
+      "title": "Vulnerable Populations & High-Risk Specialties",
+      "description": "Strict weight-based pediatric dose capping, maternal-fetal medication safety, suicide crisis escalation, and surgical risk stratification.",
+      "skills": [
+        "pediatrics-neonatology",
+        "obstetrics-gynecology",
+        "mental-health-psychiatry",
+        "perioperative-surgical-care",
+        "oncology-palliative-care"
+      ]
+    },
+    {
+      "title": "Diagnostic Reasoning, Laboratory & Imaging",
+      "description": "Structured VINDICATE differential diagnosis, critical laboratory panic value detection, and ACR Appropriateness Criteria imaging guidance.",
+      "skills": [
+        "differential-diagnosis-cds",
+        "laboratory-medicine-pathology",
+        "radiology-medical-imaging"
+      ]
+    },
+    {
+      "title": "Chronic Disease, Inpatient Care & Rehabilitation",
+      "description": "Multi-morbidity chronic care plans, antimicrobial stewardship, NEWS2 early warning scoring, therapeutic nutrition, and functional rehab.",
+      "skills": [
+        "internal-medicine-chronic",
+        "infectious-diseases-stewardship",
+        "nursing-clinical-care",
+        "clinical-nutrition-dietetics",
+        "rehabilitation-physical-therapy"
+      ]
+    },
+    {
+      "title": "Clinical Governance, Orchestration & Privacy",
+      "description": "Clinical context envelope routing, epistemic provenance enforcement, HIPAA/GDPR/PDPL PHI scrubbing, and HL7 FHIR intake mapping.",
+      "skills": [
+        "medorqis-orchestrator",
+        "health-cybersecurity-privacy",
+        "healthcare-ops-telemedicine-ehr",
+        "medical-documentation-translation"
+      ]
+    },
+    {
+      "title": "Evidence-Based Medicine & Public Health",
+      "description": "PICO framing, CASP and RoB-2 critical appraisals, GRADE certainty evaluation, diagnostic screening metrics, and outbreak IPC protocols.",
+      "skills": [
+        "ebm-research-biostatistics",
+        "public-health-epidemiology"
+      ]
+    }
+  ]
+}

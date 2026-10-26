@@ -1,0 +1,32 @@
+{
+  "$schema": "../../schemas/skill_risk_manifest.schema.json",
+  "skill_name": "oncology-palliative-care",
+  "version": "2.1.0",
+  "safety_class": "Class C",
+  "tier": "Tier 3",
+  "intended_purpose": "Identifies oncologic emergencies requiring immediate hospital admission and provides structured palliative symptom algorithms.",
+  "prohibited_uses": [
+    "Delaying broad-spectrum antibiotics in suspected neutropenic fever",
+    "Calculating cytotoxic chemotherapy doses without oncologist sign-off"
+  ],
+  "mandatory_inputs": [
+    "cancer_type",
+    "current_treatment",
+    "symptoms"
+  ],
+  "deterministic_dependencies": [
+    "core.clinical_calculators",
+    "core.safety_guardrails"
+  ],
+  "human_review_status": "REFERENCE_SEED_REQUIRES_CLINICAL_SIGN_OFF",
+  "keywords": [
+    "oncology",
+    "palliative-care",
+    "febrile-neutropenia",
+    "pain-management",
+    "opioid-conversion",
+    "tumor-lysis",
+    "\u0623\u0648\u0631\u0627\u0645",
+    "\u0631\u0639\u0627\u064a\u0629-\u062a\u0644\u0637\u064a\u0641\u064a\u0629"
+  ]
+}

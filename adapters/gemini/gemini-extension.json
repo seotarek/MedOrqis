@@ -1,0 +1,24 @@
+{
+  "name": "medorqis-gemini-extension",
+  "version": "2.1.0",
+  "description": "MedOrqis Medical AI Skills Ecosystem extension for Gemini CLI.",
+  "contextFileName": "GEMINI.md",
+  "mcpServers": {
+    "medorqis_mcp": {
+      "command": "python3",
+      "args": [
+        "${extensionPath}/mcp_server/medorqis_mcp_server.py"
+      ]
+    }
+  },
+  "commands": [
+    {
+      "name": "clinical-calc",
+      "description": "Run deterministic clinical calculation via MedOrqis MCP."
+    },
+    {
+      "name": "triage",
+      "description": "Screen for clinical emergency red flags."
+    }
+  ]
+}

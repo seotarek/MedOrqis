@@ -1,0 +1,32 @@
+{
+  "$schema": "../../schemas/skill_risk_manifest.schema.json",
+  "skill_name": "healthcare-ops-telemedicine-ehr",
+  "version": "2.1.0",
+  "safety_class": "Class A",
+  "tier": "Tier 1",
+  "intended_purpose": "Facilitates structured clinical data exchange via HL7 FHIR and manages digital clinical intake protocols.",
+  "prohibited_uses": [
+    "Bypassing patient informed consent",
+    "Altering audit trails"
+  ],
+  "mandatory_inputs": [
+    "intake_payload",
+    "target_fhir_resource"
+  ],
+  "deterministic_dependencies": [
+    "core.phi_deidentifier",
+    "core.terminology_connectors"
+  ],
+  "human_review_status": "REFERENCE_SEED_REQUIRES_CLINICAL_SIGN_OFF",
+  "keywords": [
+    "telemedicine",
+    "hl7",
+    "fhir",
+    "ehr",
+    "intake-triage",
+    "scheduling",
+    "interoperability",
+    "\u0637\u0628-\u0639\u0646-\u0628\u0639\u062f",
+    "\u0633\u062c\u0644\u0627\u062a-\u0635\u062d\u064a\u0629"
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ClinicalContextEnvelope",
+  "description": "Standardized envelope for passing clinical data between skills with strict epistemic provenance tracking.",
+  "type": "object",
+  "required": [
+    "envelope_id",
+    "timestamp",
+    "patient_demographics",
+    "provenance_items",
+    "safety_status"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "envelope_id": {
+      "type": "string",
+      "description": "Unique UUID for this clinical context transaction."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "patient_demographics": {
+      "type": "object",
+      "required": ["age_years", "biological_sex"],
+      "additionalProperties": false,
+      "properties": {
+        "age_years": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 130
+        },
+        "biological_sex": {
+          "type": "string",
+          "enum": ["MALE", "FEMALE", "UNKNOWN"]
+        },
+        "weight_kg": {
+          "type": "number",
+          "minimum": 0.3,
+          "maximum": 500
+        },
+        "height_cm": {
+          "type": "number",
+          "minimum": 20,
+          "maximum": 260
+        },
+        "pregnancy_status": {
+          "type": "string",
+          "enum": ["NOT_PREGNANT", "PREGNANT_FIRST_TRIMESTER", "PREGNANT_SECOND_TRIMESTER", "PREGNANT_THIRD_TRIMESTER", "POSTPARTUM_LACTATING", "UNKNOWN"]
+        },
+        "serum_creatinine_mg_dl": {
+          "type": "number",
+          "minimum": 0.1,
+          "maximum": 30.0
+        }
+      }
+    },
+    "provenance_items": {
+      "type": "array",
+      "description": "List of clinical observations and claims tagged with exact epistemic provenance.",
+      "items": {
+        "type": "object",
+        "required": ["item_id", "provenance_type", "category", "concept_key", "value"],
+        "additionalProperties": false,
+        "properties": {
+          "item_id": {
+            "type": "string"
+          },
+          "provenance_type": {
+            "type": "string",
+            "enum": [
+              "USER_REPORTED_UNVERIFIED",
+              "DOCUMENTED_CLINICAL_RECORD",
+              "DETERMINISTIC_CALCULATION",
+              "MODEL_INFERRED_HYPOTHESIS"
+            ]
+          },
+          "category": {
+            "type": "string",
+            "enum": ["DIAGNOSIS", "SYMPTOM", "LAB_RESULT", "VITAL_SIGN", "MEDICATION", "ALLERGY", "PROCEDURE", "RISK_SCORE"]
+          },
+          "concept_key": {
+            "type": "string",
+            "description": "Standardized concept or code identifier (e.g. INN drug name, ICD-11, LOINC)."
+          },
+          "value": {
+            "description": "Observed value, measurement, status, or text."
+          },
+          "unit": {
+            "type": "string"
+          },
+          "reference_range": {
+            "type": "string"
+          },
+          "source_metadata": {
+            "type": "object",
+            "description": "Optional calculation inputs, calculator ID, or lab report timestamp."
+          }
+        }
+      }
+    },
+    "active_allergies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["allergen", "reaction_type", "severity"],
+        "additionalProperties": false,
+        "properties": {
+          "allergen": { "type": "string" },
+          "reaction_type": { "type": "string", "enum": ["ANAPHYLAXIS", "ANGIOEDEMA", "URTICARIA", "BRONCHOSPASM", "GI_INTOLERANCE", "RASH_MILD", "UNKNOWN"] },
+          "severity": { "type": "string", "enum": ["LIFE_THREATENING", "SEVERE", "MODERATE", "MILD"] }
+        }
+      }
+    },
+    "safety_status": {
+      "type": "object",
+      "required": ["red_flags_present", "safety_gate_cleared"],
+      "additionalProperties": false,
+      "properties": {
+        "red_flags_present": { "type": "boolean" },
+        "safety_gate_cleared": { "type": "boolean" },
+        "active_flags": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

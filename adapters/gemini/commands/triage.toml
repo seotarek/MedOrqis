@@ -1,0 +1,3 @@
+name = "triage"
+description = "Screen for clinical emergency red flags and lethal contraindications."
+prompt = "Invoke the check_red_flags tool with patient clinical context."

@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SkillOutputContract",
+  "description": "Standardized output contract for all MedOrqis skills.",
+  "type": "object",
+  "required": [
+    "skill_name",
+    "version",
+    "execution_status",
+    "safety_class",
+    "clinical_summary",
+    "citations",
+    "uncertainty_level",
+    "deterministic_calculations"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "skill_name": { "type": "string" },
+    "version": { "type": "string" },
+    "execution_status": {
+      "type": "string",
+      "enum": ["SUCCESS", "SAFE_ABSTENTION_DATA_MISSING", "SAFE_ABSTENTION_RED_FLAG_ESCALATED", "VALIDATION_FAILED"]
+    },
+    "safety_class": {
+      "type": "string",
+      "enum": ["Class A", "Class B", "Class C"]
+    },
+    "clinical_summary": { "type": "string" },
+    "differential_diagnoses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["disease_name", "category_vindicate", "probability_tier", "must_not_miss"],
+        "additionalProperties": false,
+        "properties": {
+          "disease_name": { "type": "string" },
+          "icd11_code": { "type": "string" },
+          "category_vindicate": { "type": "string", "enum": ["VASCULAR", "INFECTIOUS", "NEOPLASTIC", "DEGENERATIVE", "IATROGENIC_INTOXICATION", "CONGENITAL", "AUTOIMMUNE_ALLERGIC", "TRAUMATIC", "ENDOCRINE_METABOLIC"] },
+          "probability_tier": { "type": "string", "enum": ["HIGH", "INTERMEDIATE", "LOW"] },
+          "must_not_miss": { "type": "boolean" },
+          "clinical_rationale": { "type": "string" }
+        }
+      }
+    },
+    "deterministic_calculations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["calculator_id", "score", "interpretation_band", "guideline_citation"],
+        "additionalProperties": false,
+        "properties": {
+          "calculator_id": { "type": "string" },
+          "score": { "type": "number" },
+          "unit": { "type": "string" },
+          "interpretation_band": { "type": "string" },
+          "guideline_citation": { "type": "string" },
+          "warnings": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "contraindications_flagged": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["rule_id", "severity", "description", "action_required"],
+        "additionalProperties": false,
+        "properties": {
+          "rule_id": { "type": "string" },
+          "severity": { "type": "string", "enum": ["NEVER_EVENT_ABSOLUTE", "HIGH_RELATIVE", "MODERATE_MONITOR"] },
+          "description": { "type": "string" },
+          "action_required": { "type": "string" }
+        }
+      }
+    },
+    "citations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["citation_id", "title", "source_guideline_body", "year", "grade_evidence_level"],
+        "additionalProperties": false,
+        "properties": {
+          "citation_id": { "type": "string" },
+          "pmid_or_doi": { "type": "string" },
+          "title": { "type": "string" },
+          "source_guideline_body": { "type": "string" },
+          "year": { "type": "integer" },
+          "grade_evidence_level": { "type": "string", "enum": ["HIGH_GRADE_A", "MODERATE_GRADE_B", "LOW_GRADE_C", "EXPERT_CONSENSUS"] },
+          "entailment_status": { "type": "string", "enum": ["SUPPORTED", "PARTIALLY_SUPPORTED", "POPULATION_MISMATCH", "CONTRADICTED"] }
+        }
+      }
+    },
+    "uncertainty_level": {
+      "type": "string",
+      "enum": ["DEFINITIVE_DETERMINISTIC", "HIGH_CONFIDENCE", "MODERATE_UNCERTAINTY", "HIGH_UNCERTAINTY_REQUIRES_WORKUP", "SAFE_REFUSAL"]
+    },
+    "clinical_warnings": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

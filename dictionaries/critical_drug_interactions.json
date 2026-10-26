@@ -1,0 +1,187 @@
+{
+  "$schema": "../schemas/clinical_rule_entry.schema.json",
+  "rules": [
+    {
+      "rule_id": "DDI-WARF-NSAID-001",
+      "clinical_domain": "Pharmacology / Hematology",
+      "rule_name": "Warfarin and NSAIDs Absolute Bleeding Hazard",
+      "severity": "NEVER_EVENT_ABSOLUTE",
+      "target_population": {
+        "age_group": "ADULT",
+        "biological_sex": "BOTH",
+        "pregnancy_risk": false
+      },
+      "trigger_criteria": {
+        "drug_a_inn": "warfarin",
+        "drug_b_inn": "ibuprofen",
+        "conditions": ["concomitant oral anticoagulant and systemic NSAID"]
+      },
+      "clinical_action": {
+        "contraindicated": true,
+        "explanation": "Concurrent use causes synergistic inhibition of hemostasis and gastric mucosal injury, dramatically increasing gastrointestinal bleeding risk.",
+        "immediate_action": "Discontinue systemic NSAID. Substitute with acetaminophen for mild-moderate analgesia, or topical agent if indicated."
+      },
+      "source_authority": "FDA Black Box Warning / CHEST Antithrombotic Guidelines",
+      "source_version_year": 2023,
+      "last_reviewed_date": "2026-10-26",
+      "review_status": "CLINICIAN_VERIFIED",
+      "known_limitations": "Short-term selective COX-2 inhibitors still carry elevated risk and require gastroprotection."
+    },
+    {
+      "rule_id": "DDI-DOAC-NSAID-001",
+      "clinical_domain": "Pharmacology / Hematology",
+      "rule_name": "Apixaban and Diclofenac Severe Gastrointestinal Bleeding Hazard",
+      "severity": "NEVER_EVENT_ABSOLUTE",
+      "target_population": {
+        "age_group": "ADULT",
+        "biological_sex": "BOTH",
+        "pregnancy_risk": false
+      },
+      "trigger_criteria": {
+        "drug_a_inn": "apixaban",
+        "drug_b_inn": "diclofenac",
+        "conditions": ["concomitant direct oral factor Xa inhibitor and systemic NSAID"]
+      },
+      "clinical_action": {
+        "contraindicated": true,
+        "explanation": "Concurrent use of DOACs with systemic NSAIDs significantly increases major bleeding risk by combining factor Xa inhibition with platelet dysfunction and gastric mucosal erosions.",
+        "immediate_action": "Avoid concurrent therapy. Switch analgesia to paracetamol or topical non-systemic formulation."
+      },
+      "source_authority": "ESC Guidelines on Atrial Fibrillation / FDA Eliquis Labeling",
+      "source_version_year": 2024,
+      "last_reviewed_date": "2026-10-26",
+      "review_status": "CLINICIAN_VERIFIED",
+      "known_limitations": "Applies across all DOACs (rivaroxaban, edoxaban, dabigatran)."
+    },
+    {
+      "rule_id": "DDI-METH-TMP-001",
+      "clinical_domain": "Pharmacology / Rheumatology",
+      "rule_name": "Methotrexate and Trimethoprim-Sulfamethoxazole Bone Marrow Aplasia",
+      "severity": "NEVER_EVENT_ABSOLUTE",
+      "target_population": {
+        "age_group": "ALL",
+        "biological_sex": "BOTH",
+        "pregnancy_risk": false
+      },
+      "trigger_criteria": {
+        "drug_a_inn": "methotrexate",
+        "drug_b_inn": "trimethoprim",
+        "conditions": ["concomitant antifolate antimetabolite and dihydrofolate reductase inhibitor"]
+      },
+      "clinical_action": {
+        "contraindicated": true,
+        "explanation": "Combined antifolate effect and reduced renal tubular clearance of methotrexate leads to fatal pancytopenia and severe mucositis.",
+        "immediate_action": "Avoid combination completely. Choose non-antifolate antimicrobial."
+      },
+      "source_authority": "BNF / FDA Drug Safety Communication",
+      "source_version_year": 2024,
+      "last_reviewed_date": "2026-10-26",
+      "review_status": "CLINICIAN_VERIFIED",
+      "known_limitations": "Even low-dose weekly methotrexate is susceptible to this life-threatening interaction."
+    },
+    {
+      "rule_id": "DDI-CLARI-SIMVA-001",
+      "clinical_domain": "Pharmacology / Cardiology",
+      "rule_name": "Clarithromycin and Simvastatin Acute Rhabdomyolysis",
+      "severity": "NEVER_EVENT_ABSOLUTE",
+      "target_population": {
+        "age_group": "ADULT",
+        "biological_sex": "BOTH",
+        "pregnancy_risk": false
+      },
+      "trigger_criteria": {
+        "drug_a_inn": "clarithromycin",
+        "drug_b_inn": "simvastatin",
+        "conditions": ["potent CYP3A4 inhibitor with CYP3A4-metabolized statin"]
+      },
+      "clinical_action": {
+        "contraindicated": true,
+        "explanation": "Strong CYP3A4 inhibition increases simvastatin plasma concentrations by up to 10-fold, causing acute rhabdomyolysis and renal failure.",
+        "immediate_action": "Suspend simvastatin during macrolide therapy or use non-CYP3A4 statin (e.g. rosuvastatin, pravastatin) or azithromycin."
+      },
+      "source_authority": "FDA Drug Safety Labeling / AHA Scientific Statement",
+      "source_version_year": 2023,
+      "last_reviewed_date": "2026-10-26",
+      "review_status": "CLINICIAN_VERIFIED",
+      "known_limitations": "Same interaction applies to erythromycin and high-dose lovastatin."
+    },
+    {
+      "rule_id": "DDI-SILD-NITRO-001",
+      "clinical_domain": "Pharmacology / Cardiology",
+      "rule_name": "Sildenafil and Nitroglycerin Severe Refractory Hypotension",
+      "severity": "NEVER_EVENT_ABSOLUTE",
+      "target_population": {
+        "age_group": "ADULT",
+        "biological_sex": "BOTH",
+        "pregnancy_risk": false
+      },
+      "trigger_criteria": {
+        "drug_a_inn": "sildenafil",
+        "drug_b_inn": "nitroglycerin",
+        "conditions": ["concomitant PDE-5 inhibitor and organic nitrate vasodilator"]
+      },
+      "clinical_action": {
+        "contraindicated": true,
+        "explanation": "Synergistic enhancement of cyclic GMP pathway causes profound, life-threatening hypotension and coronary hypoperfusion.",
+        "immediate_action": "Contraindicated. Maintain at least 24-48 hours separation between PDE-5 inhibitors and nitrates."
+      },
+      "source_authority": "AHA/ACC Guidelines on Angina and Ischemic Heart Disease",
+      "source_version_year": 2023,
+      "last_reviewed_date": "2026-10-26",
+      "review_status": "CLINICIAN_VERIFIED",
+      "known_limitations": "Applies to all PDE-5 inhibitors (tadalafil requires 48 hours separation)."
+    },
+    {
+      "rule_id": "DDI-SPWN-ACEI-001",
+      "clinical_domain": "Pharmacology / Nephrology",
+      "rule_name": "Spironolactone and ACE-Inhibitor Severe Hyperkalemia",
+      "severity": "HIGH_CRITICAL",
+      "target_population": {
+        "age_group": "ADULT",
+        "biological_sex": "BOTH",
+        "pregnancy_risk": false
+      },
+      "trigger_criteria": {
+        "drug_a_inn": "spironolactone",
+        "drug_b_inn": "lisinopril",
+        "conditions": ["dual aldosterone blockade / potassium retention in renal impairment"]
+      },
+      "clinical_action": {
+        "contraindicated": true,
+        "explanation": "Concurrent use of potassium-sparing diuretics with ACE inhibitors or ARBs, especially in chronic kidney disease, can cause fatal cardiac arrhythmias from hyperkalemia.",
+        "immediate_action": "Check baseline serum potassium and eGFR. Discontinue potassium supplements and monitor potassium within 1 week of initiation."
+      },
+      "source_authority": "KDIGO Clinical Practice Guideline for Diabetes and CKD",
+      "source_version_year": 2024,
+      "last_reviewed_date": "2026-10-26",
+      "review_status": "CLINICIAN_VERIFIED",
+      "known_limitations": "Can be co-prescribed in heart failure under strict specialist supervision and frequent lab monitoring."
+    },
+    {
+      "rule_id": "DDI-TERATOGEN-PREG-001",
+      "clinical_domain": "Obstetrics / Pharmacology",
+      "rule_name": "Isotretinoin / Valproate / ACEi Pregnancy Teratogenic Never Event",
+      "severity": "NEVER_EVENT_ABSOLUTE",
+      "target_population": {
+        "age_group": "ALL",
+        "biological_sex": "FEMALE",
+        "pregnancy_risk": true
+      },
+      "trigger_criteria": {
+        "drug_a_inn": "isotretinoin",
+        "drug_b_inn": "pregnancy",
+        "conditions": ["Category X teratogen exposure during active pregnancy"]
+      },
+      "clinical_action": {
+        "contraindicated": true,
+        "explanation": "High risk of severe major congenital malformations, craniofacial dysmorphism, cardiovascular defects, and fetal death.",
+        "immediate_action": "Immediately discontinue medication. Obtain pregnancy test and refer to maternal-fetal medicine specialist."
+      },
+      "source_authority": "FDA iPLEDGE Program / ACOG Practice Guidelines / Briggs Drugs in Pregnancy",
+      "source_version_year": 2024,
+      "last_reviewed_date": "2026-10-26",
+      "review_status": "CLINICIAN_VERIFIED",
+      "known_limitations": "Strict negative pregnancy tests and two effective forms of contraception required before initiation."
+    }
+  ]
+}

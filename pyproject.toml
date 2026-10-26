@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "medorqis"
+version = "2.0.0"
+description = "MedOrqis — Medical AI Skills Ecosystem: Evidence-grounded medical AI skills, deterministic clinical engines, and platform adapters."
+readme = "README.md"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Tarek Mohamed", email = "tarek@medorqis.org" }]
+keywords = ["medical-ai", "clinical-decision-support", "mcp", "claude-skills", "gemini-extensions", "patient-safety"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Healthcare Industry",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Scientific/Engineering :: Medical Science Apps."
+]
+requires-python = ">=3.10"
+dependencies = [
+    "jsonschema>=4.20.0"
+]
+
+[project.optional-dependencies]
+mcp = ["mcp>=1.0.0"]
+dev = [
+    "pytest>=8.0.0",
+    "pydantic>=2.0.0"
+]
+
+[project.scripts]
+medorqis-mcp = "mcp_server.medorqis_mcp_server:run_stdio_server"

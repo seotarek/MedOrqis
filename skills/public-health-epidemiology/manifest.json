@@ -1,0 +1,29 @@
+{
+  "$schema": "../../schemas/skill_risk_manifest.schema.json",
+  "skill_name": "public-health-epidemiology",
+  "version": "2.1.0",
+  "safety_class": "Class A",
+  "tier": "Tier 1",
+  "intended_purpose": "Computes epidemiological indices, analyzes transmission dynamics, and references WHO infection control protocols.",
+  "prohibited_uses": [
+    "Issuing unverified public quarantine orders"
+  ],
+  "mandatory_inputs": [
+    "disease_metrics_or_outbreak_data"
+  ],
+  "deterministic_dependencies": [
+    "core.citation_validator"
+  ],
+  "human_review_status": "REFERENCE_SEED_REQUIRES_CLINICAL_SIGN_OFF",
+  "keywords": [
+    "epidemiology",
+    "public-health",
+    "screening",
+    "sensitivity",
+    "specificity",
+    "ipc",
+    "outbreak",
+    "\u0635\u062d\u0629-\u0639\u0627\u0645\u0629",
+    "\u0648\u0628\u0627\u0626\u064a\u0627\u062a"
+  ]
+}

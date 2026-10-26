@@ -1,0 +1,33 @@
+{
+  "$schema": "../../schemas/skill_risk_manifest.schema.json",
+  "skill_name": "radiology-medical-imaging",
+  "version": "2.1.0",
+  "safety_class": "Class B",
+  "tier": "Tier 2",
+  "intended_purpose": "Selects appropriate imaging modalities based on clinical presentation and radiation risk vs diagnostic yield.",
+  "prohibited_uses": [
+    "Primary reading of raw radiological DICOM images",
+    "Ordering contrast in severe acute kidney injury without prophylaxis"
+  ],
+  "mandatory_inputs": [
+    "clinical_indication",
+    "patient_demographics"
+  ],
+  "deterministic_dependencies": [
+    "core.clinical_calculators",
+    "core.context_validator"
+  ],
+  "human_review_status": "REFERENCE_SEED_REQUIRES_CLINICAL_SIGN_OFF",
+  "keywords": [
+    "radiology",
+    "imaging",
+    "mri",
+    "ct-scan",
+    "x-ray",
+    "ultrasound",
+    "acr-criteria",
+    "alara",
+    "\u0623\u0634\u0639\u0629",
+    "\u062a\u0635\u0648\u064a\u0631-\u0637\u0628\u064a"
+  ]
+}

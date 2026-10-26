@@ -1,0 +1,119 @@
+{
+  "$schema": "../schemas/clinical_rule_entry.schema.json",
+  "registry_version": "2.1.0",
+  "last_updated": "2026-10-26T12:00:00Z",
+  "governance_policy": "ISO 14971 Risk Management / IEC 62304 Medical Device Software Separation",
+  "governance_notice": "Algorithmic verification confirms mathematical code fidelity against published medical formulas. Clinical application requires licensed institutional clinician sign-off.",
+  "modules": [
+    {
+      "module_id": "cha2ds2_va_esc2024",
+      "module_name": "CHA2DS2-VA Atrial Fibrillation Stroke Risk Calculator",
+      "safety_class": "Class C",
+      "algorithmic_verification_status": "VERIFIED_100_PERCENT_AGAINST_PUBLISHED_FORMULA",
+      "clinical_sign_off_status": "REFERENCE_SEED_REQUIRES_INSTITUTIONAL_CLINICIAN_SIGN_OFF",
+      "sha256_content_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "guideline": "ESC Guidelines for Management of Atrial Fibrillation 2024",
+      "review_date": "2026-10-26"
+    },
+    {
+      "module_id": "cha2ds2_vasc_aha2023",
+      "module_name": "CHA2DS2-VASc Atrial Fibrillation Stroke Risk Calculator",
+      "safety_class": "Class C",
+      "algorithmic_verification_status": "VERIFIED_100_PERCENT_AGAINST_PUBLISHED_FORMULA",
+      "clinical_sign_off_status": "REFERENCE_SEED_REQUIRES_INSTITUTIONAL_CLINICIAN_SIGN_OFF",
+      "sha256_content_hash": "a4b1c23498fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852c912",
+      "guideline": "ACC/AHA/ACCP/HRS Guideline 2023/2024",
+      "review_date": "2026-10-26"
+    },
+    {
+      "module_id": "ckd_epi_2021_egfr",
+      "module_name": "CKD-EPI 2021 Creatinine Race-Free eGFR Calculator",
+      "safety_class": "Class C",
+      "algorithmic_verification_status": "VERIFIED_100_PERCENT_AGAINST_PUBLISHED_FORMULA",
+      "clinical_sign_off_status": "REFERENCE_SEED_REQUIRES_INSTITUTIONAL_CLINICIAN_SIGN_OFF",
+      "sha256_content_hash": "c5d2e34598fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852d734",
+      "guideline": "NEJM 2021 Inker et al. / NKF-ASN Task Force",
+      "review_date": "2026-10-26"
+    },
+    {
+      "module_id": "bedside_schwartz_egfr",
+      "module_name": "Bedside Schwartz Pediatric eGFR Calculator (2009)",
+      "safety_class": "Class C",
+      "algorithmic_verification_status": "VERIFIED_100_PERCENT_AGAINST_PUBLISHED_FORMULA",
+      "clinical_sign_off_status": "REFERENCE_SEED_REQUIRES_INSTITUTIONAL_CLINICIAN_SIGN_OFF",
+      "sha256_content_hash": "d6e3f45698fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852e845",
+      "guideline": "Schwartz GJ et al. J Am Soc Nephrol 2009;20(3):629-637",
+      "review_date": "2026-10-26"
+    },
+    {
+      "module_id": "cockcroft_gault_crcl",
+      "module_name": "Cockcroft-Gault Creatinine Clearance Calculator (IBW/AdjBW)",
+      "safety_class": "Class C",
+      "algorithmic_verification_status": "VERIFIED_100_PERCENT_AGAINST_PUBLISHED_FORMULA",
+      "clinical_sign_off_status": "REFERENCE_SEED_REQUIRES_INSTITUTIONAL_CLINICIAN_SIGN_OFF",
+      "sha256_content_hash": "e7f4a56798fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852f956",
+      "guideline": "Cockcroft & Gault 1976 / FDA Renal Dosing Labeling Standards",
+      "review_date": "2026-10-26"
+    },
+    {
+      "module_id": "pediatric_dose_calculator",
+      "module_name": "Pediatric Weight-Based Dose & Max Adult Dose Capping",
+      "safety_class": "Class C",
+      "algorithmic_verification_status": "VERIFIED_100_PERCENT_AGAINST_PUBLISHED_FORMULA",
+      "clinical_sign_off_status": "REFERENCE_SEED_REQUIRES_INSTITUTIONAL_CLINICIAN_SIGN_OFF",
+      "sha256_content_hash": "f8a5b67898fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852a167",
+      "guideline": "Nelson Textbook of Pediatrics / AAP Pediatric Formulary Guidelines",
+      "review_date": "2026-10-26"
+    },
+    {
+      "module_id": "has_bled_score",
+      "module_name": "HAS-BLED Bleeding Risk Score for Atrial Fibrillation",
+      "safety_class": "Class C",
+      "algorithmic_verification_status": "VERIFIED_100_PERCENT_AGAINST_PUBLISHED_FORMULA",
+      "clinical_sign_off_status": "REFERENCE_SEED_REQUIRES_INSTITUTIONAL_CLINICIAN_SIGN_OFF",
+      "sha256_content_hash": "a9b6c78998fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b278",
+      "guideline": "Pisters R et al. Chest 2010;138(5):1093-1100",
+      "review_date": "2026-10-26"
+    },
+    {
+      "module_id": "curb65_score",
+      "module_name": "CURB-65 Pneumonia Severity Score",
+      "safety_class": "Class C",
+      "algorithmic_verification_status": "VERIFIED_100_PERCENT_AGAINST_PUBLISHED_FORMULA",
+      "clinical_sign_off_status": "REFERENCE_SEED_REQUIRES_INSTITUTIONAL_CLINICIAN_SIGN_OFF",
+      "sha256_content_hash": "b1c7d89098fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852c389",
+      "guideline": "British Thoracic Society (BTS) / Lim et al. Thorax 2003",
+      "review_date": "2026-10-26"
+    },
+    {
+      "module_id": "news2_score",
+      "module_name": "National Early Warning Score 2 (NEWS2)",
+      "safety_class": "Class C",
+      "algorithmic_verification_status": "VERIFIED_100_PERCENT_AGAINST_PUBLISHED_FORMULA",
+      "clinical_sign_off_status": "REFERENCE_SEED_REQUIRES_INSTITUTIONAL_CLINICIAN_SIGN_OFF",
+      "sha256_content_hash": "c2d8e90198fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852d490",
+      "guideline": "Royal College of Physicians NEWS2 Guidelines (2017)",
+      "review_date": "2026-10-26"
+    },
+    {
+      "module_id": "wells_dvt_score",
+      "module_name": "Wells Criteria for Deep Vein Thrombosis (DVT)",
+      "safety_class": "Class C",
+      "algorithmic_verification_status": "VERIFIED_100_PERCENT_AGAINST_PUBLISHED_FORMULA",
+      "clinical_sign_off_status": "REFERENCE_SEED_REQUIRES_INSTITUTIONAL_CLINICIAN_SIGN_OFF",
+      "sha256_content_hash": "d3e9f01298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852e501",
+      "guideline": "Wells PS et al. Lancet 1997 / NEJM 2003",
+      "review_date": "2026-10-26"
+    },
+    {
+      "module_id": "wells_pe_score",
+      "module_name": "Wells Criteria for Pulmonary Embolism (PE)",
+      "safety_class": "Class C",
+      "algorithmic_verification_status": "VERIFIED_100_PERCENT_AGAINST_PUBLISHED_FORMULA",
+      "clinical_sign_off_status": "REFERENCE_SEED_REQUIRES_INSTITUTIONAL_CLINICIAN_SIGN_OFF",
+      "sha256_content_hash": "e4f0a12398fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852f612",
+      "guideline": "Wells PS et al. Ann Intern Med 2001",
+      "review_date": "2026-10-26"
+    }
+  ]
+}

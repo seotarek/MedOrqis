@@ -1,0 +1,110 @@
+{
+  "registry_version": "2.1.0",
+  "guidelines": [
+    {
+      "ref_id": "ESC-AF-2024",
+      "title": "2024 ESC Guidelines for the management of atrial fibrillation",
+      "source_authority": "European Society of Cardiology (ESC)",
+      "year": 2024,
+      "pmid_or_doi": "10.1093/eurheartj/ehae176",
+      "target_population": "ADULT",
+      "status": "CURRENT",
+      "grade_evidence_level": "HIGH_GRADE_A",
+      "clinical_domain_keywords": [
+        "atrial fibrillation", "af", "stroke", "anticoagulation", "doac",
+        "cha2ds2", "has-bled", "thromboembolism", "arrhythmia", "cardiology"
+      ],
+      "prohibited_or_contraindicated_claims": [
+        "aspirin monotherapy for stroke prevention in atrial fibrillation",
+        "withhold anticoagulation based on has-bled score alone",
+        "anticoagulation during active major bleeding"
+      ]
+    },
+    {
+      "ref_id": "AHA-AF-2023",
+      "title": "2023 ACC/AHA/ACCP/HRS Guideline for the Diagnosis and Management of Atrial Fibrillation",
+      "source_authority": "AHA/ACC",
+      "year": 2023,
+      "pmid_or_doi": "10.1161/CIR.0000000000001193",
+      "target_population": "ADULT",
+      "status": "CURRENT",
+      "grade_evidence_level": "HIGH_GRADE_A",
+      "clinical_domain_keywords": [
+        "atrial fibrillation", "afib", "stroke", "anticoagulant", "cha2ds2-vasc",
+        "cardiology", "electrophysiology", "rhythm control"
+      ],
+      "prohibited_or_contraindicated_claims": [
+        "aspirin alone is sufficient stroke prophylaxis for cha2ds2-vasc >= 2",
+        "anticoagulation in active uncontrolled intracranial bleeding"
+      ]
+    },
+    {
+      "ref_id": "KDIGO-CKD-2024",
+      "title": "KDIGO 2024 Clinical Practice Guideline for the Evaluation and Management of Chronic Kidney Disease",
+      "source_authority": "KDIGO",
+      "year": 2024,
+      "pmid_or_doi": "10.1016/j.kisu.2024.01.001",
+      "target_population": "ADULT",
+      "status": "CURRENT",
+      "grade_evidence_level": "HIGH_GRADE_A",
+      "clinical_domain_keywords": [
+        "ckd", "chronic kidney disease", "egfr", "albuminuria", "nephrology",
+        "creatinine", "renal", "dialysis"
+      ],
+      "prohibited_or_contraindicated_claims": [
+        "nsaids are safe for chronic pain in stage g4 ckd",
+        "ckd-epi is valid for infants and young children"
+      ]
+    },
+    {
+      "ref_id": "BTS-CAP-2009",
+      "title": "British Thoracic Society Guidelines for the Management of Community Acquired Pneumonia in Adults",
+      "source_authority": "British Thoracic Society (BTS)",
+      "year": 2009,
+      "pmid_or_doi": "19783532",
+      "target_population": "ADULT",
+      "status": "CURRENT",
+      "grade_evidence_level": "HIGH_GRADE_A",
+      "clinical_domain_keywords": [
+        "pneumonia", "cap", "curb-65", "respiratory", "pulmonology",
+        "infiltrate", "chest infection"
+      ],
+      "prohibited_or_contraindicated_claims": [
+        "treat curb-65 score 4 or 5 at home outpatient",
+        "curb-65 is valid for pediatric pneumonia"
+      ]
+    },
+    {
+      "ref_id": "AAP-PEDS-2024",
+      "title": "American Academy of Pediatrics Pediatric Dosage Guidelines and Formulary",
+      "source_authority": "American Academy of Pediatrics (AAP)",
+      "year": 2024,
+      "pmid_or_doi": "10.1542/peds.2023-064123",
+      "target_population": "PEDIATRIC",
+      "status": "CURRENT",
+      "grade_evidence_level": "HIGH_GRADE_A",
+      "clinical_domain_keywords": [
+        "pediatrics", "children", "infant", "neonate", "weight-based dosing",
+        "dose capping", "apgar", "pediatric"
+      ],
+      "prohibited_or_contraindicated_claims": [
+        "pediatric dose may exceed maximum adult dose",
+        "prescribe adult medication dosages directly to infants"
+      ]
+    },
+    {
+      "ref_id": "ESC-AF-2016",
+      "title": "2016 ESC Guidelines for the management of atrial fibrillation developed in collaboration with EACTS",
+      "source_authority": "European Society of Cardiology (ESC)",
+      "year": 2016,
+      "pmid_or_doi": "27567408",
+      "target_population": "ADULT",
+      "status": "SUPERSEDED",
+      "grade_evidence_level": "HISTORICAL",
+      "clinical_domain_keywords": [
+        "atrial fibrillation", "cardiology"
+      ],
+      "prohibited_or_contraindicated_claims": []
+    }
+  ]
+}

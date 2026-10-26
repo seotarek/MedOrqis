@@ -1,0 +1,32 @@
+{
+  "$schema": "../../schemas/skill_risk_manifest.schema.json",
+  "skill_name": "obstetrics-gynecology",
+  "version": "2.1.0",
+  "safety_class": "Class C",
+  "tier": "Tier 3",
+  "intended_purpose": "Identifies acute maternal red flags, calculates gestational age, and checks Briggs Drugs in Pregnancy and Lactation safety.",
+  "prohibited_uses": [
+    "Prescribing Category X or known teratogenic drugs (ACEi, ARBs, isotretinoin, methotrexate) in pregnancy"
+  ],
+  "mandatory_inputs": [
+    "pregnancy_status",
+    "gestational_age_weeks"
+  ],
+  "deterministic_dependencies": [
+    "core.clinical_calculators",
+    "core.context_validator",
+    "core.safety_guardrails"
+  ],
+  "human_review_status": "REFERENCE_SEED_REQUIRES_CLINICAL_SIGN_OFF",
+  "keywords": [
+    "obgyn",
+    "pregnancy",
+    "lactation",
+    "teratogenic",
+    "pre-eclampsia",
+    "gestational-diabetes",
+    "postpartum",
+    "\u0646\u0633\u0627\u0621-\u0648\u062a\u0648\u0644\u064a\u062f",
+    "\u062d\u0645\u0644-\u0648\u0631\u0636\u0627\u0639\u0629"
+  ]
+}

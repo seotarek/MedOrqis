@@ -1,0 +1,111 @@
+{
+  "$schema": "../schemas/clinical_rule_entry.schema.json",
+  "rules": [
+    {
+      "rule_id": "RF-CARD-001",
+      "clinical_domain": "Cardiology / Emergency",
+      "rule_name": "Atypical Acute Coronary Syndrome (Female / Diabetic Presentation)",
+      "severity": "HIGH_CRITICAL",
+      "target_population": {
+        "age_group": "ADULT",
+        "min_age_years": 35.0,
+        "max_age_years": 120.0,
+        "biological_sex": "BOTH",
+        "pregnancy_risk": false
+      },
+      "trigger_criteria": {
+        "symptom_keys": ["epigastric_burning", "diaphoresis", "unexplained_nausea"],
+        "conditions": ["female or diabetic presentation with sudden unexplained autonomic symptoms"]
+      },
+      "clinical_action": {
+        "contraindicated": true,
+        "explanation": "Atypical myocardial infarction presentation can lack crushing substernal chest pain, especially in females and diabetics.",
+        "immediate_action": "Immediate 12-lead ECG, cardiac troponin, and emergency department redirection"
+      },
+      "source_authority": "AHA/ACC / ESC NSTE-ACS Guidelines",
+      "source_version_year": 2023,
+      "last_reviewed_date": "2026-10-26",
+      "review_status": "CLINICIAN_VERIFIED",
+      "known_limitations": "Does not replace continuous cardiac telemetry and emergency physician clinical assessment."
+    },
+    {
+      "rule_id": "RF-PED-001",
+      "clinical_domain": "Pediatrics / Infectious Disease",
+      "rule_name": "Pediatric Non-Blanching Purpuric Rash with Lethargy (Meningococcemia)",
+      "severity": "NEVER_EVENT_ABSOLUTE",
+      "target_population": {
+        "age_group": "PEDIATRIC",
+        "min_age_years": 0.0,
+        "max_age_years": 18.0,
+        "biological_sex": "BOTH",
+        "pregnancy_risk": false
+      },
+      "trigger_criteria": {
+        "symptom_keys": ["purpuric_rash", "non_blanching_rash", "lethargy"],
+        "conditions": ["child with fever and non-blanching petechial or purpuric rash"]
+      },
+      "clinical_action": {
+        "contraindicated": true,
+        "explanation": "Non-blanching purpuric rash with lethargy indicates fulminant meningococcal septicemia or severe sepsis.",
+        "immediate_action": "Immediate emergency resuscitation, urgent parenteral ceftriaxone/penicillin, and pediatric ICU admission"
+      },
+      "source_authority": "NICE Guideline NG143 (Fever in under 5s)",
+      "source_version_year": 2021,
+      "last_reviewed_date": "2026-10-26",
+      "review_status": "CLINICIAN_VERIFIED",
+      "known_limitations": "Glass tumbler test is a helpful lay aid but must not delay emergency transport."
+    },
+    {
+      "rule_id": "RF-OBGYN-001",
+      "clinical_domain": "Obstetrics & Gynecology / Emergency",
+      "rule_name": "Ruptured Ectopic Pregnancy Red Flag",
+      "severity": "NEVER_EVENT_ABSOLUTE",
+      "target_population": {
+        "age_group": "ADULT",
+        "min_age_years": 12.0,
+        "max_age_years": 55.0,
+        "biological_sex": "FEMALE",
+        "pregnancy_risk": true
+      },
+      "trigger_criteria": {
+        "symptom_keys": ["lower_abdominal_pain", "syncope", "vaginal_spotting"],
+        "conditions": ["female of reproductive age with acute unilateral pelvic pain and hemodynamic instability"]
+      },
+      "clinical_action": {
+        "contraindicated": true,
+        "explanation": "Ruptured tubal pregnancy leads to life-threatening intra-abdominal exsanguination.",
+        "immediate_action": "Emergency gynecology consult, STAT bed-side FAST ultrasound, beta-hCG, cross-match blood, and surgical intervention"
+      },
+      "source_authority": "ACOG Practice Bulletin No. 193 (Tubal Ectopic Pregnancy)",
+      "source_version_year": 2022,
+      "last_reviewed_date": "2026-10-26",
+      "review_status": "CLINICIAN_VERIFIED",
+      "known_limitations": "Negative urine pregnancy test rarely misses early ectopic; serum quantitative hCG required."
+    },
+    {
+      "rule_id": "RF-PSYCH-001",
+      "clinical_domain": "Psychiatry / Mental Health Crisis",
+      "rule_name": "Acute Suicidal Ideation with Plan or Intent",
+      "severity": "NEVER_EVENT_ABSOLUTE",
+      "target_population": {
+        "age_group": "ALL",
+        "biological_sex": "BOTH",
+        "pregnancy_risk": false
+      },
+      "trigger_criteria": {
+        "symptom_keys": ["suicidal_ideation", "intent_to_self_harm", "suicide_plan"],
+        "conditions": ["active expression of suicide with accessible means or plan"]
+      },
+      "clinical_action": {
+        "contraindicated": true,
+        "explanation": "High acute risk of lethal self-harm requiring immediate crisis intervention and safe holding.",
+        "immediate_action": "Never leave patient alone; connect to national crisis lifeline (988 in US, 08008880700 in Egypt) and transfer to emergency psychiatric evaluation"
+      },
+      "source_authority": "WHO Suicide Prevention Guidelines / APA Practice Guideline",
+      "source_version_year": 2024,
+      "last_reviewed_date": "2026-10-26",
+      "review_status": "CLINICIAN_VERIFIED",
+      "known_limitations": "Digital tools cannot physically secure patient environment or remove lethal means."
+    }
+  ]
+}

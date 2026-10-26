@@ -1,0 +1,47 @@
+{
+  "lexicon_version": "2.0.0",
+  "languages_supported": ["ar", "en", "fr", "es"],
+  "negation_tokens": {
+    "ar_msa": ["لا يوجد", "ينفي وجود", "بدون", "ليس لديه", "خالي من"],
+    "ar_egyptian": ["مفيش", "معندوش", "مش بيشتكي من", "ولا حاجة"],
+    "ar_gulf": ["ما عنده", "مافي", "ما يحس بـ"],
+    "en": ["no", "denies", "without", "rules out", "no history of", "NKDA"],
+    "fr": ["sans", "pas de", "aucun", "nie"],
+    "es": ["sin", "niega", "no presenta", "sin antecedentes"]
+  },
+  "critical_units": {
+    "mass": ["mg", "mcg", "µg", "g", "kg"],
+    "volume": ["ml", "l"],
+    "concentration": ["mg/dl", "mmol/l", "umol/l", "g/l"],
+    "rate": ["ml/min", "ml/min/1.73m2", "bpm", "breaths/min"]
+  },
+  "core_concepts": {
+    "chest_pain": {
+      "en": "chest pain",
+      "ar_msa": "ألم بالصدر",
+      "ar_egyptian": "وجع في الصدر",
+      "fr": "douleur thoracique",
+      "es": "dolor en el pecho",
+      "snomed_ct": "29857009",
+      "icd11": "MD30"
+    },
+    "shortness_of_breath": {
+      "en": "dyspnea",
+      "ar_msa": "ضيق في التنفس",
+      "ar_egyptian": "كرشة نفس",
+      "fr": "dyspnée",
+      "es": "disnea",
+      "snomed_ct": "267036007",
+      "icd11": "MD32"
+    },
+    "fever": {
+      "en": "fever",
+      "ar_msa": "حمى",
+      "ar_egyptian": "سخونية",
+      "fr": "fièvre",
+      "es": "fiebre",
+      "snomed_ct": "386661006",
+      "icd11": "MG26"
+    }
+  }
+}

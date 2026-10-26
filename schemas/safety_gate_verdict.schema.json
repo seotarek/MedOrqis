@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SafetyGateVerdict",
+  "description": "Verdict emitted by safety guardrails before any clinical output is released.",
+  "type": "object",
+  "required": [
+    "verdict_id",
+    "timestamp",
+    "gate_status",
+    "red_flags_detected",
+    "missing_mandatory_data",
+    "provenance_violations",
+    "inter_skill_conflicts",
+    "action_plan"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "verdict_id": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "gate_status": {
+      "type": "string",
+      "enum": ["PASSED_PROCEED", "SAFE_ABSTENTION_DATA_DEFICIT", "SAFE_ABSTENTION_EMERGENCY_ESCALATION", "BLOCKED_PROVENANCE_VIOLATION"]
+    },
+    "red_flags_detected": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["flag_id", "symptom_or_vital", "clinical_urgency", "escalation_target"],
+        "additionalProperties": false,
+        "properties": {
+          "flag_id": { "type": "string" },
+          "symptom_or_vital": { "type": "string" },
+          "clinical_urgency": { "type": "string", "enum": ["IMMEDIATE_RESUSCITATION", "EMERGENCY_ED", "URGENT_SAME_DAY", "ROUTINE"] },
+          "escalation_target": { "type": "string" }
+        }
+      }
+    },
+    "missing_mandatory_data": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "provenance_violations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["item_id", "detected_provenance", "required_provenance", "violation_reason"],
+        "additionalProperties": false,
+        "properties": {
+          "item_id": { "type": "string" },
+          "detected_provenance": { "type": "string" },
+          "required_provenance": { "type": "string" },
+          "violation_reason": { "type": "string" }
+        }
+      }
+    },
+    "inter_skill_conflicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["skill_a", "skill_b", "conflict_type", "resolution"],
+        "additionalProperties": false,
+        "properties": {
+          "skill_a": { "type": "string" },
+          "skill_b": { "type": "string" },
+          "conflict_type": { "type": "string" },
+          "resolution": { "type": "string" }
+        }
+      }
+    },
+    "action_plan": {
+      "type": "object",
+      "required": ["user_safe_message", "clinician_summary", "emergency_redirection_required"],
+      "additionalProperties": false,
+      "properties": {
+        "user_safe_message": { "type": "string" },
+        "clinician_summary": { "type": "string" },
+        "emergency_redirection_required": { "type": "boolean" },
+        "emergency_contacts": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

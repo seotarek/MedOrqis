@@ -1,0 +1,31 @@
+{
+  "$schema": "../../schemas/skill_risk_manifest.schema.json",
+  "skill_name": "perioperative-surgical-care",
+  "version": "2.1.0",
+  "safety_class": "Class C",
+  "tier": "Tier 3",
+  "intended_purpose": "Evaluates perioperative cardiac and pulmonary risk, guides antithrombotic timing around surgery, and assesses surgical emergencies.",
+  "prohibited_uses": [
+    "Permitting elective surgery in unstratified high-risk cardiac patients"
+  ],
+  "mandatory_inputs": [
+    "surgical_procedure",
+    "patient_demographics",
+    "cardiac_history"
+  ],
+  "deterministic_dependencies": [
+    "core.clinical_calculators",
+    "core.safety_guardrails"
+  ],
+  "human_review_status": "REFERENCE_SEED_REQUIRES_CLINICAL_SIGN_OFF",
+  "keywords": [
+    "surgery",
+    "perioperative",
+    "rcri",
+    "pre-op-clearance",
+    "anticoagulation-bridging",
+    "who-surgical-checklist",
+    "\u062c\u0631\u0627\u062d\u0629",
+    "\u062a\u062e\u062f\u064a\u0631"
+  ]
+}

@@ -1,0 +1,3 @@
+name = "clinical-calc"
+description = "Execute deterministic clinical calculators via MedOrqis MCP."
+prompt = "Invoke the calculate_clinical_score tool with the specified calculator_id and parameters."

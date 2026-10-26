@@ -1,0 +1,30 @@
+{
+  "$schema": "../../schemas/skill_risk_manifest.schema.json",
+  "skill_name": "differential-diagnosis-cds",
+  "version": "2.1.0",
+  "safety_class": "Class B",
+  "tier": "Tier 2",
+  "intended_purpose": "Aids clinicians in expanding diagnostic breadth, preventing premature cognitive closure, and prioritizing testing.",
+  "prohibited_uses": [
+    "Autonomous definitive diagnosis",
+    "Excluding emergency etiologies without objective testing"
+  ],
+  "mandatory_inputs": [
+    "presenting_symptoms",
+    "patient_demographics"
+  ],
+  "deterministic_dependencies": [
+    "core.context_validator",
+    "core.safety_guardrails"
+  ],
+  "human_review_status": "REFERENCE_SEED_REQUIRES_CLINICAL_SIGN_OFF",
+  "keywords": [
+    "differential-diagnosis",
+    "vindicate",
+    "clinical-decision-support",
+    "cds",
+    "symptom-checker",
+    "workup",
+    "\u062a\u0634\u062e\u064a\u0635-\u062a\u0641\u0631\u064a\u0642\u064a"
+  ]
+}

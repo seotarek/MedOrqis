@@ -1,0 +1,30 @@
+{
+  "$schema": "../../schemas/skill_risk_manifest.schema.json",
+  "skill_name": "mental-health-psychiatry",
+  "version": "2.1.0",
+  "safety_class": "Class C",
+  "tier": "Tier 3",
+  "intended_purpose": "Detects psychiatric crises, connects users to crisis hotlines, and monitors for Serotonin Syndrome and Neuroleptic Malignant Syndrome.",
+  "prohibited_uses": [
+    "Delaying crisis intervention for suicidal patients",
+    "Autonomous medication adjustments for severe psychiatric conditions"
+  ],
+  "mandatory_inputs": [
+    "mental_health_symptoms"
+  ],
+  "deterministic_dependencies": [
+    "core.safety_guardrails"
+  ],
+  "human_review_status": "REFERENCE_SEED_REQUIRES_CLINICAL_SIGN_OFF",
+  "keywords": [
+    "psychiatry",
+    "mental-health",
+    "suicide-screening",
+    "crisis-triage",
+    "ssri",
+    "qt-prolongation",
+    "depression",
+    "\u0635\u062d\u0629-\u0646\u0641\u0633\u064a\u0629",
+    "\u0637\u0628-\u0646\u0641\u0633\u064a"
+  ]
+}
