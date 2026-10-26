@@ -5,7 +5,32 @@ All notable changes to the MedOrqis Medical AI Skills Ecosystem are documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-10-26
+
+### Added
+- **Deterministic Pediatric & Risk Calculators (`core/clinical_calculators.py`)**:
+  - `calculate_bedside_schwartz_egfr`: Bedside Schwartz pediatric equation ($0.413 \times \text{Height} / \text{SCr}$) with strict pediatric validation ($\text{age} < 18$).
+  - `calculate_has_bled_score`: Atrial fibrillation bleeding risk score (0-9 points) with age-informed validation.
+  - `calculate_news2_score`: Royal College of Physicians National Early Warning Score 2 (7 vital parameters) with emergency escalation threshold alerts.
+  - Hardened `calculate_curb65_score` with physiological plausibility bounds (RR 0-100, SBP 21-350) and pediatric age refusal.
+- **Critical Drug-Drug Interaction (DDI) Engine (`core/safety_guardrails.py`)**:
+  - Real-time screening for lethal contraindications: Warfarin + NSAID, DOAC + NSAID, Sildenafil + Nitroglycerin, Spironolactone + ACEi, and pregnancy teratogens.
+  - Regional trade brand name mapping to INN across Egyptian, Gulf/Saudi, Levantine, Maghrebi, and International markets.
+- **Negation Polarity Clause Boundary Protection (`core/terminology_normalizer.py`)**:
+  - Clause-stop boundaries (`لكن`, `إلا`, `بينما`, `بل`, `but`, `however`, `mais`, `pero`) with max 5-word scope, preventing false negation propagation to affirmed symptoms.
+- **Clinical Governance Separation (`governance/clinical_review_registry.json`)**:
+  - Formal ISO 14971 / IEC 62304 separation of algorithmic verification (with SHA-256 hashes) from human clinical specialist sign-off.
+- **Platform Adapters & Standards Compliance**:
+  - OpenAI Structured Outputs: Enforced `"strict": true` and `"additionalProperties": false`.
+  - Skills CLI: Standardized `allowed-tools: bash` as a scalar string across all 24 skills.
+  - MCP Server: Added `check_drug_interactions` and `scan_prompt_security` tools.
+  - GitHub Pages: Automated web catalog deployment on `https://seotarek.github.io/MedOrqis/`.
+- **Harmonized Benchmark & Test Suite (`tests/`)**:
+  - Expanded test suite to 31 tests with 100% pass rate.
+  - Expanded multilingual benchmark to 34 real-world clinical cases across 8 languages and dialects.
+
 ## [2.0.0] - 2026-10-26
+
 
 ### Added
 - **Core Deterministic Engines (`core/`)**:
