@@ -1,0 +1,51 @@
+{
+  "name": "medorqis",
+  "version": "2.1.0",
+  "description": "MedOrqis — Medical AI Skills Ecosystem: 24 Specialized Clinical AI Skills, Deterministic Safety Guardrails & Zero-Token Calculators",
+  "main": "bin/medorqis.js",
+  "bin": {
+    "medorqis": "./bin/medorqis.js"
+  },
+  "keywords": [
+    "medical-ai",
+    "clinical-decision-support",
+    "skills",
+    "skills-cli",
+    "mcp-server",
+    "zero-token",
+    "healthcare",
+    "fhir",
+    "safety-guardrails",
+    "pediatrics",
+    "cardiology",
+    "pharmacology",
+    "claude-code",
+    "gemini-cli"
+  ],
+  "author": "Tarek <seotarek@gmail.com>",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seotarek/MedOrqis.git"
+  },
+  "bugs": {
+    "url": "https://github.com/seotarek/MedOrqis/issues"
+  },
+  "homepage": "https://seotarek.github.io/MedOrqis/",
+  "files": [
+    "bin",
+    "skills",
+    "skills.sh.json",
+    "SKILLS.md",
+    "core",
+    "dictionaries",
+    "schemas",
+    "mcp_server",
+    "adapters",
+    "README.md",
+    "LICENSE",
+    "MEDICAL_DISCLAIMER.md",
+    "SAFETY_AND_GOVERNANCE.md",
+    "LANGUAGE_COVERAGE_MATRIX.md"
+  ]
+}

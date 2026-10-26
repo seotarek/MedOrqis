@@ -217,6 +217,131 @@
       letter-spacing: 0.05em;
     }
 
+    /* Hero CTA Actions */
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .btn-hero-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent-primary);
+      color: #070a13 !important;
+      font-weight: 700;
+      padding: 0.75rem 1.4rem;
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 229, 163, 0.3);
+      transition: all 0.2s ease;
+      text-decoration: none !important;
+    }
+    .btn-hero-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 229, 163, 0.45);
+    }
+    .btn-hero-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--bg-surface);
+      color: var(--text-main) !important;
+      font-weight: 600;
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: var(--font-mono);
+      text-decoration: none !important;
+    }
+    .btn-hero-secondary:hover {
+      border-color: var(--accent-primary);
+      background: var(--bg-surface-elevated);
+    }
+
+    /* Universal Model Prompting Card */
+    .universal-model-card {
+      background: linear-gradient(135deg, rgba(14, 21, 38, 0.95) 0%, rgba(22, 32, 53, 0.85) 100%);
+      border: 1px solid rgba(0, 229, 163, 0.35);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 10px 30px -10px rgba(0, 229, 163, 0.15);
+      position: relative;
+    }
+    [data-theme="light"] .universal-model-card {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      border-color: rgba(5, 150, 105, 0.35);
+      box-shadow: 0 10px 30px -10px rgba(5, 150, 105, 0.1);
+    }
+    .universal-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--accent-primary-dim);
+      color: var(--accent-primary);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+    .universal-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .universal-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+      max-width: 900px;
+    }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .step-item {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+    }
+    .step-num {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+    }
+    .step-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+    .step-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
     /* Search & Filter Bar */
     .search-filter-card {
       background: var(--bg-surface);
@@ -725,6 +850,68 @@
           <div class="stat-lbl" id="lbl-runtime">Deterministic Speed</div>
         </div>
       </div>
+
+      <div class="hero-actions">
+        <button class="btn-hero-primary" onclick="copyUniversalPrompt()">
+          <span>⚡</span>
+          <span id="btn-hero-copy-prompt">Copy Universal AI Prompt</span>
+        </button>
+        <button class="btn-hero-secondary" onclick="copyNpxInstall()">
+          <span>📋</span>
+          <span>npx medorqis</span>
+        </button>
+        <a class="btn-hero-secondary" href="https://www.npmjs.com/package/medorqis" target="_blank" rel="noopener">
+          <span>📦</span>
+          <span>npm package</span>
+        </a>
+        <a class="btn-hero-secondary" href="https://github.com/seotarek/MedOrqis" target="_blank" rel="noopener">
+          <span>🐙</span>
+          <span>GitHub v2.1.0</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Universal AI Model Prompting Card -->
+    <section class="universal-model-card">
+      <div class="universal-badge">
+        <span>✨</span> <span id="u-badge">Zero Installation Required</span>
+      </div>
+      <h2 class="universal-title" id="u-title">Prompt Any AI Model Directly with MedOrqis</h2>
+      <p class="universal-desc" id="u-desc">
+        You don't even need to install a CLI or write code. Simply send this repository link to <strong>ChatGPT, Claude, Gemini, Cursor, Grok, or Copilot</strong> with the prompt below. The model will automatically read the skill contracts, execute deterministic formulas, and respect epistemic provenance boundaries.
+      </p>
+
+      <div class="steps-grid">
+        <div class="step-item">
+          <div class="step-num" id="s1-num">Step 1</div>
+          <div class="step-title" id="s1-title">Copy Link & Prompt</div>
+          <div class="step-text" id="s1-text">Click the copy button below to grab the universal clinical orchestrator instructions.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num" id="s2-num">Step 2</div>
+          <div class="step-title" id="s2-title">Send to Any AI Model</div>
+          <div class="step-text" id="s2-text">Paste into Claude 3.5 Sonnet, GPT-4o, Gemini 1.5 Pro, Cursor Agent, or DeepSeek.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num" id="s3-num">Step 3</div>
+          <div class="step-title" id="s3-title">Zero-Token Execution</div>
+          <div class="step-text" id="s3-text">The AI inspects the 24 skills, explains recommendations, and runs verified clinical gates.</div>
+        </div>
+      </div>
+
+      <div class="code-block-wrap">
+        <button class="btn-copy-code" onclick="copyUniversalPrompt()" id="btn-copy-u-prompt">Copy AI Prompt</button>
+        <pre class="code-pre" id="universal-prompt-text">You are a clinical AI assistant operating with the MedOrqis Medical AI Skills Ecosystem:
+Repository: https://github.com/seotarek/MedOrqis
+Web Portal: https://seotarek.github.io/MedOrqis/
+
+Instructions:
+1. Review the 24 clinical skills catalog in SKILLS.md and skills.sh.json.
+2. For clinical scores (CHA2DS2-VA ESC 2024, CKD-EPI 2021, Cockcroft-Gault, Wells DVT/PE, Bedside Schwartz, CURB-65), do NOT invent arithmetic. Rely strictly on deterministic formulas.
+3. Enforce Epistemic Provenance: NEVER generate medication dosing or therapeutic plans on diagnoses tagged as MODEL_INFERRED_HYPOTHESIS without documented clinical record sign-off.
+4. Missing Age Gatekeeper: If patient age is unrecorded, do NOT assume a default adult age (30); immediately flag SAFE_ABSTENTION_DATA_DEFICIT.
+5. Identify red flags (atypical MI in females, anticoagulation + active GI bleed) and escalate to emergency care immediately.</pre>
+      </div>
     </section>
 
     <!-- Search & Filter Card -->
@@ -855,7 +1042,9 @@
       <p id="inst-desc">Deploy MedOrqis skills across your preferred agentic runtime with zero setup friction.</p>
 
       <div class="install-tabs">
-        <button class="install-tab-btn active" onclick="switchInstallTab('skills-cli')">Skills CLI (Vercel Labs)</button>
+        <button class="install-tab-btn active" onclick="switchInstallTab('prompt')">⚡ Universal AI Prompt (Zero Setup)</button>
+        <button class="install-tab-btn" onclick="switchInstallTab('npm')">📦 NPM Package (npx medorqis)</button>
+        <button class="install-tab-btn" onclick="switchInstallTab('skills-cli')">Skills CLI (Vercel Labs)</button>
         <button class="install-tab-btn" onclick="switchInstallTab('mcp')">Model Context Protocol (MCP)</button>
         <button class="install-tab-btn" onclick="switchInstallTab('claude')">Claude Code</button>
         <button class="install-tab-btn" onclick="switchInstallTab('gemini')">Gemini CLI</button>
@@ -865,7 +1054,20 @@
 
       <div class="code-block-wrap">
         <button class="btn-copy-code" onclick="copyCurrentCode()">Copy Command</button>
-        <pre class="code-pre" id="install-code-snippet">npx skills add seotarek/MedOrqis</pre>
+        <pre class="code-pre" id="install-code-snippet"># ⚡ Universal AI Model Instruction (Prompting Any Model)
+# Copy and send this prompt along with https://github.com/seotarek/MedOrqis
+# to ChatGPT (GPT-4o), Claude (Claude 3.5 Sonnet), Gemini 1.5 Pro, Cursor, or Grok:
+
+You are a clinical AI assistant operating with the MedOrqis Medical AI Skills Ecosystem:
+Repository: https://github.com/seotarek/MedOrqis
+Web Portal: https://seotarek.github.io/MedOrqis/
+
+Instructions:
+1. Review the 24 clinical skills catalog in SKILLS.md and skills.sh.json.
+2. For clinical scores (CHA2DS2-VA ESC 2024, CKD-EPI 2021, Cockcroft-Gault, Wells DVT/PE, Bedside Schwartz, CURB-65), do NOT invent arithmetic. Rely strictly on deterministic formulas.
+3. Enforce Epistemic Provenance: NEVER generate medication dosing or therapeutic plans on diagnoses tagged as MODEL_INFERRED_HYPOTHESIS without documented clinical record sign-off.
+4. Missing Age Gatekeeper: If patient age is unrecorded, do NOT assume a default adult age (30); immediately flag SAFE_ABSTENTION_DATA_DEFICIT.
+5. Identify red flags (atypical MI in females, anticoagulation + active GI bleed) and escalate to emergency care immediately.</pre>
       </div>
     </section>
   </main>
@@ -1455,7 +1657,41 @@
 
     // Installation Snippet Manager
     const INSTALL_SNIPPETS = {
-      'skills-cli': `npx skills add seotarek/MedOrqis`,
+      'prompt': `# ⚡ Universal AI Model Instruction (Prompting Any Model)
+# Copy and send this prompt along with https://github.com/seotarek/MedOrqis
+# to ChatGPT (GPT-4o), Claude (Claude 3.5 Sonnet), Gemini 1.5 Pro, Cursor, or Grok:
+
+You are a clinical AI assistant operating with the MedOrqis Medical AI Skills Ecosystem:
+Repository: https://github.com/seotarek/MedOrqis
+Web Portal: https://seotarek.github.io/MedOrqis/
+
+Instructions:
+1. Review the 24 clinical skills catalog in SKILLS.md and skills.sh.json.
+2. For clinical scores (CHA2DS2-VA ESC 2024, CKD-EPI 2021, Cockcroft-Gault, Wells DVT/PE, Bedside Schwartz, CURB-65), do NOT invent arithmetic. Rely strictly on deterministic formulas.
+3. Enforce Epistemic Provenance: NEVER generate medication dosing or therapeutic plans on diagnoses tagged as MODEL_INFERRED_HYPOTHESIS without documented clinical record sign-off.
+4. Missing Age Gatekeeper: If patient age is unrecorded, do NOT assume a default adult age (30); immediately flag SAFE_ABSTENTION_DATA_DEFICIT.
+5. Identify red flags (atypical MI in females, anticoagulation + active GI bleed) and escalate to emergency care immediately.`,
+      'npm': `# Run MedOrqis CLI directly via NPX (No installation required)
+npx medorqis
+
+# List all 24 risk-tiered clinical skills
+npx medorqis list
+
+# Output universal prompt for any LLM
+npx medorqis prompt
+
+# Show Model Context Protocol (MCP) configuration
+npx medorqis mcp
+
+# Or install as a dependency in your Node.js healthcare project
+npm install medorqis`,
+      'skills-cli': `# Install all 24 MedOrqis skills into your agent (Vercel Labs Skills CLI)
+npx skills add seotarek/MedOrqis
+
+# Or install a specific specialized skill:
+npx skills add seotarek/MedOrqis --skill emergency-triage-redflags
+npx skills add seotarek/MedOrqis --skill pharmacology-dosing-interactions
+npx skills add seotarek/MedOrqis --skill pediatrics-neonatology`,
       'mcp': `// claude_desktop_config.json
 {
   "mcpServers": {
@@ -1485,7 +1721,7 @@ python3 -m pip install -e .
 python3 tests/run_all_tests.py`
     };
 
-    let currentInstallTab = 'skills-cli';
+    let currentInstallTab = 'prompt';
 
     function switchInstallTab(tabKey) {
       currentInstallTab = tabKey;
@@ -1498,6 +1734,19 @@ python3 tests/run_all_tests.py`
       const code = document.getElementById('install-code-snippet').innerText;
       navigator.clipboard.writeText(code).then(() => {
         showToast(currentLang === 'ar' ? 'تم نسخ الكود!' : 'Code copied to clipboard!');
+      });
+    }
+
+    function copyUniversalPrompt() {
+      const promptText = document.getElementById('universal-prompt-text').innerText;
+      navigator.clipboard.writeText(promptText).then(() => {
+        showToast(currentLang === 'ar' ? 'تم نسخ برومبت الذكاء الاصطناعي الشامل!' : 'Universal AI Prompt copied!');
+      });
+    }
+
+    function copyNpxInstall() {
+      navigator.clipboard.writeText('npx medorqis').then(() => {
+        showToast(currentLang === 'ar' ? 'تم نسخ أمر: npx medorqis' : 'Copied: npx medorqis');
       });
     }
 
@@ -1533,6 +1782,20 @@ python3 tests/run_all_tests.py`
         ? '24 مهارة طبية ذكية موزعة حسب المخاطر، مع محركات حسابية قطعية محلية (Zero-Token Cost)، ومحولات لمنصات Claude Code و Gemini CLI و MCP و OpenAI.'
         : '24 Risk-Stratified Clinical AI Skills, Deterministic Zero-Token Calculators, and Cross-Platform Adapters for Claude Code, Gemini CLI, Model Context Protocol, and OpenAI.';
 
+      document.getElementById('btn-hero-copy-prompt').innerText = isAr ? 'انسخ برومبت الذكاء الاصطناعي الشامل' : 'Copy Universal AI Prompt';
+      document.getElementById('u-badge').innerText = isAr ? 'تشغيل فوري بدون أي تثبيت' : 'Zero Installation Required';
+      document.getElementById('u-title').innerText = isAr ? 'وجّه أي نموذج ذكاء اصطناعي للعمل بمنظومة MedOrqis فوراً' : 'Prompt Any AI Model Directly with MedOrqis';
+      document.getElementById('u-desc').innerText = isAr
+        ? 'لست بحاجة لتثبيت أدوات أو كتابة كود! كل ما عليك هو إرسال رابط المستودع إلى ChatGPT، Claude، Gemini، Cursor، أو Grok مع البرومبت أدناه. سيتعرف النموذج تلقائياً على عقود المهارات الـ 24 ويُنفذ الحسابات القطعية وبوابات الأمان دون هلوسة.'
+        : 'You don\'t even need to install a CLI or write code. Simply send this repository link to ChatGPT, Claude, Gemini, Cursor, Grok, or Copilot with the prompt below. The model will automatically read the skill contracts, execute deterministic formulas, and respect epistemic provenance boundaries.';
+      document.getElementById('s1-title').innerText = isAr ? '1. انسخ الرابط والبرومبت' : '1. Copy Link & Prompt';
+      document.getElementById('s1-text').innerText = isAr ? 'اضغط على زر النسخ بالأسفل لأخذ تعليمات التوجيه السريرية الشاملة.' : 'Click the copy button below to grab the universal clinical orchestrator instructions.';
+      document.getElementById('s2-title').innerText = isAr ? '2. أرسله لأي شات أو وكيل' : '2. Send to Any AI Model';
+      document.getElementById('s2-text').innerText = isAr ? 'الصقه في Claude 3.5 Sonnet أو GPT-4o أو Gemini 1.5 Pro أو Cursor.' : 'Paste into Claude 3.5 Sonnet, GPT-4o, Gemini 1.5 Pro, Cursor Agent, or DeepSeek.';
+      document.getElementById('s3-title').innerText = isAr ? '3. تشغيل سريري قطعي' : '3. Zero-Token Execution';
+      document.getElementById('s3-text').innerText = isAr ? 'يقوم النموذج بفحص الـ 24 مهارة، وشرح التوصيات، وتطبيق محددات الأمان.' : 'The AI inspects the 24 skills, explains recommendations, and runs verified clinical gates.';
+      document.getElementById('btn-copy-u-prompt').innerText = isAr ? 'انسخ البرومبت السريري' : 'Copy AI Prompt';
+
       document.getElementById('lbl-skills').innerText = isAr ? 'مهارة سريرية' : 'Clinical Skills';
       document.getElementById('lbl-token').innerText = isAr ? 'استهلاك توكنز للحسابات' : 'Token Overhead';
       document.getElementById('lbl-pass').innerText = isAr ? 'نسبة نجاح الاختبارات' : 'Test Pass Rate';
@@ -1550,8 +1813,8 @@ python3 tests/run_all_tests.py`
 
       document.getElementById('inst-title').innerText = isAr ? 'مركز التثبيت لكافة المنصات' : 'Cross-Platform Installation Hub';
       document.getElementById('inst-desc').innerText = isAr
-        ? 'ثبّت مهارات MedOrqis عبر بيئة وكيل الذكاء الاصطناعي المفضلة لديك بخطوة واحدة.'
-        : 'Deploy MedOrqis skills across your preferred agentic runtime with zero setup friction.';
+        ? 'ثبّت مهارات MedOrqis عبر بيئة وكيل الذكاء الاصطناعي المفضلة لديك بخطوة واحدة أو استخدم حزمة NPM مباشرة.'
+        : 'Deploy MedOrqis skills across your preferred agentic runtime with zero setup friction or use the NPM package directly.';
 
       renderSkills();
       runChaCalc();
