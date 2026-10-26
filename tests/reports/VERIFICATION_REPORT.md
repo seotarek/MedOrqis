@@ -1,7 +1,8 @@
 # MedOrqis — Automated Verification Report (v2.1.1)
 
-**Execution Timestamp**: `2026-10-26T22:25:48.854912+00:00`  
-**Git Commit Hash**: `aaebd316a03be963e8134666d292ef6b892ec630`  
+**Execution Timestamp**: `2026-10-26T22:39:04.992890+00:00`  
+**Release Tag**: `v2.1.1`  
+**Base Commit**: `d2c296f299626ef910f5326add5a9a609a71ddb5`  
 **Overall Automated Status**: **ALL_TESTS_PASSED (100.0% Pass Rate)**  
 **Total Tests**: `36/36` passed  
 **Clinical Review Status**: `PENDING_INSTITUTIONAL_CLINICAL_SIGN_OFF` (Decoupled Governance Policy)
@@ -9,6 +10,10 @@
 > [!IMPORTANT]
 > **Regulatory & Clinical Safety Separation Statement**:
 > 100% automated software verification proves mathematical fidelity, boundary condition enforcement, and syntactic invariance against specified unit tests. It **DOES NOT** constitute human clinical certification, medical device clearance (SaMD), or IRB-approved clinical efficacy. Bedside deployment strictly requires licensed institutional clinician review and site-specific clinical governance approval.
+
+> [!NOTE]
+> **Git Merkle DAG Provenance Notice**:
+> In Git, a tracked file within a commit cannot record the hash of the commit that contains it prior to its creation. MedOrqis canonically pins releases via Git Release Tags (`v2.1.1`). Continuous Integration dynamically executes this test suite on every git push, verifying the exact runtime commit SHA and logging evidence directly in [GitHub Actions CI](https://github.com/seotarek/MedOrqis/actions/workflows/ci.yml).
 
 ---
 

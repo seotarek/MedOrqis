@@ -1,7 +1,8 @@
 {
   "report_version": "2.1.1",
-  "timestamp": "2026-10-26T22:25:48.854912+00:00",
-  "commit_hash": "aaebd316a03be963e8134666d292ef6b892ec630",
+  "timestamp": "2026-10-26T22:39:04.992890+00:00",
+  "release_tag": "v2.1.1",
+  "base_commit": "d2c296f299626ef910f5326add5a9a609a71ddb5",
   "python_version": "3.14.8 (main, Oct  1 2026, 00:00:00) [GCC 16.2.1 20260819 (Red Hat 16.2.1-2)]",
   "total_tests": 36,
   "passed": 36,
@@ -42,7 +43,7 @@
       "errors": 0,
       "pass_rate": 100.0,
       "status": "PASSED",
-      "duration_seconds": 0.011
+      "duration_seconds": 0.014
     },
     {
       "id": "3",
@@ -57,7 +58,7 @@
       "errors": 0,
       "pass_rate": 100.0,
       "status": "PASSED",
-      "duration_seconds": 0.01
+      "duration_seconds": 0.007
     },
     {
       "id": "4",
@@ -72,7 +73,7 @@
       "errors": 0,
       "pass_rate": 100.0,
       "status": "PASSED",
-      "duration_seconds": 0.127
+      "duration_seconds": 0.088
     }
   ]
 }

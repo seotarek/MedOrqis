@@ -1,6 +1,6 @@
 {
   "$schema": "../schemas/clinical_rule_entry.schema.json",
-  "registry_version": "2.1.0",
+  "registry_version": "2.1.1",
   "last_updated": "2026-10-26T12:00:00Z",
   "governance_policy": "ISO 14971 Risk Management / IEC 62304 Medical Device Software Separation",
   "governance_notice": "Algorithmic verification confirms mathematical code fidelity against published medical formulas. Clinical application requires licensed institutional clinician sign-off.",
