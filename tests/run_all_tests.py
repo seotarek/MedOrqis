@@ -41,6 +41,10 @@ def run_suite_and_get_metrics(loader, suite_dir, module_pattern):
     passed = total - failures - errors
     pass_rate = (passed / total * 100.0) if total > 0 else 0.0
     status = "PASSED" if (failures == 0 and errors == 0) else "FAILED"
+
+    if failures > 0 or errors > 0:
+        print(f"\n[FAILURE/ERROR TRACEBACK for {module_pattern}]:")
+        print(stream.getvalue())
     
     return {
         "tests_run": total,
