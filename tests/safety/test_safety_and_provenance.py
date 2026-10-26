@@ -177,7 +177,35 @@ class TestSafetyAndProvenance(unittest.TestCase):
                 is_high_risk_drug_or_procedure=True
             )
 
+    def test_missing_age_triggers_safe_abstention_data_deficit(self):
+        # When patient_demographics does NOT specify age_years, the safety guardrails
+        # MUST NEVER default to 30 years. It must pause assessment and return SAFE_ABSTENTION_DATA_DEFICIT.
+        envelope = {
+            "envelope_id": "ENV-007-NO-AGE",
+            "timestamp": "2026-10-26T10:00:00Z",
+            "patient_demographics": {
+                # age_years is completely omitted!
+                "biological_sex": "MALE",
+                "weight_kg": 70.0
+            },
+            "provenance_items": [
+                {
+                    "item_id": "1",
+                    "provenance_type": "DOCUMENTED_CLINICAL_RECORD",
+                    "category": "SYMPTOM",
+                    "concept_key": "cough",
+                    "value": "Mild non-productive cough"
+                }
+            ],
+            "active_allergies": [],
+            "safety_status": {"red_flags_present": False, "safety_gate_cleared": True}
+        }
+        verdict = self.guardrails.evaluate_safety(envelope)
+        self.assertEqual(verdict["gate_status"], "SAFE_ABSTENTION_DATA_DEFICIT")
+        self.assertTrue(any("age_years" in item or "Patient age" in item for item in verdict["missing_mandatory_data"]))
+
 
 if __name__ == "__main__":
     unittest.main()
+
 

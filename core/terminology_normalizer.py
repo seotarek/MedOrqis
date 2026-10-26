@@ -23,8 +23,8 @@ class TerminologyNormalizer:
 
         # Clause-stopping boundaries (Arabic, English, French, Spanish)
         self.clause_stop_pattern = re.compile(
-            r"(?:[,\.;،؛!\?]|\bلكن\b|\bلكنه\b|\bلكنها\b|\bولكن\b|\bإلا\b|\bغير\s+أن\b|\bبينما\b|\bبل\b|"
-            r"\bويعاني\s+من\b|\bوتعاني\s+من\b|\bويشكو\s+من\b|\bوبدأ\b|"
+            r"(?:[,\.;،؛!\?]|\bلكن\b|\bلكنه\b|\bلكنها\b|\bولكن\b|\bولكنه\b|\bولكنها\b|\bبس\b|\bإلا\b|\bإلا\s+أن\b|\bغير\s+أن\b|\bغير\s+أنه\b|\bبينما\b|\bبل\b|"
+            r"\bويعاني\s+من\b|\bوتعاني\s+من\b|\bويشكو\s+من\b|\bوبدأ\b|\bوبدأت\b|"
             r"\bbut\b|\bhowever\b|\bexcept\b|\balthough\b|\breports\b|\bpresents\s+with\b|\bcomplains\s+of\b|"
             r"\bmais\b|\bcependant\b|\bpero\b|\bsin\s+embargo\b)",
             re.IGNORECASE | re.UNICODE
@@ -33,14 +33,40 @@ class TerminologyNormalizer:
         # Trigger prefixes
         self.negation_trigger_patterns = [
             # Arabic triggers (MSA, Egyptian, Gulf, Levantine, Maghrebi)
-            re.compile(r"(?:لا\s+يعاني\s+من|لا\s+يوجد|مفيش|معندوش|ينفي\s+وجود|ينفي|بدون|ليس\s+لديه|ليس\s+عنده|ما\s+عنده|ما\s+عندو|ما\s+عندوش|مافي|ما\s+في|ما\s+عم\s+يشتكي|ما\s+كاينش|ما\s+كاين|خالي\s+من|دون)", re.UNICODE),
+            re.compile(
+                r"(?:لا\s+يعاني\s+من|لا\s+يشكو\s+من|لا\s+يوجد|لا\s+توجد|مفيش|معندوش|مش\s+بيشتكي\s+من|مش\s+بتشتكي\s+من|مش\s+بيشتكي|مش\s+بتشتكي|"
+                r"ينفي\s+وجود|ينفي\s+المريض\s+وجود|ينفي|بدون|ليس\s+لديه|ليس\s+لديها|ليس\s+عنده|ليس\s+عندها|"
+                r"ما\s+عنده|ما\s+عندو|ما\s+عندها|ما\s+عندوش|ما\s+عندهاش|مافي|ما\s+في|ما\s+يشتكي\s+من|ما\s+يشتكي|ما\s+عم\s+يشتكي|ما\s+عم\s+يحس|"
+                r"ما\s+كاينش|ما\s+كاين\s+حتى|ما\s+كاين|خالي\s+من|خالٍ\s+من|خال\s+تماماً\s+من|خالٍ\s+تماماً\s+من|دون\s+أي|دون)",
+                re.UNICODE
+            ),
             # English triggers
             re.compile(r"(?i)\b(?:no\s+history\s+of|denies\s+any|denies|without|rules?\s+out|no|negative\s+for|free\s+of|NKDA\s+for)\b"),
             # French triggers
             re.compile(r"(?i)\b(?:sans|pas\s+de|aucun|nie)\b"),
             # Spanish triggers
-            re.compile(r"(?i)\b(?:sin|niega|no\s+presenta|sin\s+antecedentes\s+de)\b")
+            re.compile(r"(?i)\b(?:sin\s+antecedentes\s+de|sin(?!\s+embargo)|niega|no\s+presenta)\b")
         ]
+
+    @staticmethod
+    def _arabic_word_variants(w: str) -> set:
+        clean = re.sub(r'^[,\.;،؛!\?]+|[,\.;،؛!\?]+$', '', w).lower()
+        forms = {clean}
+        if clean.startswith("لل"):
+            forms.add("ال" + clean[2:])
+            forms.add(clean[2:])
+        elif clean.startswith("ال"):
+            forms.add(clean[2:])
+        elif clean.startswith("بال"):
+            forms.add("ال" + clean[3:])
+            forms.add(clean[3:])
+        elif clean.startswith("كال"):
+            forms.add("ال" + clean[3:])
+            forms.add(clean[3:])
+        elif clean.startswith("وال"):
+            forms.add("ال" + clean[3:])
+            forms.add(clean[3:])
+        return forms
 
     def _load_dictionaries(self):
         if os.path.exists(self.brand_mapping_path):
@@ -53,7 +79,7 @@ class TerminologyNormalizer:
     def extract_negation_status(self, text: str, concept: str) -> bool:
         """
         Determines whether a clinical concept is negated in the text within a bounded clause.
-        Stops at conjunctions/punctuation and restricts scope to max 5 words.
+        Stops at conjunctions/punctuation and restricts scope to max 10 words.
         Returns:
             True if concept is NEGATED (e.g., 'no chest pain', 'مفيش ألم بالصدر').
             False if AFFIRMED, un-negated, or appears in an affirmative post-conjunction clause.
@@ -72,18 +98,34 @@ class TerminologyNormalizer:
                 stop_match = self.clause_stop_pattern.search(remainder)
                 clause_text = remainder[:stop_match.start()] if stop_match else remainder
 
-                # Limit scope to max 5 words
+                # Limit scope to max 10 words
                 words = clause_text.strip().split()
-                bounded_clause = " ".join(words[:5]).lower()
+                clause_words = words[:10]
+                bounded_clause = " ".join(clause_words).lower()
 
                 # Check if concept or meaningful part of concept is in the negated window
                 if concept_clean in bounded_clause:
                     return True
                 
                 # Check for individual significant words in multi-word concepts
-                concept_words = [w for w in concept_clean.split() if len(w) > 2]
+                concept_words = [re.sub(r'^[,\.;،؛!\?]+|[,\.;،؛!\?]+$', '', w).lower() for w in concept_clean.split() if len(w) > 1]
                 if concept_words and all(w in bounded_clause for w in concept_words):
                     return True
+
+                # Form-aware word matching (e.g. Arabic prepositions للنزيف vs النزيف)
+                clause_all_forms = set()
+                for cw in clause_words:
+                    clause_all_forms.update(self._arabic_word_variants(cw))
+                
+                if concept_words:
+                    match_all = True
+                    for cw in concept_words:
+                        c_forms = self._arabic_word_variants(cw)
+                        if not (c_forms & clause_all_forms or any(f in bounded_clause for f in c_forms)):
+                            match_all = False
+                            break
+                    if match_all:
+                        return True
 
         return False
 
@@ -115,7 +157,7 @@ class TerminologyNormalizer:
         (e.g. 0.25 mg inverted to 25.0 mg or confusion between mg and mcg).
         """
         # Look for numbers and units
-        pattern = re.compile(r"(\d+(?:\.\d+)?)\s*(mg|mcg|µg|g|ml|mmol/l|mg/dl|units|u)", re.IGNORECASE)
+        pattern = re.compile(r"(\d+(?:\.\d+)?)\s*(mg/dl|mmol/l|mcg|µg|mg|ml|g|units|u)", re.IGNORECASE)
         match = pattern.search(value_text)
         if match:
             num = float(match.group(1))

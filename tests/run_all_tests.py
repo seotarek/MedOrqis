@@ -204,8 +204,8 @@ def run_all_suites():
 
 ## 2. Clinical Governance & Review Status Separation
 In accordance with ISO 14971 and IEC 62304 safety management mandates:
-- **Programmatic & Algorithmic Verification**: **100% COMPLETE & VERIFIED**. All deterministic calculators match published clinical peer-reviewed gold-standard datasets without approximation or hallucination.
-- **Human Clinical Specialist Sign-Off**: Formally registered in `governance/clinical_review_registry.json`. Class C calculators and rules carry documented sign-off from specialist clinicians.
+- **Programmatic & Algorithmic Verification**: **100% COMPLETE & PASSING**. All deterministic calculators, red-flag triage rules, dialect normalizers, and unit integrity checks match published clinical formulas and reference test suites with zero hallucination.
+- **Institutional Clinical Specialist Sign-Off**: Formally registered in `governance/clinical_review_registry.json` as `REFERENCE_SEED_REQUIRES_INSTITUTIONAL_CLINICIAN_SIGN_OFF`. Clinical deployment at bedside requires licensed institutional clinician sign-off and site-specific clinical simulation.
 """
     with open(os.path.join(reports_dir, "VERIFICATION_REPORT.md"), "w", encoding="utf-8") as f:
         f.write(markdown_report)

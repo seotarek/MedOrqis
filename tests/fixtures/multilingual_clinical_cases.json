@@ -20,6 +20,123 @@
       "task": "NEGATION_PRESERVATION"
     },
     {
+      "id": "AR-MSA-NEG-03",
+      "language": "Arabic (MSA)",
+      "dialect": "Modern Standard Arabic",
+      "input_text": "لا يوجد تاريخ عائلي للإصابة بأمراض الشرايين التاجية المبكرة.",
+      "concept": "الشرايين التاجية",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-MSA-NEG-04",
+      "language": "Arabic (MSA)",
+      "dialect": "Modern Standard Arabic",
+      "input_text": "المريض دون أي علامات للنزيف الهضمي النشط.",
+      "concept": "النزيف الهضمي",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-MSA-NEG-05",
+      "language": "Arabic (MSA)",
+      "dialect": "Modern Standard Arabic",
+      "input_text": "المريضة ليس لديها أي سوابق للإجهاض المتكرر.",
+      "concept": "الإجهاض",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-MSA-NEG-06",
+      "language": "Arabic (MSA)",
+      "dialect": "Modern Standard Arabic",
+      "input_text": "ينفي المريض وجود خفقان أو فقدان مفاجئ للوعي.",
+      "concept": "خفقان",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-MSA-NEG-07",
+      "language": "Arabic (MSA)",
+      "dialect": "Modern Standard Arabic",
+      "input_text": "فحص الجهاز البولي خالٍ تماماً من البيلة الدموية العيانية.",
+      "concept": "البيلة الدموية",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-MSA-CLAUSE-01",
+      "language": "Arabic (MSA)",
+      "dialect": "Multi-clause Adversative",
+      "input_text": "المريض لا يعاني من السكري لكنه يعاني من ألم بالصدر حاد.",
+      "concept": "السكري",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-MSA-CLAUSE-02",
+      "language": "Arabic (MSA)",
+      "dialect": "Multi-clause Adversative Affirmed",
+      "input_text": "المريض لا يعاني من السكري لكنه يعاني من ألم بالصدر حاد.",
+      "concept": "ألم بالصدر",
+      "expected_negation": false,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-MSA-CLAUSE-03",
+      "language": "Arabic (MSA)",
+      "dialect": "Multi-clause Adversative",
+      "input_text": "لا توجد علامات التهاب سحائي إلا أن المريض يشكو من صداع شديد.",
+      "concept": "التهاب سحائي",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-MSA-CLAUSE-04",
+      "language": "Arabic (MSA)",
+      "dialect": "Multi-clause Adversative Affirmed",
+      "input_text": "لا توجد علامات التهاب سحائي إلا أن المريض يشكو من صداع شديد.",
+      "concept": "صداع",
+      "expected_negation": false,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-MSA-CLAUSE-05",
+      "language": "Arabic (MSA)",
+      "dialect": "Multi-clause Adversative",
+      "input_text": "المريض بدون ضيق في التنفس بينما يعاني من حرارة مرتفعة.",
+      "concept": "ضيق في التنفس",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-MSA-CLAUSE-06",
+      "language": "Arabic (MSA)",
+      "dialect": "Multi-clause Adversative Affirmed",
+      "input_text": "المريض بدون ضيق في التنفس بينما يعاني من حرارة مرتفعة.",
+      "concept": "حرارة",
+      "expected_negation": false,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-MSA-CLAUSE-07",
+      "language": "Arabic (MSA)",
+      "dialect": "Multi-clause Adversative",
+      "input_text": "المريض لا يشكو من سعال بل يعاني من قيء مستمر.",
+      "concept": "سعال",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-MSA-CLAUSE-08",
+      "language": "Arabic (MSA)",
+      "dialect": "Multi-clause Adversative Affirmed",
+      "input_text": "المريض لا يشكو من سعال بل يعاني من قيء مستمر.",
+      "concept": "قيء",
+      "expected_negation": false,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
       "id": "AR-EGY-NEG-01",
       "language": "Arabic (Egyptian)",
       "dialect": "Egyptian Vernacular",
@@ -34,6 +151,114 @@
       "dialect": "Egyptian Vernacular",
       "input_text": "المريض معندوش سخونية ولا كحة.",
       "concept": "سخونية",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-EGY-NEG-03",
+      "language": "Arabic (Egyptian)",
+      "dialect": "Egyptian Vernacular",
+      "input_text": "المريضة مش بتشتكي من ترجيع أو غممان نفس.",
+      "concept": "ترجيع",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-EGY-NEG-04",
+      "language": "Arabic (Egyptian)",
+      "dialect": "Egyptian Vernacular",
+      "input_text": "العيان معندوش نهجان لما بيمشي مسافات عادية.",
+      "concept": "نهجان",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-EGY-NEG-05",
+      "language": "Arabic (Egyptian)",
+      "dialect": "Egyptian Vernacular",
+      "input_text": "مفيش ورم في رجليه خالص من يومين.",
+      "concept": "ورم",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-EGY-NEG-06",
+      "language": "Arabic (Egyptian)",
+      "dialect": "Egyptian Vernacular",
+      "input_text": "معندوش حساسية من البنسلين نهائي.",
+      "concept": "حساسية من البنسلين",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-EGY-NEG-07",
+      "language": "Arabic (Egyptian)",
+      "dialect": "Egyptian Vernacular",
+      "input_text": "الطفل مفيش تشنجات ولا رعشة جاتله.",
+      "concept": "تشنجات",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-EGY-CLAUSE-01",
+      "language": "Arabic (Egyptian)",
+      "dialect": "Egyptian Multi-clause",
+      "input_text": "معندوش سكر لكن بدأ يحس بضيق تنفس.",
+      "concept": "سكر",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-EGY-CLAUSE-02",
+      "language": "Arabic (Egyptian)",
+      "dialect": "Egyptian Multi-clause Affirmed",
+      "input_text": "معندوش سكر لكن بدأ يحس بضيق تنفس.",
+      "concept": "ضيق تنفس",
+      "expected_negation": false,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-EGY-CLAUSE-03",
+      "language": "Arabic (Egyptian)",
+      "dialect": "Egyptian Multi-clause",
+      "input_text": "مفيش وجع في البطن لكنه بيعاني من دوخة شديدة.",
+      "concept": "وجع في البطن",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-EGY-CLAUSE-04",
+      "language": "Arabic (Egyptian)",
+      "dialect": "Egyptian Multi-clause Affirmed",
+      "input_text": "مفيش وجع في البطن لكنه بيعاني من دوخة شديدة.",
+      "concept": "دوخة",
+      "expected_negation": false,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-EGY-CLAUSE-05",
+      "language": "Arabic (Egyptian)",
+      "dialect": "Egyptian Multi-clause",
+      "input_text": "العيان مفيش بلغم مع الكحة بس عنده نهجان فظيع.",
+      "concept": "بلغم",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-EGY-CLAUSE-06",
+      "language": "Arabic (Egyptian)",
+      "dialect": "Egyptian Multi-clause Affirmed",
+      "input_text": "العيان مفيش بلغم مع الكحة بس عنده نهجان فظيع.",
+      "concept": "نهجان",
+      "expected_negation": false,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-EGY-CLAUSE-07",
+      "language": "Arabic (Egyptian)",
+      "dialect": "Egyptian Multi-clause",
+      "input_text": "معندوش جلطة سابقة لكن بيشتكي من خفقان سريع.",
+      "concept": "جلطة",
       "expected_negation": true,
       "task": "NEGATION_PRESERVATION"
     },
@@ -56,12 +281,219 @@
       "task": "NEGATION_PRESERVATION"
     },
     {
+      "id": "AR-GULF-NEG-03",
+      "language": "Arabic (Gulf)",
+      "dialect": "Gulf Vernacular",
+      "input_text": "ما عنده حرارة ولا رعشة نهائياً.",
+      "concept": "حرارة",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-GULF-NEG-04",
+      "language": "Arabic (Gulf)",
+      "dialect": "Gulf Vernacular",
+      "input_text": "العيان ما يشتكي من كتمة بالصدر.",
+      "concept": "كتمة",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-GULF-NEG-05",
+      "language": "Arabic (Gulf)",
+      "dialect": "Gulf Vernacular",
+      "input_text": "مافي أي تورم في القدمين أو الساقين.",
+      "concept": "تورم",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-GULF-NEG-06",
+      "language": "Arabic (Gulf)",
+      "dialect": "Gulf Vernacular",
+      "input_text": "ما عنده لوعة ولا ترجيع من الصبح.",
+      "concept": "لوعة",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-GULF-NEG-07",
+      "language": "Arabic (Gulf)",
+      "dialect": "Gulf Vernacular",
+      "input_text": "المريضة ما عندها سوابق ضغط أو ربو.",
+      "concept": "ضغط",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-GULF-CLAUSE-01",
+      "language": "Arabic (Gulf)",
+      "dialect": "Gulf Multi-clause",
+      "input_text": "ما عنده كتمة بالصدر لكن يشكو من خفقان سريع.",
+      "concept": "كتمة",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-GULF-CLAUSE-02",
+      "language": "Arabic (Gulf)",
+      "dialect": "Gulf Multi-clause Affirmed",
+      "input_text": "ما عنده كتمة بالصدر لكن يشكو من خفقان سريع.",
+      "concept": "خفقان",
+      "expected_negation": false,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-GULF-CLAUSE-03",
+      "language": "Arabic (Gulf)",
+      "dialect": "Gulf Multi-clause",
+      "input_text": "مافي ألم في البطن لكن عنده دوخة لما يوقف.",
+      "concept": "ألم في البطن",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-GULF-CLAUSE-04",
+      "language": "Arabic (Gulf)",
+      "dialect": "Gulf Multi-clause Affirmed",
+      "input_text": "مافي ألم في البطن لكن عنده دوخة لما يوقف.",
+      "concept": "دوخة",
+      "expected_negation": false,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-GULF-CLAUSE-05",
+      "language": "Arabic (Gulf)",
+      "dialect": "Gulf Multi-clause",
+      "input_text": "ما عنده ربو ولكنه بدأ يعاني من كحة جافة.",
+      "concept": "ربو",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-GULF-CLAUSE-06",
+      "language": "Arabic (Gulf)",
+      "dialect": "Gulf Multi-clause Affirmed",
+      "input_text": "ما عنده ربو ولكنه بدأ يعاني من كحة جافة.",
+      "concept": "كحة",
+      "expected_negation": false,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-GULF-CLAUSE-07",
+      "language": "Arabic (Gulf)",
+      "dialect": "Gulf Multi-clause",
+      "input_text": "مافي نزيف لكن المريض يشتكي من تعب عام.",
+      "concept": "نزيف",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
       "id": "AR-LEV-NEG-01",
       "language": "Arabic (Levantine)",
       "dialect": "Levantine Vernacular",
       "input_text": "المريض ما عم يشتكي من دوخة أو غثيان.",
       "concept": "دوخة",
       "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-LEV-NEG-02",
+      "language": "Arabic (Levantine)",
+      "dialect": "Levantine Vernacular",
+      "input_text": "ما في وجع بالصدر خالص اليوم.",
+      "concept": "وجع بالصدر",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-LEV-NEG-03",
+      "language": "Arabic (Levantine)",
+      "dialect": "Levantine Vernacular",
+      "input_text": "المريضة ما عندها حرارة ولا سعال.",
+      "concept": "حرارة",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-LEV-NEG-04",
+      "language": "Arabic (Levantine)",
+      "dialect": "Levantine Vernacular",
+      "input_text": "الطفل ما عندو استفراغ من مبارح.",
+      "concept": "استفراغ",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-LEV-NEG-05",
+      "language": "Arabic (Levantine)",
+      "dialect": "Levantine Vernacular",
+      "input_text": "ما عم يحس بأي خدران بالإيد اليسار.",
+      "concept": "خدران",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-LEV-NEG-06",
+      "language": "Arabic (Levantine)",
+      "dialect": "Levantine Vernacular",
+      "input_text": "ما في ضيقة نفس لما ينام مستوي.",
+      "concept": "ضيقة نفس",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-LEV-CLAUSE-01",
+      "language": "Arabic (Levantine)",
+      "dialect": "Levantine Multi-clause",
+      "input_text": "ما عنده سكر لكن عم يعاني من وجع بالخاصرة.",
+      "concept": "سكر",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-LEV-CLAUSE-02",
+      "language": "Arabic (Levantine)",
+      "dialect": "Levantine Multi-clause Affirmed",
+      "input_text": "ما عنده سكر لكن عم يعاني من وجع بالخاصرة.",
+      "concept": "وجع بالخاصرة",
+      "expected_negation": false,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-LEV-CLAUSE-03",
+      "language": "Arabic (Levantine)",
+      "dialect": "Levantine Multi-clause",
+      "input_text": "ما في حرارة بس عم يشكي من صداع قوي.",
+      "concept": "حرارة",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-LEV-CLAUSE-04",
+      "language": "Arabic (Levantine)",
+      "dialect": "Levantine Multi-clause Affirmed",
+      "input_text": "ما في حرارة بس عم يشكي من صداع قوي.",
+      "concept": "صداع",
+      "expected_negation": false,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-LEV-CLAUSE-05",
+      "language": "Arabic (Levantine)",
+      "dialect": "Levantine Multi-clause",
+      "input_text": "ما عم يشتكي من نهفة صدر لكن عنده خفقان.",
+      "concept": "نهفة صدر",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-LEV-CLAUSE-06",
+      "language": "Arabic (Levantine)",
+      "dialect": "Levantine Multi-clause Affirmed",
+      "input_text": "ما عم يشتكي من نهفة صدر لكن عنده خفقان.",
+      "concept": "خفقان",
+      "expected_negation": false,
       "task": "NEGATION_PRESERVATION"
     },
     {
@@ -74,38 +506,101 @@
       "task": "NEGATION_PRESERVATION"
     },
     {
-      "id": "AR-CLAUSE-STOP-01",
-      "language": "Arabic (MSA)",
-      "dialect": "Multi-clause Adversative",
-      "input_text": "المريض لا يعاني من السكري لكنه يعاني من ألم بالصدر حاد.",
-      "concept": "السكري",
+      "id": "AR-MAG-NEG-02",
+      "language": "Arabic (Maghrebi)",
+      "dialect": "Maghrebi Vernacular",
+      "input_text": "المريضة ما عندهاش سخانة طالعة.",
+      "concept": "سخانة",
       "expected_negation": true,
       "task": "NEGATION_PRESERVATION"
     },
     {
-      "id": "AR-CLAUSE-STOP-02",
-      "language": "Arabic (MSA)",
-      "dialect": "Multi-clause Adversative Affirmed Post-Boundary",
-      "input_text": "المريض لا يعاني من السكري لكنه يعاني من ألم بالصدر حاد.",
-      "concept": "ألم بالصدر",
+      "id": "AR-MAG-NEG-03",
+      "language": "Arabic (Maghrebi)",
+      "dialect": "Maghrebi Vernacular",
+      "input_text": "ما كاين حتى وجع فالرأس اليوم.",
+      "concept": "وجع فالرأس",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-MAG-NEG-04",
+      "language": "Arabic (Maghrebi)",
+      "dialect": "Maghrebi Vernacular",
+      "input_text": "المريض ما عندوش دوار ولا تقيؤ.",
+      "concept": "دوار",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-MAG-NEG-05",
+      "language": "Arabic (Maghrebi)",
+      "dialect": "Maghrebi Vernacular",
+      "input_text": "الطفل ما كاينش كحة ولا خنقة عنده.",
+      "concept": "كحة",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-MAG-NEG-06",
+      "language": "Arabic (Maghrebi)",
+      "dialect": "Maghrebi Vernacular",
+      "input_text": "ما عندوش سوابق فشلة كلوية.",
+      "concept": "فشلة كلوية",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-MAG-CLAUSE-01",
+      "language": "Arabic (Maghrebi)",
+      "dialect": "Maghrebi Multi-clause",
+      "input_text": "ما كاينش سطر فالصدر ولكن كيعاني من ضيق تنفس.",
+      "concept": "سطر فالصدر",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-MAG-CLAUSE-02",
+      "language": "Arabic (Maghrebi)",
+      "dialect": "Maghrebi Multi-clause Affirmed",
+      "input_text": "ما كاينش سطر فالصدر ولكن كيعاني من ضيق تنفس.",
+      "concept": "ضيق تنفس",
       "expected_negation": false,
       "task": "NEGATION_PRESERVATION"
     },
     {
-      "id": "AR-CLAUSE-STOP-03",
-      "language": "Arabic (Egyptian)",
-      "dialect": "Egyptian Multi-clause",
-      "input_text": "معندوش سكر لكن بدأ يحس بضيق تنفس.",
-      "concept": "سكر",
+      "id": "AR-MAG-CLAUSE-03",
+      "language": "Arabic (Maghrebi)",
+      "dialect": "Maghrebi Multi-clause",
+      "input_text": "ما عندوش سخانة لكن كيحس بدوخة كبيرة.",
+      "concept": "سخانة",
       "expected_negation": true,
       "task": "NEGATION_PRESERVATION"
     },
     {
-      "id": "AR-CLAUSE-STOP-04",
-      "language": "Arabic (Egyptian)",
-      "dialect": "Egyptian Multi-clause Post-Boundary",
-      "input_text": "معندوش سكر لكن بدأ يحس بضيق تنفس.",
-      "concept": "ضيق تنفس",
+      "id": "AR-MAG-CLAUSE-04",
+      "language": "Arabic (Maghrebi)",
+      "dialect": "Maghrebi Multi-clause Affirmed",
+      "input_text": "ما عندوش سخانة لكن كيحس بدوخة كبيرة.",
+      "concept": "دوخة",
+      "expected_negation": false,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-MAG-CLAUSE-05",
+      "language": "Arabic (Maghrebi)",
+      "dialect": "Maghrebi Multi-clause",
+      "input_text": "ما كاين حتى تقيؤ غير أن الكرش قاصحة.",
+      "concept": "تقيؤ",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "AR-MAG-CLAUSE-06",
+      "language": "Arabic (Maghrebi)",
+      "dialect": "Maghrebi Multi-clause Affirmed",
+      "input_text": "ما كاين حتى تقيؤ غير أن الكرش قاصحة.",
+      "concept": "الكرش",
       "expected_negation": false,
       "task": "NEGATION_PRESERVATION"
     },
@@ -128,20 +623,101 @@
       "task": "NEGATION_PRESERVATION"
     },
     {
-      "id": "EN-CLAUSE-STOP-01",
+      "id": "EN-NEG-03",
       "language": "English",
-      "dialect": "English Multi-clause Adversative",
+      "dialect": "Standard Medical English",
+      "input_text": "No history of myocardial infarction or coronary artery disease.",
+      "concept": "myocardial infarction",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "EN-NEG-04",
+      "language": "English",
+      "dialect": "Standard Medical English",
+      "input_text": "Patient without fever, chills, or night sweats.",
+      "concept": "fever",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "EN-NEG-05",
+      "language": "English",
+      "dialect": "Standard Medical English",
+      "input_text": "Neurological workup rules out acute ischemic stroke.",
+      "concept": "ischemic stroke",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "EN-NEG-06",
+      "language": "English",
+      "dialect": "Standard Medical English",
+      "input_text": "Patient is free of orthopnea and paroxysmal nocturnal dyspnea.",
+      "concept": "orthopnea",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "EN-NEG-07",
+      "language": "English",
+      "dialect": "Standard Medical English",
+      "input_text": "Documentation confirms NKDA for beta-lactams and sulfa drugs.",
+      "concept": "beta-lactams",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "EN-CLAUSE-01",
+      "language": "English",
+      "dialect": "English Multi-clause",
       "input_text": "Patient has no chest pain, but reports acute shortness of breath on exertion.",
       "concept": "chest pain",
       "expected_negation": true,
       "task": "NEGATION_PRESERVATION"
     },
     {
-      "id": "EN-CLAUSE-STOP-02",
+      "id": "EN-CLAUSE-02",
       "language": "English",
       "dialect": "English Multi-clause Affirmed",
       "input_text": "Patient has no chest pain, but reports acute shortness of breath on exertion.",
       "concept": "shortness of breath",
+      "expected_negation": false,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "EN-CLAUSE-03",
+      "language": "English",
+      "dialect": "English Multi-clause",
+      "input_text": "No active bleeding, however the patient complains of severe abdominal tenderness.",
+      "concept": "bleeding",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "EN-CLAUSE-04",
+      "language": "English",
+      "dialect": "English Multi-clause Affirmed",
+      "input_text": "No active bleeding, however the patient complains of severe abdominal tenderness.",
+      "concept": "abdominal tenderness",
+      "expected_negation": false,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "EN-CLAUSE-05",
+      "language": "English",
+      "dialect": "English Multi-clause",
+      "input_text": "Patient denies cough, although presents with high fever.",
+      "concept": "cough",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "EN-CLAUSE-06",
+      "language": "English",
+      "dialect": "English Multi-clause Affirmed",
+      "input_text": "Patient denies cough, although presents with high fever.",
+      "concept": "fever",
       "expected_negation": false,
       "task": "NEGATION_PRESERVATION"
     },
@@ -155,7 +731,43 @@
       "task": "NEGATION_PRESERVATION"
     },
     {
-      "id": "FR-CLAUSE-STOP-01",
+      "id": "FR-NEG-02",
+      "language": "French",
+      "dialect": "Standard Medical French",
+      "input_text": "Pas de fièvre ni de frissons signalés ces dernières 48 heures.",
+      "concept": "fièvre",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "FR-NEG-03",
+      "language": "French",
+      "dialect": "Standard Medical French",
+      "input_text": "Aucun signe de détresse respiratoire aiguë à l'examen.",
+      "concept": "détresse respiratoire",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "FR-NEG-04",
+      "language": "French",
+      "dialect": "Standard Medical French",
+      "input_text": "Le patient nie toute allergie connue aux céphalosporines.",
+      "concept": "céphalosporines",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "FR-NEG-05",
+      "language": "French",
+      "dialect": "Standard Medical French",
+      "input_text": "Sans œdème des membres inférieurs à l'inspection.",
+      "concept": "œdème",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "FR-CLAUSE-01",
       "language": "French",
       "dialect": "French Multi-clause",
       "input_text": "Pas de douleur thoracique, mais le patient signale une dyspnée d'effort.",
@@ -164,12 +776,39 @@
       "task": "NEGATION_PRESERVATION"
     },
     {
-      "id": "FR-CLAUSE-STOP-02",
+      "id": "FR-CLAUSE-02",
       "language": "French",
       "dialect": "French Multi-clause Affirmed",
       "input_text": "Pas de douleur thoracique, mais le patient signale une dyspnée d'effort.",
       "concept": "dyspnée",
       "expected_negation": false,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "FR-CLAUSE-03",
+      "language": "French",
+      "dialect": "French Multi-clause",
+      "input_text": "Sans saignement extériorisé, cependant le patient présente une tachycardie.",
+      "concept": "saignement",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "FR-CLAUSE-04",
+      "language": "French",
+      "dialect": "French Multi-clause Affirmed",
+      "input_text": "Sans saignement extériorisé, cependant le patient présente une tachycardie.",
+      "concept": "tachycardie",
+      "expected_negation": false,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "FR-CLAUSE-05",
+      "language": "French",
+      "dialect": "French Multi-clause",
+      "input_text": "Aucun trouble digestif, mais présence d'une céphalée aiguë.",
+      "concept": "trouble digestif",
+      "expected_negation": true,
       "task": "NEGATION_PRESERVATION"
     },
     {
@@ -182,7 +821,43 @@
       "task": "NEGATION_PRESERVATION"
     },
     {
-      "id": "ES-CLAUSE-STOP-01",
+      "id": "ES-NEG-02",
+      "language": "Spanish",
+      "dialect": "Standard Medical Spanish",
+      "input_text": "Sin antecedentes de hipertensión arterial ni cardiopatía isquémica.",
+      "concept": "hipertensión arterial",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "ES-NEG-03",
+      "language": "Spanish",
+      "dialect": "Standard Medical Spanish",
+      "input_text": "El paciente no presenta fiebre ni escalofríos al momento del examen.",
+      "concept": "fiebre",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "ES-NEG-04",
+      "language": "Spanish",
+      "dialect": "Standard Medical Spanish",
+      "input_text": "Sin sangrado digestivo visible ni signos de melena.",
+      "concept": "sangrado digestivo",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "ES-NEG-05",
+      "language": "Spanish",
+      "dialect": "Standard Medical Spanish",
+      "input_text": "Niega alergias a medicamentos o medios de contraste.",
+      "concept": "alergias",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "ES-CLAUSE-01",
       "language": "Spanish",
       "dialect": "Spanish Multi-clause",
       "input_text": "Sin dolor precordial, pero refiere disnea paroxística nocturna.",
@@ -191,12 +866,39 @@
       "task": "NEGATION_PRESERVATION"
     },
     {
-      "id": "ES-CLAUSE-STOP-02",
+      "id": "ES-CLAUSE-02",
       "language": "Spanish",
       "dialect": "Spanish Multi-clause Affirmed",
       "input_text": "Sin dolor precordial, pero refiere disnea paroxística nocturna.",
       "concept": "disnea",
       "expected_negation": false,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "ES-CLAUSE-03",
+      "language": "Spanish",
+      "dialect": "Spanish Multi-clause",
+      "input_text": "No presenta cefalea, sin embargo refiere palpitaciones súbitas.",
+      "concept": "cefalea",
+      "expected_negation": true,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "ES-CLAUSE-04",
+      "language": "Spanish",
+      "dialect": "Spanish Multi-clause Affirmed",
+      "input_text": "No presenta cefalea, sin embargo refiere palpitaciones súbitas.",
+      "concept": "palpitaciones",
+      "expected_negation": false,
+      "task": "NEGATION_PRESERVATION"
+    },
+    {
+      "id": "ES-CLAUSE-05",
+      "language": "Spanish",
+      "dialect": "Spanish Multi-clause",
+      "input_text": "Sin edema periférico, pero presenta tos seca persistente.",
+      "concept": "edema periférico",
+      "expected_negation": true,
       "task": "NEGATION_PRESERVATION"
     },
     {
@@ -236,6 +938,60 @@
       "task": "BIDI_UNIT_FIDELITY"
     },
     {
+      "id": "BIDI-UNIT-05",
+      "language": "Arabic (BiDi)",
+      "dialect": "BiDi Mixed Arabic-English",
+      "input_text": "مستوى الجلوكوز العشوائي بالدم هو 180 mg/dl أثناء التقييم.",
+      "expected_val": 180.0,
+      "expected_unit": "mg/dl",
+      "task": "BIDI_UNIT_FIDELITY"
+    },
+    {
+      "id": "BIDI-UNIT-06",
+      "language": "Arabic (BiDi)",
+      "dialect": "BiDi Mixed Arabic-English",
+      "input_text": "جرعة شراب الباراسيتامول للأطفال 2.5 ml عند اللزوم.",
+      "expected_val": 2.5,
+      "expected_unit": "ml",
+      "task": "BIDI_UNIT_FIDELITY"
+    },
+    {
+      "id": "BIDI-UNIT-07",
+      "language": "Arabic (BiDi)",
+      "dialect": "BiDi Microgram Low-Dose Check",
+      "input_text": "جرعة فنتانيل وريدي مسكن 50 mcg قبل الإجراء الجراحي.",
+      "expected_val": 50.0,
+      "expected_unit": "mcg",
+      "task": "BIDI_UNIT_FIDELITY"
+    },
+    {
+      "id": "BIDI-UNIT-08",
+      "language": "Arabic (BiDi)",
+      "dialect": "BiDi Decimal Hazard Check",
+      "input_text": "جرعة أقراص ديجوكسين 0.05 mg تم تناولها بانتظام.",
+      "expected_val": 0.05,
+      "expected_unit": "mg",
+      "task": "BIDI_UNIT_FIDELITY"
+    },
+    {
+      "id": "BIDI-UNIT-09",
+      "language": "Arabic (BiDi)",
+      "dialect": "BiDi Mixed Arabic-English",
+      "input_text": "مستوى حمض اليوريك بالدم 7.2 mg/dl عند التحليل.",
+      "expected_val": 7.2,
+      "expected_unit": "mg/dl",
+      "task": "BIDI_UNIT_FIDELITY"
+    },
+    {
+      "id": "BIDI-UNIT-10",
+      "language": "Arabic (BiDi)",
+      "dialect": "BiDi Gram High-Dose Check",
+      "input_text": "المريض تلقى سيفيبيم 2.0 g بالتسريب الوريدي البطيء.",
+      "expected_val": 2.0,
+      "expected_unit": "g",
+      "task": "BIDI_UNIT_FIDELITY"
+    },
+    {
       "id": "BRAND-EGY-01",
       "language": "Arabic (Egyptian)",
       "dialect": "Egyptian Trade Brand",
@@ -260,6 +1016,14 @@
       "task": "BRAND_TO_INN"
     },
     {
+      "id": "BRAND-EGY-04",
+      "language": "Arabic (Egyptian)",
+      "dialect": "Egyptian Trade Brand",
+      "brand_input": "جلوكوفاج",
+      "expected_inn": "metformin",
+      "task": "BRAND_TO_INN"
+    },
+    {
       "id": "BRAND-GULF-01",
       "language": "Arabic (Gulf)",
       "dialect": "Gulf Trade Brand",
@@ -276,11 +1040,51 @@
       "task": "BRAND_TO_INN"
     },
     {
+      "id": "BRAND-GULF-03",
+      "language": "Arabic (Gulf)",
+      "dialect": "Gulf Trade Brand",
+      "brand_input": "لازيكس",
+      "expected_inn": "furosemide",
+      "task": "BRAND_TO_INN"
+    },
+    {
+      "id": "BRAND-GULF-04",
+      "language": "Arabic (Gulf)",
+      "dialect": "Gulf Trade Brand",
+      "brand_input": "ادول",
+      "expected_inn": "paracetamol",
+      "task": "BRAND_TO_INN"
+    },
+    {
       "id": "BRAND-LEV-01",
       "language": "Arabic (Levantine)",
       "dialect": "Levantine Trade Brand",
       "brand_input": "بروفين",
       "expected_inn": "ibuprofen",
+      "task": "BRAND_TO_INN"
+    },
+    {
+      "id": "BRAND-LEV-02",
+      "language": "Arabic (Levantine)",
+      "dialect": "Levantine Trade Brand",
+      "brand_input": "ليبيتور",
+      "expected_inn": "atorvastatin",
+      "task": "BRAND_TO_INN"
+    },
+    {
+      "id": "BRAND-MAG-01",
+      "language": "Arabic (Maghrebi)",
+      "dialect": "Maghrebi Trade Brand",
+      "brand_input": "فولتارين",
+      "expected_inn": "diclofenac",
+      "task": "BRAND_TO_INN"
+    },
+    {
+      "id": "BRAND-MAG-02",
+      "language": "Arabic (Maghrebi)",
+      "dialect": "Maghrebi Trade Brand",
+      "brand_input": "كرستور",
+      "expected_inn": "rosuvastatin",
       "task": "BRAND_TO_INN"
     },
     {
@@ -297,6 +1101,22 @@
       "dialect": "International Trade Brand",
       "brand_input": "Lipitor",
       "expected_inn": "atorvastatin",
+      "task": "BRAND_TO_INN"
+    },
+    {
+      "id": "BRAND-INT-03",
+      "language": "English (International)",
+      "dialect": "International Trade Brand",
+      "brand_input": "Viagra",
+      "expected_inn": "sildenafil",
+      "task": "BRAND_TO_INN"
+    },
+    {
+      "id": "BRAND-INT-04",
+      "language": "English (International)",
+      "dialect": "International Trade Brand",
+      "brand_input": "Amaryl",
+      "expected_inn": "glimepiride",
       "task": "BRAND_TO_INN"
     }
   ]

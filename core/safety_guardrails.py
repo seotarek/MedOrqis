@@ -136,7 +136,7 @@ class SafetyGuardrailsEngine:
         timestamp = datetime.now(timezone.utc).isoformat()
 
         demographics = envelope.get("patient_demographics", {})
-        age = demographics.get("age_years", 30)
+        age = demographics.get("age_years")
         sex = demographics.get("biological_sex", "UNKNOWN")
         pregnancy = demographics.get("pregnancy_status", "UNKNOWN")
 
@@ -181,12 +181,13 @@ class SafetyGuardrailsEngine:
             # Check population match
             target_pop = rule.get("target_population", {})
             age_group = target_pop.get("age_group", "ALL")
-            if age_group == "PEDIATRIC" and age >= 18:
-                continue
-            if age_group == "NEONATE" and age > 0.08:
-                continue
-            if age_group == "GERIATRIC" and age < 65:
-                continue
+            if age is not None:
+                if age_group == "PEDIATRIC" and age >= 18:
+                    continue
+                if age_group == "NEONATE" and age > 0.08:
+                    continue
+                if age_group == "GERIATRIC" and age < 65:
+                    continue
 
             # Check trigger criteria
             trigger_criteria = rule.get("trigger_criteria", {})
@@ -208,11 +209,13 @@ class SafetyGuardrailsEngine:
         # Layer 2: Missing Data Checks
         missing_data = []
         if age is None:
-            missing_data.append("Patient age is missing.")
-        if age is not None and age < 18 and demographics.get("weight_kg") is None:
-            missing_data.append("Patient weight is missing for pediatric evaluation.")
-        if sex == "FEMALE" and (12 <= age <= 55) and pregnancy == "UNKNOWN":
-            missing_data.append("Pregnancy status is unverified for female of reproductive age.")
+            missing_data.append("Patient age (age_years) is missing. Age is mandatory for pediatric/geriatric safety gates and clinical calculators.")
+        else:
+            if age < 18 and demographics.get("weight_kg") is None:
+                missing_data.append("Patient weight is missing for pediatric evaluation.")
+            if sex == "FEMALE" and (12 <= age <= 55) and pregnancy == "UNKNOWN":
+                missing_data.append("Pregnancy status is unverified for female of reproductive age.")
+
 
         # Layer 3: Inter-Skill Conflicts & Drug-Drug Interactions
         conflicts = []

@@ -1,0 +1,39 @@
+name: MedOrqis Clinical CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Clinical Verification Suite
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Run Harmonized Clinical Test Suites
+        run: |
+          python3 tests/run_all_tests.py
+
+      - name: Verify Clean Working Tree & Artifact Generation
+        run: |
+          test -f tests/reports/VERIFICATION_REPORT.md
+          test -f tests/reports/verification_report.json
+          test -f LANGUAGE_COVERAGE_MATRIX.md
+          echo "All clinical verification reports generated successfully."

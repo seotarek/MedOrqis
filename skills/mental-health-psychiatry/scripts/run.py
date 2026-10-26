@@ -45,7 +45,7 @@ def run_skill(payload_dict):
 
     # Domain specific computation
     demographics = payload_dict.get("patient_demographics", {})
-    age = demographics.get("age_years", 40)
+    age = demographics.get("age_years")
     sex = demographics.get("biological_sex", "MALE")
 
     try:
@@ -57,7 +57,8 @@ def run_skill(payload_dict):
                 systolic_bp_mmhg=125,
                 pulse_bpm=76,
                 consciousness="ALERT",
-                temperature_celsius=37.0
+                temperature_celsius=37.0,
+                age_years=age
             )
             result["domain_assessment"] = {
                 "score_name": news.calculator_name,
@@ -65,28 +66,40 @@ def run_skill(payload_dict):
                 "band": news.interpretation_band,
                 "recommendation": news.clinical_recommendation
             }
-        elif "mental-health-psychiatry" == "pediatrics-neonatology" and age < 18:
-            weight = demographics.get("weight_kg", 20.0)
-            dose = calculate_pediatric_weight_dose(
-                age_years=age,
-                weight_kg=weight,
-                dose_per_kg=15.0,
-                max_single_adult_dose_mg=500.0
-            )
-            result["domain_assessment"] = {
-                "dose_calculation": dose.interpretation_band,
-                "recommendation": dose.clinical_recommendation
-            }
+        elif "mental-health-psychiatry" == "pediatrics-neonatology":
+            if age is None or age >= 18:
+                result["domain_assessment"] = {
+                    "status": "ABSTENTION_OR_REFUSAL",
+                    "reason": "Pediatric evaluation requires verified patient age < 18 years."
+                }
+            else:
+                weight = demographics.get("weight_kg", 20.0)
+                dose = calculate_pediatric_weight_dose(
+                    age_years=age,
+                    weight_kg=weight,
+                    dose_per_kg=15.0,
+                    max_single_adult_dose_mg=500.0
+                )
+                result["domain_assessment"] = {
+                    "dose_calculation": dose.interpretation_band,
+                    "recommendation": dose.clinical_recommendation
+                }
         elif "mental-health-psychiatry" == "internal-medicine-chronic":
-            egfr = calculate_ckd_epi_2021_egfr(
-                serum_creatinine=1.1,
-                age_years=age,
-                biological_sex=sex
-            )
-            result["domain_assessment"] = {
-                "renal_function": egfr.interpretation_band,
-                "recommendation": egfr.clinical_recommendation
-            }
+            if age is None or age < 18:
+                result["domain_assessment"] = {
+                    "status": "ABSTENTION_OR_REFUSAL",
+                    "reason": "CKD-EPI 2021 calculation requires verified adult patient age >= 18 years."
+                }
+            else:
+                egfr = calculate_ckd_epi_2021_egfr(
+                    serum_creatinine=1.1,
+                    age_years=age,
+                    biological_sex=sex
+                )
+                result["domain_assessment"] = {
+                    "renal_function": egfr.interpretation_band,
+                    "recommendation": egfr.clinical_recommendation
+                }
         elif "mental-health-psychiatry" == "pharmacology-dosing-interactions":
             meds = payload_dict.get("current_medications", ["warfarin", "paracetamol"])
             ddis = guardrails.check_drug_interactions(meds, demographics)
@@ -97,6 +110,7 @@ def run_skill(payload_dict):
             }
     except SafeCalculationRefusal as e:
         result["domain_assessment"] = {"refusal": e.reason, "recommendation": e.recommendation}
+
 
     return result
 
