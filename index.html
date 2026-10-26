@@ -950,9 +950,13 @@ Instructions:
         <p id="demo-desc">Experience real-time clinical calculation without sending data or consuming LLM API tokens.</p>
       </div>
 
-      <div class="calc-tabs">
+      <div class="calc-tabs" style="flex-wrap: wrap;">
         <button class="calc-tab active" id="tab-btn-cha2ds2" onclick="switchCalc('cha2ds2')">CHA2DS2-VA (ESC 2024 vs AHA 2023)</button>
-        <button class="calc-tab" id="tab-btn-egfr" onclick="switchCalc('egfr')">CKD-EPI 2021 Race-Free eGFR</button>
+        <button class="calc-tab" id="tab-btn-egfr" onclick="switchCalc('egfr')">CKD-EPI 2021 eGFR (Adult)</button>
+        <button class="calc-tab" id="tab-btn-schwartz" onclick="switchCalc('schwartz')">Bedside Schwartz (Pediatric eGFR)</button>
+        <button class="calc-tab" id="tab-btn-hasbled" onclick="switchCalc('hasbled')">HAS-BLED (Bleeding Risk)</button>
+        <button class="calc-tab" id="tab-btn-news2" onclick="switchCalc('news2')">NEWS2 (Early Warning)</button>
+        <button class="calc-tab" id="tab-btn-ddi" onclick="switchCalc('ddi')">DDI Screening Engine</button>
       </div>
 
       <!-- CHA2DS2 Calculator -->
@@ -1032,6 +1036,159 @@ Instructions:
           <div class="result-score" id="res-egfr-score">68</div>
           <div class="result-status" id="res-egfr-stage">Stage G2 (Mildly Decreased)</div>
           <p class="result-detail" id="res-egfr-desc">Normal or mild decline for age. Regular annual renal monitoring recommended.</p>
+        </div>
+      </div>
+
+      <!-- Bedside Schwartz Pediatric eGFR -->
+      <div id="calc-schwartz" class="calc-body" style="display:none;">
+        <div class="calc-form">
+          <div class="form-group">
+            <label class="form-label">Child Height (cm)</label>
+            <input type="number" id="sch-height" class="form-input" value="115" min="30" max="220" oninput="runSchwartzCalc()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Serum Creatinine (mg/dL)</label>
+            <input type="number" id="sch-scr" class="form-input" value="0.5" step="0.05" min="0.1" max="15" oninput="runSchwartzCalc()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Patient Age (years, pediatric &lt; 18)</label>
+            <input type="number" id="sch-age" class="form-input" value="7" min="1" max="25" oninput="runSchwartzCalc()">
+          </div>
+        </div>
+
+        <div class="calc-result-box">
+          <div class="form-label">Bedside Schwartz Pediatric eGFR (2009)</div>
+          <div class="result-score" id="res-sch-score">95</div>
+          <div class="result-status" id="res-sch-stage">Normal Pediatric Renal Filtration</div>
+          <p class="result-detail" id="res-sch-desc">Formula: 0.413 × Height(cm) / SCr(mg/dL). Verified against Schwartz GJ et al. 2009.</p>
+        </div>
+      </div>
+
+      <!-- HAS-BLED Calculator -->
+      <div id="calc-hasbled" class="calc-body" style="display:none;">
+        <div class="calc-form">
+          <label class="form-checkbox-label">
+            <input type="checkbox" id="has-h" onchange="runHasbledCalc()">
+            <span>Hypertension (Uncontrolled SBP &gt; 160 mmHg) (+1 pt)</span>
+          </label>
+          <label class="form-checkbox-label">
+            <input type="checkbox" id="has-a-renal" onchange="runHasbledCalc()">
+            <span>Abnormal Renal Function (Dialysis, Transplant, Cr &gt; 2.26 mg/dL) (+1 pt)</span>
+          </label>
+          <label class="form-checkbox-label">
+            <input type="checkbox" id="has-a-liver" onchange="runHasbledCalc()">
+            <span>Abnormal Liver Function (Cirrhosis, Bilirubin &gt; 2x, AST/ALT &gt; 3x) (+1 pt)</span>
+          </label>
+          <label class="form-checkbox-label">
+            <input type="checkbox" id="has-s" onchange="runHasbledCalc()">
+            <span>Prior Stroke History (+1 pt)</span>
+          </label>
+          <label class="form-checkbox-label">
+            <input type="checkbox" id="has-b" onchange="runHasbledCalc()">
+            <span>Bleeding History or Predisposition (GI Bleed, Anemia) (+1 pt)</span>
+          </label>
+          <label class="form-checkbox-label">
+            <input type="checkbox" id="has-l" onchange="runHasbledCalc()">
+            <span>Labile INRs (TTR &lt; 60% on Warfarin) (+1 pt)</span>
+          </label>
+          <label class="form-checkbox-label">
+            <input type="checkbox" id="has-e" onchange="runHasbledCalc()">
+            <span>Elderly (Age &gt; 65 years) (+1 pt)</span>
+          </label>
+          <label class="form-checkbox-label">
+            <input type="checkbox" id="has-d-drugs" onchange="runHasbledCalc()">
+            <span>Drugs predisposing to bleeding (Aspirin, NSAIDs) (+1 pt)</span>
+          </label>
+          <label class="form-checkbox-label">
+            <input type="checkbox" id="has-d-alcohol" onchange="runHasbledCalc()">
+            <span>Alcohol intake (≥ 8 drinks / week) (+1 pt)</span>
+          </label>
+        </div>
+
+        <div class="calc-result-box">
+          <div class="form-label">HAS-BLED Bleeding Risk Score</div>
+          <div class="result-score" id="res-has-score">0</div>
+          <div class="result-status" id="res-has-status">Low Bleeding Risk (Score 0)</div>
+          <p class="result-detail" id="res-has-desc">Low 1-year major bleeding risk (~1.13%). Anticoagulation safely indicated if CHA2DS2-VA is elevated.</p>
+        </div>
+      </div>
+
+      <!-- NEWS2 Calculator -->
+      <div id="calc-news2" class="calc-body" style="display:none;">
+        <div class="calc-form">
+          <div class="form-group">
+            <label class="form-label">Respiration Rate (breaths/min)</label>
+            <input type="number" id="news-rr" class="form-input" value="16" min="5" max="60" oninput="runNews2Calc()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">SpO2 Oxygen Saturation (%)</label>
+            <input type="number" id="news-spo2" class="form-input" value="98" min="50" max="100" oninput="runNews2Calc()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Supplemental Oxygen</label>
+            <select id="news-o2" class="form-select" onchange="runNews2Calc()">
+              <option value="AIR">Room Air (0 pts)</option>
+              <option value="OXYGEN">Supplemental O2 (+2 pts)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Systolic Blood Pressure (mmHg)</label>
+            <input type="number" id="news-sbp" class="form-input" value="120" min="40" max="260" oninput="runNews2Calc()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Heart Rate (beats/min)</label>
+            <input type="number" id="news-hr" class="form-input" value="75" min="20" max="220" oninput="runNews2Calc()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Level of Consciousness</label>
+            <select id="news-cons" class="form-select" onchange="runNews2Calc()">
+              <option value="ALERT">Alert (A) (0 pts)</option>
+              <option value="CVPU">New Confusion / Voice / Pain / Unresponsive (CVPU) (+3 pts)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Body Temperature (°C)</label>
+            <input type="number" id="news-temp" class="form-input" value="37.0" step="0.1" min="30" max="45" oninput="runNews2Calc()">
+          </div>
+        </div>
+
+        <div class="calc-result-box">
+          <div class="form-label">NEWS2 Aggregate Score</div>
+          <div class="result-score" id="res-news-score">0</div>
+          <div class="result-status" id="res-news-status">Low Clinical Risk (Score 0)</div>
+          <p class="result-detail" id="res-news-desc">Ward-based observation; continue routine 12-hourly monitoring.</p>
+        </div>
+      </div>
+
+      <!-- DDI Screening Engine -->
+      <div id="calc-ddi" class="calc-body" style="display:none;">
+        <div class="calc-form">
+          <div class="form-group">
+            <label class="form-label">Select High-Consequence Drug Pair</label>
+            <select id="ddi-selector" class="form-select" onchange="runDdiCalc()">
+              <option value="warfarin_ibuprofen">Warfarin (Oral Anticoagulant) + Ibuprofen (NSAID)</option>
+              <option value="apixaban_diclofenac">Apixaban (DOAC) + Diclofenac (NSAID)</option>
+              <option value="sildenafil_nitrates">Sildenafil (PDE5 Inhibitor) + Nitroglycerin (Organic Nitrate)</option>
+              <option value="clopidogrel_omeprazole">Clopidogrel (P2Y12 Antiplatelet) + Omeprazole (CYP2C19 PPI)</option>
+              <option value="simvastatin_clarithromycin">Simvastatin (Statin) + Clarithromycin (Strong CYP3A4 Inhibitor)</option>
+              <option value="lisinopril_spironolactone">Lisinopril (ACE-I) + Spironolactone (Aldosterone Antagonist)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Clinical Care Setting</label>
+            <select id="ddi-setting" class="form-select" onchange="runDdiCalc()">
+              <option value="outpatient">Outpatient Clinic / Prescription Refill</option>
+              <option value="emergency">Emergency / Acute Triage</option>
+              <option value="inpatient">Inpatient Ward</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="calc-result-box">
+          <div class="form-label">Deterministic DDI Screening Engine</div>
+          <div class="result-score" id="res-ddi-severity" style="font-size: 1.8rem; color: var(--class-c);">CONTRAINDICATED</div>
+          <div class="result-status" id="res-ddi-title">Severe GI Hemorrhage & INR Dysregulation Risk</div>
+          <p class="result-detail" id="res-ddi-desc">NSAIDs cause gastric mucosal injury and inhibit platelet aggregation. Combined with Warfarin, risk of fatal major GI bleeding increases 3- to 6-fold. Hard Guardrail Action: CO-PRESCRIPTION REFUSED.</p>
         </div>
       </div>
     </section>
@@ -1552,10 +1709,219 @@ Instructions:
 
     // Interactive Clinical Calculators (Local Zero-Token Logic)
     function switchCalc(type) {
-      document.getElementById('calc-cha2ds2').style.display = type === 'cha2ds2' ? 'grid' : 'none';
-      document.getElementById('calc-egfr').style.display = type === 'egfr' ? 'grid' : 'none';
-      document.getElementById('tab-btn-cha2ds2').classList.toggle('active', type === 'cha2ds2');
-      document.getElementById('tab-btn-egfr').classList.toggle('active', type === 'egfr');
+      const types = ['cha2ds2', 'egfr', 'schwartz', 'hasbled', 'news2', 'ddi'];
+      types.forEach(t => {
+        const el = document.getElementById('calc-' + t);
+        const btn = document.getElementById('tab-btn-' + t);
+        if (el) el.style.display = (t === type ? 'grid' : 'none');
+        if (btn) btn.classList.toggle('active', t === type);
+      });
+    }
+
+    function runSchwartzCalc() {
+      const height = parseFloat(document.getElementById('sch-height').value) || 100;
+      const scr = parseFloat(document.getElementById('sch-scr').value) || 0.5;
+      const age = parseInt(document.getElementById('sch-age').value) || 7;
+
+      const scoreEl = document.getElementById('res-sch-score');
+      const stageEl = document.getElementById('res-sch-stage');
+      const descEl = document.getElementById('res-sch-desc');
+
+      if (age >= 18) {
+        scoreEl.innerText = "N/A";
+        scoreEl.style.color = "var(--class-c)";
+        stageEl.innerText = currentLang === 'ar' ? "رفض آمن: مريض بالغ (العمر ≥ 18)" : "Safe Refusal: Adult Patient (Age ≥ 18)";
+        descEl.innerText = currentLang === 'ar' ? "معادلة Bedside Schwartz مخصصة للأطفال فقط (< 18 سنة). استخدم CKD-EPI 2021 للبالغين." : "Bedside Schwartz is pediatric-only (< 18y). Use CKD-EPI 2021 for adult patients.";
+        return;
+      }
+
+      const egfr = Math.round((0.413 * height / scr) * 10) / 10;
+      scoreEl.innerText = egfr;
+      scoreEl.style.color = "var(--accent-primary)";
+
+      if (egfr >= 90) {
+        stageEl.innerText = currentLang === 'ar' ? "تصفية كلوية طبيعية للأطفال (≥ 90 mL/min/1.73m²)" : "Normal Pediatric Renal Function (≥ 90 mL/min/1.73m²)";
+        descEl.innerText = currentLang === 'ar' ? "وظيفة كلوية طبيعية للأطفال. لا حاجة لتعديل الجرعات." : "Normal pediatric GFR. Standard pediatric dosing applies.";
+      } else if (egfr >= 60) {
+        stageEl.innerText = currentLang === 'ar' ? "انخفاض طفيف في وظيفة الكلى (60-89)" : "Mildly Decreased Pediatric GFR (60-89)";
+        descEl.innerText = currentLang === 'ar' ? "مراقبة مستمرة ووظائف كلى دورية مع تجنب سميات الكلى." : "Mild decrease. Monitor nephrotoxic medications closely.";
+      } else if (egfr >= 30) {
+        stageEl.innerText = currentLang === 'ar' ? "قصور كلوي متوسط للأطفال (30-59)" : "Moderate Pediatric Renal Impairment (30-59)";
+        descEl.innerText = currentLang === 'ar' ? "تعديل إلزامي لجرعات الأدوية التي تُفرز عن طريق الكلى." : "Mandatory renal dose adjustments for renally cleared medications.";
+      } else {
+        stageEl.innerText = currentLang === 'ar' ? "قصور كلوي شديد للأطفال (< 30)" : "Severe Pediatric Renal Impairment (< 30)";
+        stageEl.style.color = "var(--class-c)";
+        descEl.innerText = currentLang === 'ar' ? "استشارة فورية لأخصائي كلى الأطفال وتجنب كافة الأدوية السمية للكلى." : "Immediate pediatric nephrology consult required; avoid all nephrotoxins.";
+      }
+    }
+
+    function runHasbledCalc() {
+      let score = 0;
+      if (document.getElementById('has-h').checked) score += 1;
+      if (document.getElementById('has-a-renal').checked) score += 1;
+      if (document.getElementById('has-a-liver').checked) score += 1;
+      if (document.getElementById('has-s').checked) score += 1;
+      if (document.getElementById('has-b').checked) score += 1;
+      if (document.getElementById('has-l').checked) score += 1;
+      if (document.getElementById('has-e').checked) score += 1;
+      if (document.getElementById('has-d-drugs').checked) score += 1;
+      if (document.getElementById('has-d-alcohol').checked) score += 1;
+
+      const scoreEl = document.getElementById('res-has-score');
+      const statusEl = document.getElementById('res-has-status');
+      const descEl = document.getElementById('res-has-desc');
+
+      scoreEl.innerText = score;
+      if (score >= 3) {
+        scoreEl.style.color = "var(--class-c)";
+        statusEl.innerText = currentLang === 'ar' ? `خطر نزيف مرتفع (درجة ${score} ≥ 3)` : `High Bleeding Risk (Score ${score} ≥ 3)`;
+        statusEl.style.color = "var(--class-c)";
+        descEl.innerText = currentLang === 'ar' ? "خطر مرتفع للنزيف الشديد. يستلزم مراجعة دورية منتظمة وعلاج العوامل القابلة للتعديل وتفضيل الـ DOACs." : "High risk of major bleeding. Caution warranted; address modifiable bleeding risk factors and schedule regular clinical reviews.";
+      } else if (score >= 2) {
+        scoreEl.style.color = "#f59e0b";
+        statusEl.innerText = currentLang === 'ar' ? `خطر نزيف متوسط (درجة ${score})` : `Moderate Bleeding Risk (Score ${score})`;
+        statusEl.style.color = "#f59e0b";
+        descEl.innerText = currentLang === 'ar' ? "خطر نزيف معتدل (~1.88% سنوياً). يمكن إعطاء مضادات التجلط مع ضبط الضغط والوظائف الكلوية." : "Moderate bleeding risk (~1.88%/yr). Safe with clinical vigilance and control of blood pressure.";
+      } else {
+        scoreEl.style.color = "var(--class-a)";
+        statusEl.innerText = currentLang === 'ar' ? `خطر نزيف منخفض (درجة ${score})` : `Low Bleeding Risk (Score ${score})`;
+        statusEl.style.color = "var(--class-a)";
+        descEl.innerText = currentLang === 'ar' ? "خطر نزيف منخفض (~1.13% سنوياً). مضادات التجلط آمنة سريرياً لحماية المريض من السكتة." : "Low major bleeding risk (~1.13%/yr). Anticoagulation safely indicated if ischemic stroke risk is elevated.";
+      }
+    }
+
+    function runNews2Calc() {
+      const rr = parseInt(document.getElementById('news-rr').value) || 16;
+      const spo2 = parseInt(document.getElementById('news-spo2').value) || 98;
+      const o2 = document.getElementById('news-o2').value;
+      const sbp = parseInt(document.getElementById('news-sbp').value) || 120;
+      const hr = parseInt(document.getElementById('news-hr').value) || 75;
+      const cons = document.getElementById('news-cons').value;
+      const temp = parseFloat(document.getElementById('news-temp').value) || 37.0;
+
+      let score = 0;
+      let hasSingle3 = false;
+
+      if (rr <= 8) { score += 3; hasSingle3 = true; }
+      else if (rr >= 25) { score += 3; hasSingle3 = true; }
+      else if (rr >= 21) { score += 2; }
+      else if (rr <= 11) { score += 1; }
+
+      if (spo2 <= 91) { score += 3; hasSingle3 = true; }
+      else if (spo2 <= 93) { score += 2; }
+      else if (spo2 <= 95) { score += 1; }
+
+      if (o2 === 'OXYGEN') score += 2;
+
+      if (sbp <= 90) { score += 3; hasSingle3 = true; }
+      else if (sbp <= 100) { score += 2; }
+      else if (sbp <= 110) { score += 1; }
+      else if (sbp >= 220) { score += 3; hasSingle3 = true; }
+
+      if (hr <= 40) { score += 3; hasSingle3 = true; }
+      else if (hr >= 131) { score += 3; hasSingle3 = true; }
+      else if (hr >= 111) { score += 2; }
+      else if (hr <= 50 || hr >= 91) { score += 1; }
+
+      if (cons === 'CVPU') { score += 3; hasSingle3 = true; }
+
+      if (temp <= 35.0) { score += 3; hasSingle3 = true; }
+      else if (temp >= 39.1) { score += 2; }
+      else if (temp <= 36.0 || temp >= 38.1) { score += 1; }
+
+      const scoreEl = document.getElementById('res-news-score');
+      const statusEl = document.getElementById('res-news-status');
+      const descEl = document.getElementById('res-news-desc');
+
+      scoreEl.innerText = score;
+
+      if (score >= 7 || (hasSingle3 && score >= 5)) {
+        scoreEl.style.color = "var(--class-c)";
+        statusEl.innerText = currentLang === 'ar' ? `خطر تدهور سريري حرج (درجة ${score})` : `High Clinical Risk (Score ${score} — Emergency Response)`;
+        statusEl.style.color = "var(--class-c)";
+        descEl.innerText = currentLang === 'ar' ? "تدهور فسيولوجي حاد أو اشتباه إنتان (Sepsis). استدعاء فوري لفريق الإنعاش الطبي أو العناية المركزة." : "Emergency response: Immediate assessment by critical care / rapid response team. Screen for sepsis immediately.";
+      } else if (score >= 5 || hasSingle3) {
+        scoreEl.style.color = "#f59e0b";
+        statusEl.innerText = currentLang === 'ar' ? `خطر سريري متوسط (درجة ${score})` : `Medium Clinical Risk (Score ${score})`;
+        statusEl.style.color = "#f59e0b";
+        descEl.innerText = currentLang === 'ar' ? "استجابة عاجلة: تقييم عاجل من طبيب القسم وزيادة وتيرة المراقبة كل ساعة." : "Urgent response: Ward-based doctor review required. Increase monitoring to hourly.";
+      } else {
+        scoreEl.style.color = "var(--class-a)";
+        statusEl.innerText = currentLang === 'ar' ? `خطر سريري منخفض (درجة ${score})` : `Low Clinical Risk (Score ${score})`;
+        statusEl.style.color = "var(--class-a)";
+        descEl.innerText = currentLang === 'ar' ? "مراقبة روتينية في الجناح كل 12 ساعة." : "Ward-based monitoring: Continue routine 12-hourly physiological observations.";
+      }
+    }
+
+    const DDI_DATABASE = {
+      'warfarin_ibuprofen': {
+        severity: 'CONTRAINDICATED',
+        severity_ar: 'ممنوع الاستخدام (موانع مطلقة)',
+        color: 'var(--class-c)',
+        title: 'Severe GI Hemorrhage & INR Dysregulation Risk',
+        title_ar: 'خطر نزيف معدي معوي حاد واضطراب سيولة الدم (INR)',
+        desc: 'NSAIDs cause severe gastrointestinal mucosal injury and reversibly inhibit platelet aggregation. When combined with Warfarin, the risk of fatal upper GI bleeding increases 3- to 6-fold. Hard Guardrail Action: CO-PRESCRIPTION REFUSED.',
+        desc_ar: 'تسبب مضادات الالتهاب غير الستيرويدية تآكلاً حاداً في بطانة المعدة وتثبيطاً للصفائح. عند مشاركتها مع الوارفارين، يتضاعف خطر النزيف القاتل بمقدار 3 إلى 6 أضعاف. إجراء الأمان الحاسم: رفض الوصفة فوراً.'
+      },
+      'apixaban_diclofenac': {
+        severity: 'CONTRAINDICATED',
+        severity_ar: 'ممنوع الاستخدام المشترك',
+        color: 'var(--class-c)',
+        title: 'Synergistic Major Hemorrhage Risk',
+        title_ar: 'مضاعفة حادة لخطر النزيف الشديد',
+        desc: 'Direct oral anticoagulants (DOACs) combined with non-selective NSAIDs dramatically elevate major gastrointestinal bleeding without therapeutic benefit. Recommendation: Substitute with Paracetamol or topical analgesia.',
+        desc_ar: 'الجمع بين مضادات التخثر الفموية الحديثة (DOAC) ومسكنات NSAID يرفع خطر النزيف الهضمي الحرج بشكل كارثي. التوصية: استبدال المسكن بالباراسيتامول أو مسكنات موضعية.'
+      },
+      'sildenafil_nitrates': {
+        severity: 'LETHAL CONTRAINDICATION',
+        severity_ar: 'خطر هبوط ضغط مميت (محظور مطلق)',
+        color: '#ff0055',
+        title: 'Profound Refractory Vasodilatory Hypotension',
+        title_ar: 'هبوط ضغط حاد وغير مستجيب للعلاج وموت قلبي مفاجئ',
+        desc: 'PDE5 inhibitors prevent cGMP degradation, amplifying nitrate-mediated cyclic GMP vasodilation. Co-administration causes life-threatening, treatment-resistant cardiovascular collapse and fatal MI. Absolute separation minimum: 24h (Sildenafil) / 48h (Tadalafil).',
+        desc_ar: 'تثبيط إنزيم PDE5 يضخم تأثير أكسيد النيتريك الموسع للأوعية؛ الجمع يؤدي إلى انهيار دوري قلبي حاد ومميت لا يستجيب للمحاليل. الفاصل الزمني الإلزامي: 24 ساعة لسيلدينافيل و 48 ساعة لتادالافيل.'
+      },
+      'clopidogrel_omeprazole': {
+        severity: 'CRITICAL WARNING',
+        severity_ar: 'تحذير حرج: فشل فاعلية الدواء',
+        color: '#f59e0b',
+        title: 'CYP2C19 Bioactivation Inhibition & Stent Thrombosis',
+        title_ar: 'تثبيط تنشيط الكلوبيدوغريل وخطر تجلط دعامات القلب',
+        desc: 'Omeprazole strongly inhibits CYP2C19, preventing the bioactivation of clopidogrel into its active thiol metabolite. Significantly increases the risk of recurrent myocardial infarction and acute stent thrombosis. Action: Switch PPI to Pantoprazole.',
+        desc_ar: 'الأوميبرازول يثبط إنزيم CYP2C19 اللازم لتحويل الكلوبيدوغريل لشكله الفعال، مما يعرض المريض لجلطة قلبية جديدة وتجلط دعامات القلب. الإجراء: التحويل فوراً إلى بانتوبرازول (Pantoprazole).'
+      },
+      'simvastatin_clarithromycin': {
+        severity: 'CONTRAINDICATED',
+        severity_ar: 'ممنوع الاستخدام: خطر انحلال العضلات',
+        color: 'var(--class-c)',
+        title: 'Massive Statin Bioaccumulation & Fatal Rhabdomyolysis',
+        title_ar: 'تراكم شديد للستاتين وخطر انحلال الربيدات والفشل الكلوي',
+        desc: 'Clarithromycin is a potent CYP3A4 inhibitor, causing a 10-fold surge in Simvastatin plasma concentrations, precipitating severe myopathy, rhabdomyolysis, and acute tubular necrosis. Action: Temporarily suspend Simvastatin during macrolide therapy.',
+        desc_ar: 'الكلاريثروميسين يثبط CYP3A4 بشدة، رافعاً تركيز السيمفاستاتين 10 أضعاف، مما يسبب انحلال العضلات التخطيطية وفشل كلوي حاد. الإجراء: إيقاف السيمفاستاتين مؤقتاً طوال فترة المضاد الحيوي.'
+      },
+      'lisinopril_spironolactone': {
+        severity: 'MAJOR WARNING',
+        severity_ar: 'تحذير رئيسي: خطر فرط بوتاسيوم الدم',
+        color: '#f59e0b',
+        title: 'Severe Hyperkalemia & Arrhythmia Risk',
+        title_ar: 'فرط بوتاسيوم الدم الحاد واضطراب نظم القلب',
+        desc: 'Combining ACE inhibitors with potassium-sparing aldosterone antagonists carries high risk of hyperkalemia (> 5.5 mEq/L), particularly in renal impairment (eGFR < 60) or diabetes. Action: Serum potassium and creatinine mandatory within 7 days.',
+        desc_ar: 'الجمع بين مثبطات ACE ومدرات البول الحافظة للبوتاسيوم يرفع البوتاسيوم لمستويات خطيرة تهدد بتوقف القلب. الإجراء: قياس إلزامي للبوتاسيوم ووظائف الكلى خلال 7 أيام.'
+      }
+    };
+
+    function runDdiCalc() {
+      const pair = document.getElementById('ddi-selector').value;
+      const data = DDI_DATABASE[pair] || DDI_DATABASE['warfarin_ibuprofen'];
+
+      const sevEl = document.getElementById('res-ddi-severity');
+      const titleEl = document.getElementById('res-ddi-title');
+      const descEl = document.getElementById('res-ddi-desc');
+
+      sevEl.innerText = currentLang === 'ar' ? data.severity_ar : data.severity;
+      sevEl.style.color = data.color;
+      titleEl.innerText = currentLang === 'ar' ? data.title_ar : data.title;
+      descEl.innerText = currentLang === 'ar' ? data.desc_ar : data.desc;
     }
 
     function runChaCalc() {
@@ -1819,6 +2185,10 @@ python3 tests/run_all_tests.py`
       renderSkills();
       runChaCalc();
       runEgfrCalc();
+      runSchwartzCalc();
+      runHasbledCalc();
+      runNews2Calc();
+      runDdiCalc();
     }
 
     // Keyboard shortcut '/' to search
