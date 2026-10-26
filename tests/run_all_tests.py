@@ -27,7 +27,7 @@ def get_git_commit_hash():
 
 
 def run_suite_and_get_metrics(loader, suite_dir, module_pattern):
-    suite = loader.discover(suite_dir, pattern=module_pattern)
+    suite = loader.discover(suite_dir, pattern=module_pattern, top_level_dir=BASE_DIR)
     stream = io.StringIO()
     runner = unittest.TextTestRunner(stream=stream, verbosity=2)
 
