@@ -36,6 +36,8 @@ npx skills add seotarek/MedOrqis --skill pharmacology-dosing-interactions
 npx skills add seotarek/MedOrqis --skill pediatrics-neonatology
 ```
 
+> ⭐ **Support Open-Source Clinical AI**: If MedOrqis helps your workflow or coding agents, please give the repo a **[Star on GitHub](https://github.com/seotarek/MedOrqis)** — it helps the project reach more clinicians and medical AI engineers!
+
 ---
 
 ### 📦 Option 2: NPX & NPM Interactive Terminal Package (`medorqis`)

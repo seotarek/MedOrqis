@@ -31,6 +31,12 @@ function getGroupedSkills() {
   return [];
 }
 
+function printStarFooter() {
+  console.log('\x1b[90m─────────────────────────────────────────────────────────────────────────────\x1b[0m');
+  console.log('\x1b[33m⭐ Support Open-Source Medical AI:\x1b[0m If MedOrqis helps your workflow, please star us on GitHub!');
+  console.log('  \x1b[36m👉 https://github.com/seotarek/MedOrqis\x1b[0m\n');
+}
+
 switch (command) {
   case 'list': {
     console.log(BANNER);
@@ -52,6 +58,7 @@ switch (command) {
     console.log('  npx skills add seotarek/MedOrqis --skill <skill-name>\n');
     console.log('\x1b[36mInstall entire 24-skill ecosystem:\x1b[0m');
     console.log('  npx skills add seotarek/MedOrqis\n');
+    printStarFooter();
     break;
   }
 
@@ -71,6 +78,7 @@ Instructions:
 5. Identify sentinel red flags (Acute Stroke FAST, ACS crushing chest pain, Anaphylaxis, Sepsis, Anticoagulation + Bleeding) and escalate to emergency care immediately.`);
     console.log('\x1b[90m─────────────────────────────────────────────────────────────────────────────\x1b[0m\n');
     console.log('\x1b[32m✓ Copy the prompt above and send it to any LLM alongside the repository URL.\x1b[0m\n');
+    printStarFooter();
     break;
   }
 
@@ -88,6 +96,7 @@ Instructions:
     };
     console.log(JSON.stringify(mcpConfig, null, 2));
     console.log('\n\x1b[32mExposes 5 live deterministic tools: calculate_clinical_score, check_red_flags, verify_evidence, scrub_phi, normalize_terminology.\x1b[0m\n');
+    printStarFooter();
     break;
   }
 
@@ -104,6 +113,7 @@ Instructions:
     console.log('  \x1b[32mnpx skills add seotarek/MedOrqis --skill <name>\x1b[0m    \x1b[90m# Install single skill\x1b[0m\n');
     console.log('\x1b[1mInteractive Web Portal & Calculators:\x1b[0m');
     console.log('  \x1b[4mhttps://seotarek.github.io/MedOrqis/\x1b[0m\n');
+    printStarFooter();
     break;
   }
 }

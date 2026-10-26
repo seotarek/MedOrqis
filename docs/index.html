@@ -819,8 +819,8 @@
       <button class="btn-icon" id="btn-theme-toggle" onclick="toggleTheme()">
         <span id="theme-icon">☀️</span>
       </button>
-      <a class="btn-icon" href="https://github.com/seotarek/MedOrqis" target="_blank" rel="noopener">
-        <span>GitHub</span> ↗
+      <a class="btn-icon" href="https://github.com/seotarek/MedOrqis" target="_blank" rel="noopener" style="color: #fbbf24; border-color: rgba(251, 191, 36, 0.4);" title="Star MedOrqis on GitHub">
+        <span>⭐ Star</span>
       </a>
     </div>
   </header>
@@ -864,9 +864,9 @@
           <span>📦</span>
           <span>npm package</span>
         </a>
-        <a class="btn-hero-secondary" href="https://github.com/seotarek/MedOrqis" target="_blank" rel="noopener">
-          <span>🐙</span>
-          <span>GitHub v2.1.1</span>
+        <a class="btn-hero-secondary" href="https://github.com/seotarek/MedOrqis" target="_blank" rel="noopener" style="border-color: rgba(251, 191, 36, 0.4); color: #fbbf24;">
+          <span>⭐</span>
+          <span id="btn-hero-star">Star on GitHub</span>
         </a>
       </div>
     </section>
@@ -1637,7 +1637,7 @@ Instructions:
     function copyInstallCmd(skillName) {
       const cmd = `npx skills add seotarek/MedOrqis --skill ${skillName}`;
       navigator.clipboard.writeText(cmd).then(() => {
-        showToast(currentLang === 'ar' ? 'تم نسخ أمر التثبيت!' : `Copied: ${cmd}`);
+        showToast(currentLang === 'ar' ? 'تم نسخ أمر التثبيت! ⭐ ادعم المشروع بنجمة على GitHub' : `Copied! ⭐ Don't forget to star us on GitHub`);
       });
     }
 
@@ -2099,20 +2099,20 @@ python3 tests/run_all_tests.py`
     function copyCurrentCode() {
       const code = document.getElementById('install-code-snippet').innerText;
       navigator.clipboard.writeText(code).then(() => {
-        showToast(currentLang === 'ar' ? 'تم نسخ الكود!' : 'Code copied to clipboard!');
+        showToast(currentLang === 'ar' ? 'تم نسخ الكود! ⭐ ادعم المشروع بنجمة على GitHub' : 'Code copied! ⭐ Star us on GitHub');
       });
     }
 
     function copyUniversalPrompt() {
       const promptText = document.getElementById('universal-prompt-text').innerText;
       navigator.clipboard.writeText(promptText).then(() => {
-        showToast(currentLang === 'ar' ? 'تم نسخ برومبت الذكاء الاصطناعي الشامل!' : 'Universal AI Prompt copied!');
+        showToast(currentLang === 'ar' ? 'تم نسخ البرومبت! ⭐ لا تنسَ دعم المستودع بنجمة على GitHub' : 'Universal Prompt copied! ⭐ Don\'t forget to star us on GitHub');
       });
     }
 
     function copyNpxInstall() {
       navigator.clipboard.writeText('npx medorqis').then(() => {
-        showToast(currentLang === 'ar' ? 'تم نسخ أمر: npx medorqis' : 'Copied: npx medorqis');
+        showToast(currentLang === 'ar' ? 'تم نسخ: npx medorqis ⭐ ادعمنا بنجمة على GitHub' : 'Copied: npx medorqis ⭐ Star us on GitHub');
       });
     }
 
@@ -2149,6 +2149,9 @@ python3 tests/run_all_tests.py`
         : '24 Risk-Stratified Clinical AI Skills, Deterministic Zero-Token Calculators, and Cross-Platform Adapters for Claude Code, Gemini CLI, Model Context Protocol, and OpenAI.';
 
       document.getElementById('btn-hero-copy-prompt').innerText = isAr ? 'انسخ برومبت الذكاء الاصطناعي الشامل' : 'Copy Universal AI Prompt';
+      if (document.getElementById('btn-hero-star')) {
+        document.getElementById('btn-hero-star').innerText = isAr ? 'ادعمنا بنجمة ⭐' : 'Star on GitHub';
+      }
       document.getElementById('u-badge').innerText = isAr ? 'تشغيل فوري بدون أي تثبيت' : 'Zero Installation Required';
       document.getElementById('u-title').innerText = isAr ? 'وجّه أي نموذج ذكاء اصطناعي للعمل بمنظومة MedOrqis فوراً' : 'Prompt Any AI Model Directly with MedOrqis';
       document.getElementById('u-desc').innerText = isAr
