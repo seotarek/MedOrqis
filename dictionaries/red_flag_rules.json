@@ -14,8 +14,15 @@
         "pregnancy_risk": false
       },
       "trigger_criteria": {
-        "symptom_keys": ["epigastric_burning", "diaphoresis", "unexplained_nausea"],
-        "conditions": ["female or diabetic presentation with sudden unexplained autonomic symptoms"]
+        "symptom_keys": [
+          "epigastric_burning",
+          "diaphoresis",
+          "unexplained_nausea"
+        ],
+        "match_mode": "ALL",
+        "conditions": [
+          "female or diabetic presentation with sudden unexplained autonomic symptoms"
+        ]
       },
       "clinical_action": {
         "contraindicated": true,
@@ -27,6 +34,210 @@
       "last_reviewed_date": "2026-10-26",
       "review_status": "CLINICIAN_VERIFIED",
       "known_limitations": "Does not replace continuous cardiac telemetry and emergency physician clinical assessment."
+    },
+    {
+      "rule_id": "RF-CARD-002",
+      "clinical_domain": "Cardiology / Emergency",
+      "rule_name": "Acute Coronary Syndrome / Acute Myocardial Infarction Sentinel Presentation",
+      "severity": "NEVER_EVENT_ABSOLUTE",
+      "target_population": {
+        "age_group": "ADULT",
+        "min_age_years": 18.0,
+        "max_age_years": 120.0,
+        "biological_sex": "BOTH",
+        "pregnancy_risk": false
+      },
+      "trigger_criteria": {
+        "symptom_keys": [
+          "crushing_chest_pain",
+          "substernal_chest_pressure",
+          "chest_pain_radiating_to_jaw_arm",
+          "acute_myocardial_infarction",
+          "st_elevation_myocardial_infarction"
+        ],
+        "match_mode": "ANY",
+        "conditions": [
+          "acute retrosternal chest pain or pressure consistent with myocardial ischemia"
+        ]
+      },
+      "clinical_action": {
+        "contraindicated": true,
+        "explanation": "Acute myocardial infarction requires emergency reperfusion within the critical therapeutic window.",
+        "immediate_action": "Immediate EMS transport (call 123/911/997/112), 12-lead ECG within 10 minutes, chewable aspirin 300mg if no allergy, STAT cardiology catheterization team activation"
+      },
+      "source_authority": "ESC / AHA STEMI & NSTE-ACS Clinical Guidelines",
+      "source_version_year": 2024,
+      "last_reviewed_date": "2026-10-26",
+      "review_status": "CLINICIAN_VERIFIED",
+      "known_limitations": "Requires confirmatory 12-lead ECG and high-sensitivity cardiac troponin assays."
+    },
+    {
+      "rule_id": "RF-NEURO-001",
+      "clinical_domain": "Neurology / Emergency Stroke Care",
+      "rule_name": "Acute Stroke & Intracranial Hemorrhage Sentinel Red Flag (FAST Protocol)",
+      "severity": "NEVER_EVENT_ABSOLUTE",
+      "target_population": {
+        "age_group": "ALL",
+        "biological_sex": "BOTH",
+        "pregnancy_risk": false
+      },
+      "trigger_criteria": {
+        "symptom_keys": [
+          "facial_droop",
+          "arm_drift_weakness",
+          "slurred_speech_aphasia",
+          "sudden_hemiparesis",
+          "acute_aphasia",
+          "thunderclap_headache"
+        ],
+        "match_mode": "ANY",
+        "conditions": [
+          "acute onset focal neurological deficit or worst headache of life"
+        ]
+      },
+      "clinical_action": {
+        "contraindicated": true,
+        "explanation": "Time is brain: Acute ischemic stroke requires non-contrast head CT and IV thrombolysis/thrombectomy within 4.5 hours.",
+        "immediate_action": "STAT emergency code stroke activation, determine last known normal time, zero oral intake (NPO), immediate emergency transfer to stroke center"
+      },
+      "source_authority": "AHA/ASA Guidelines for Early Management of Acute Ischemic Stroke",
+      "source_version_year": 2023,
+      "last_reviewed_date": "2026-10-26",
+      "review_status": "CLINICIAN_VERIFIED",
+      "known_limitations": "Clinical screening does not differentiate ischemic from hemorrhagic stroke without immediate head CT."
+    },
+    {
+      "rule_id": "RF-RESP-001",
+      "clinical_domain": "Pulmonology / Critical Care",
+      "rule_name": "Acute Upper Airway Obstruction & Imminent Respiratory Arrest",
+      "severity": "NEVER_EVENT_ABSOLUTE",
+      "target_population": {
+        "age_group": "ALL",
+        "biological_sex": "BOTH",
+        "pregnancy_risk": false
+      },
+      "trigger_criteria": {
+        "symptom_keys": [
+          "stridor",
+          "respiratory_exhaustion",
+          "silent_chest",
+          "severe_cyanosis",
+          "agonal_breathing"
+        ],
+        "match_mode": "ANY",
+        "conditions": [
+          "acute compromised upper or lower airway with hypoxemia or exhaustion"
+        ]
+      },
+      "clinical_action": {
+        "contraindicated": true,
+        "explanation": "Acute stridor or silent chest signals imminent complete airway occlusion or severe asthmatic exhaustion.",
+        "immediate_action": "Emergency airway management, high-flow oxygen, prepare for emergent endotracheal intubation or cricothyroidotomy"
+      },
+      "source_authority": "Difficult Airway Society (DAS) / ERC Resuscitation Guidelines",
+      "source_version_year": 2023,
+      "last_reviewed_date": "2026-10-26",
+      "review_status": "CLINICIAN_VERIFIED",
+      "known_limitations": "Physical airway inspection must occur in controlled operating room or resuscitation bay."
+    },
+    {
+      "rule_id": "RF-IMMUN-001",
+      "clinical_domain": "Immunology / Allergy / Emergency",
+      "rule_name": "Severe Acute Anaphylaxis with Airway or Cardiovascular Collapse",
+      "severity": "NEVER_EVENT_ABSOLUTE",
+      "target_population": {
+        "age_group": "ALL",
+        "biological_sex": "BOTH",
+        "pregnancy_risk": false
+      },
+      "trigger_criteria": {
+        "symptom_keys": [
+          "anaphylaxis",
+          "urticaria_angioedema_with_dyspnea",
+          "airway_swelling_after_exposure",
+          "hypotension_after_allergen"
+        ],
+        "match_mode": "ANY",
+        "conditions": [
+          "multisystem allergic reaction with respiratory difficulty or hypotension"
+        ]
+      },
+      "clinical_action": {
+        "contraindicated": true,
+        "explanation": "Anaphylaxis is rapidly fatal if intramuscular epinephrine is delayed.",
+        "immediate_action": "Immediate intramuscular Epinephrine (adrenaline 0.5mg adult / 0.15-0.3mg pediatric) into anterolateral thigh, supine position, call EMS immediately"
+      },
+      "source_authority": "World Allergy Organization (WAO) Anaphylaxis Guidelines",
+      "source_version_year": 2022,
+      "last_reviewed_date": "2026-10-26",
+      "review_status": "CLINICIAN_VERIFIED",
+      "known_limitations": "Antihistamines and corticosteroids are adjuncts only and must never substitute for prompt IM epinephrine."
+    },
+    {
+      "rule_id": "RF-SEPSIS-001",
+      "clinical_domain": "Infectious Disease / Critical Care",
+      "rule_name": "Septic Shock & Hemodynamic Instability Red Flag",
+      "severity": "HIGH_CRITICAL",
+      "target_population": {
+        "age_group": "ALL",
+        "biological_sex": "BOTH",
+        "pregnancy_risk": false
+      },
+      "trigger_criteria": {
+        "symptom_keys": [
+          "septic_shock",
+          "qsofa_high_risk",
+          "altered_mental_status_with_hypotension",
+          "severe_hypothermia_with_lethargy"
+        ],
+        "match_mode": "ANY",
+        "conditions": [
+          "suspected severe infection with organ hypoperfusion or refractory hypotension"
+        ]
+      },
+      "clinical_action": {
+        "contraindicated": true,
+        "explanation": "Septic shock carries mortality >40% without rapid bundle resuscitation.",
+        "immediate_action": "Immediate ICU/ED resuscitation: IV crystalloid bolus 30 mL/kg, blood cultures, broad-spectrum IV antimicrobials within 1 hour, serum lactate measurement"
+      },
+      "source_authority": "Surviving Sepsis Campaign International Guidelines",
+      "source_version_year": 2021,
+      "last_reviewed_date": "2026-10-26",
+      "review_status": "CLINICIAN_VERIFIED",
+      "known_limitations": "Requires laboratory confirmation of lactate, blood cultures, and continuous arterial pressure monitoring."
+    },
+    {
+      "rule_id": "RF-GI-001",
+      "clinical_domain": "Gastroenterology / Emergency Bleeding",
+      "rule_name": "Massive Gastrointestinal Exsanguination",
+      "severity": "HIGH_CRITICAL",
+      "target_population": {
+        "age_group": "ALL",
+        "biological_sex": "BOTH",
+        "pregnancy_risk": false
+      },
+      "trigger_criteria": {
+        "symptom_keys": [
+          "massive_hematemesis",
+          "active_variceal_bleeding",
+          "melena_with_syncope",
+          "gross_hematochezia_with_hypotension"
+        ],
+        "match_mode": "ANY",
+        "conditions": [
+          "active upper or lower GI bleeding with hemodynamic instability"
+        ]
+      },
+      "clinical_action": {
+        "contraindicated": true,
+        "explanation": "Massive upper or lower GI hemorrhage leads to hemorrhagic shock and cardiac arrest.",
+        "immediate_action": "Two large-bore IVs (16G/18G), type and cross-match 4 units pRBCs, IV proton pump inhibitor / octreotide, STAT gastroenterology emergent endoscopy"
+      },
+      "source_authority": "ACG Clinical Guideline: Upper Gastrointestinal and Ulcer Bleeding",
+      "source_version_year": 2021,
+      "last_reviewed_date": "2026-10-26",
+      "review_status": "CLINICIAN_VERIFIED",
+      "known_limitations": "Endoscopic intervention must be performed in resuscitation setting."
     },
     {
       "rule_id": "RF-PED-001",
@@ -41,8 +252,15 @@
         "pregnancy_risk": false
       },
       "trigger_criteria": {
-        "symptom_keys": ["purpuric_rash", "non_blanching_rash", "lethargy"],
-        "conditions": ["child with fever and non-blanching petechial or purpuric rash"]
+        "symptom_keys": [
+          "purpuric_rash",
+          "non_blanching_rash",
+          "lethargy"
+        ],
+        "match_mode": "ANY",
+        "conditions": [
+          "child with fever and non-blanching petechial or purpuric rash"
+        ]
       },
       "clinical_action": {
         "contraindicated": true,
@@ -68,8 +286,15 @@
         "pregnancy_risk": true
       },
       "trigger_criteria": {
-        "symptom_keys": ["lower_abdominal_pain", "syncope", "vaginal_spotting"],
-        "conditions": ["female of reproductive age with acute unilateral pelvic pain and hemodynamic instability"]
+        "symptom_keys": [
+          "lower_abdominal_pain",
+          "syncope",
+          "vaginal_spotting"
+        ],
+        "match_mode": "ALL",
+        "conditions": [
+          "female of reproductive age with acute unilateral pelvic pain and hemodynamic instability"
+        ]
       },
       "clinical_action": {
         "contraindicated": true,
@@ -93,13 +318,20 @@
         "pregnancy_risk": false
       },
       "trigger_criteria": {
-        "symptom_keys": ["suicidal_ideation", "intent_to_self_harm", "suicide_plan"],
-        "conditions": ["active expression of suicide with accessible means or plan"]
+        "symptom_keys": [
+          "suicidal_ideation",
+          "intent_to_self_harm",
+          "suicide_plan"
+        ],
+        "match_mode": "ANY",
+        "conditions": [
+          "active expression of suicide with accessible means or plan"
+        ]
       },
       "clinical_action": {
         "contraindicated": true,
         "explanation": "High acute risk of lethal self-harm requiring immediate crisis intervention and safe holding.",
-        "immediate_action": "Never leave patient alone; connect to national crisis lifeline (988 in US, 08008880700 in Egypt) and transfer to emergency psychiatric evaluation"
+        "immediate_action": "Never leave patient alone; connect to national crisis lifeline (988 in US, 08008880700 in Egypt, 997 in Saudi Arabia) and transfer to emergency psychiatric evaluation"
       },
       "source_authority": "WHO Suicide Prevention Guidelines / APA Practice Guideline",
       "source_version_year": 2024,

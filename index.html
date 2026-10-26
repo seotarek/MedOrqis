@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MedOrqis — Medical AI Skills Ecosystem (v2.1.0)</title>
+  <title>MedOrqis — Medical AI Skills Ecosystem (v2.1.1)</title>
   <meta name="description" content="MedOrqis: 24 Evidence-Grounded Medical AI Skills, Zero-Token Deterministic Calculators, and Cross-Platform Adapters (Claude Code, Gemini CLI, MCP, OpenAI).">
   <meta name="keywords" content="Medical AI, Healthcare Skills, MCP Server, Claude Code, Gemini CLI, Clinical Decision Support, Zero-Token AI, Deterministic Calculators, CHA2DS2-VA, CKD-EPI 2021">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f172a'/><path d='M50 20 v60 M20 50 h60' stroke='%2300e5a3' stroke-width='16' stroke-linecap='round'/></svg>">
@@ -805,7 +805,7 @@
     <div class="nav-brand">
       <div class="brand-icon">+</div>
       <span>MedOrqis</span>
-      <span class="badge badge-teal">v2.1.0</span>
+      <span class="badge badge-teal">v2.1.1</span>
     </div>
     <div class="nav-badges" id="nav-badges-desktop">
       <span class="badge badge-cyan" id="badge-skills-count">24 Skills</span>
@@ -866,7 +866,7 @@
         </a>
         <a class="btn-hero-secondary" href="https://github.com/seotarek/MedOrqis" target="_blank" rel="noopener">
           <span>🐙</span>
-          <span>GitHub v2.1.0</span>
+          <span>GitHub v2.1.1</span>
         </a>
       </div>
     </section>
@@ -901,7 +901,7 @@
 
       <div class="code-block-wrap">
         <button class="btn-copy-code" onclick="copyUniversalPrompt()" id="btn-copy-u-prompt">Copy AI Prompt</button>
-        <pre class="code-pre" id="universal-prompt-text">You are a clinical AI assistant operating with the MedOrqis Medical AI Skills Ecosystem:
+        <pre class="code-pre" id="universal-prompt-text">You are a clinical AI assistant operating with the MedOrqis Medical AI Skills Ecosystem (v2.1.1):
 Repository: https://github.com/seotarek/MedOrqis
 Web Portal: https://seotarek.github.io/MedOrqis/
 
@@ -910,7 +910,7 @@ Instructions:
 2. For clinical scores (CHA2DS2-VA ESC 2024, CKD-EPI 2021, Cockcroft-Gault, Wells DVT/PE, Bedside Schwartz, CURB-65), do NOT invent arithmetic. Rely strictly on deterministic formulas.
 3. Enforce Epistemic Provenance: NEVER generate medication dosing or therapeutic plans on diagnoses tagged as MODEL_INFERRED_HYPOTHESIS without documented clinical record sign-off.
 4. Missing Age Gatekeeper: If patient age is unrecorded, do NOT assume a default adult age (30); immediately flag SAFE_ABSTENTION_DATA_DEFICIT.
-5. Identify red flags (atypical MI in females, anticoagulation + active GI bleed) and escalate to emergency care immediately.</pre>
+5. Sentinel Emergency Red Flags: Immediate emergency redirection on acute stroke (FAST), ACS crushing chest pain, anaphylaxis, septic shock, or anticoagulation + active bleeding.</pre>
       </div>
     </section>
 
@@ -1440,7 +1440,7 @@ Instructions:
                   <span class="badge ${classBadge}">${skill.safety_class}</span>
                   <span class="badge badge-teal">${skill.tier}</span>
                 </div>
-                <span class="badge badge-cyan">v2.1.0</span>
+                <span class="badge badge-cyan">v2.1.1</span>
               </div>
               <p class="skill-desc">${displayDesc}</p>
               <div class="skill-keywords">
@@ -1661,7 +1661,7 @@ Instructions:
 # Copy and send this prompt along with https://github.com/seotarek/MedOrqis
 # to ChatGPT (GPT-4o), Claude (Claude 3.5 Sonnet), Gemini 1.5 Pro, Cursor, or Grok:
 
-You are a clinical AI assistant operating with the MedOrqis Medical AI Skills Ecosystem:
+You are a clinical AI assistant operating with the MedOrqis Medical AI Skills Ecosystem (v2.1.1):
 Repository: https://github.com/seotarek/MedOrqis
 Web Portal: https://seotarek.github.io/MedOrqis/
 
@@ -1670,7 +1670,7 @@ Instructions:
 2. For clinical scores (CHA2DS2-VA ESC 2024, CKD-EPI 2021, Cockcroft-Gault, Wells DVT/PE, Bedside Schwartz, CURB-65), do NOT invent arithmetic. Rely strictly on deterministic formulas.
 3. Enforce Epistemic Provenance: NEVER generate medication dosing or therapeutic plans on diagnoses tagged as MODEL_INFERRED_HYPOTHESIS without documented clinical record sign-off.
 4. Missing Age Gatekeeper: If patient age is unrecorded, do NOT assume a default adult age (30); immediately flag SAFE_ABSTENTION_DATA_DEFICIT.
-5. Identify red flags (atypical MI in females, anticoagulation + active GI bleed) and escalate to emergency care immediately.`,
+5. Sentinel Emergency Red Flags: Immediate emergency redirection on acute stroke (FAST), ACS crushing chest pain, anaphylaxis, septic shock, or anticoagulation + active bleeding.`,
       'npm': `# Run MedOrqis CLI directly via NPX (No installation required)
 npx medorqis
 

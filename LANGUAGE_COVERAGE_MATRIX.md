@@ -1,21 +1,37 @@
-# MedOrqis — Language & Dialect Clinical Coverage Matrix
+# MedOrqis — Language & Dialect Clinical Coverage Matrix (v2.1.1)
 
-**Generated Automatically from Benchmark Execution**: `2026-10-26T22:05:22.559047+00:00`  
-**Commit**: `43c6dbdd03b92e46928f6596122b19e022899422`  
-**Total Verified Benchmark Test Cases**: `126 cases`
+**Execution Timestamp**: `2026-10-26T22:25:48.854912+00:00`  
+**Commit Hash**: `aaebd316a03be963e8134666d292ef6b892ec630`  
+**Total Verified Benchmark Test Cases**: `126 cases`  
+**Governance Policy**: Two-Axis Separation (Algorithmic Invariance vs Real-World Clinical Validation)
+
+> [!WARNING]
+> **Clinical Status Separation Notice**:
+> The 100% pass rate in the table below represents **automated programmatic benchmark verification** of isolated syntactic negation rules and numeric/unit fidelity within a synthetic test corpus of 126 curated sentences. It **DOES NOT** constitute multi-center clinical validation, nor does it guarantee linguistic accuracy across real-world patient encounters, spoken colloquial dialogues, or non-standard EHR shorthand.
+
+---
 
 ## 1. Verified Language & Dialect Tiers
 
-| Language / Dialect | Dialect Code | Negation Preservation Rate | BiDi & Unit Fidelity | Brand-to-INN Normalization | Clinical Status | Last Verified |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Modern Standard Arabic (الفصحى)** | `ar-MSA` | **100.0%** (15 cases) | **100.0%** (10 cases) | **100.0%** (16 catalog items) | **VERIFIED** | `2026-10-26` |
-| **Egyptian Arabic (العامية المصرية)** | `ar-EG` | **100.0%** (14 cases) | **100.0%** (10 cases) | **100.0%** (Egyptian trade brands) | **VERIFIED** | `2026-10-26` |
-| **Gulf Arabic (العامية الخليجية)** | `ar-GULF` | **100.0%** (14 cases) | **100.0%** (10 cases) | **100.0%** (Gulf trade brands) | **VERIFIED** | `2026-10-26` |
-| **Levantine Arabic (العامية الشامية)** | `ar-LEV` | **100.0%** (12 cases) | **100.0%** (10 cases) | **100.0%** (Levantine trade brands) | **VERIFIED** | `2026-10-26` |
-| **Maghrebi Arabic (الدارجة المغاربية)** | `ar-MAG` | **100.0%** (12 cases) | **100.0%** (10 cases) | **100.0%** (Regional brands) | **VERIFIED** | `2026-10-26` |
-| **English (Standard Medical)** | `en-US/GB` | **100.0%** (13 cases) | **100.0%** (10 cases) | **100.0%** (International brands) | **VERIFIED** | `2026-10-26` |
-| **French (Medical)** | `fr-FR` | **100.0%** (10 cases) | Supported (Standard ISO) | Supported (International INN) | **VERIFIED** | `2026-10-26` |
-| **Spanish (Medical)** | `es-ES` | **100.0%** (10 cases) | Supported (Standard ISO) | Supported (International INN) | **VERIFIED** | `2026-10-26` |
+| Language / Dialect | Dialect Code | Sample Size (Cases) | Syntactic Negation Pass Rate | BiDi & Unit Fidelity | Brand-to-INN Mapping | Algorithmic Benchmark Status | Real-World Clinical Status |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Modern Standard Arabic (الفصحى)** | `ar-MSA` | 15 cases | **100.0%** (15/15) | **100.0%** (10 cases) | **100.0%** (16 items) | **SYNTHETIC_BENCHMARK_PASSED** | `PENDING_CLINICAL_TRIAL` |
+| **Egyptian Arabic (العامية المصرية)** | `ar-EG` | 14 cases | **100.0%** (14/14) | **100.0%** (10 cases) | **100.0%** (Egyptian brands) | **SYNTHETIC_BENCHMARK_PASSED** | `PENDING_CLINICAL_TRIAL` |
+| **Gulf Arabic (العامية الخليجية)** | `ar-GULF` | 14 cases | **100.0%** (14/14) | **100.0%** (10 cases) | **100.0%** (Gulf brands) | **SYNTHETIC_BENCHMARK_PASSED** | `PENDING_CLINICAL_TRIAL` |
+| **Levantine Arabic (العامية الشامية)** | `ar-LEV` | 12 cases | **100.0%** (12/12) | **100.0%** (10 cases) | **100.0%** (Levantine brands) | **SYNTHETIC_BENCHMARK_PASSED** | `PENDING_CLINICAL_TRIAL` |
+| **Maghrebi Arabic (الدارجة المغاربية)** | `ar-MAG` | 12 cases | **100.0%** (12/12) | **100.0%** (10 cases) | **100.0%** (Regional brands) | **SYNTHETIC_BENCHMARK_PASSED** | `PENDING_CLINICAL_TRIAL` |
+| **English (Standard Medical)** | `en-US/GB` | 13 cases | **100.0%** (13/13) | **100.0%** (10 cases) | **100.0%** (International INN) | **SYNTHETIC_BENCHMARK_PASSED** | `PENDING_CLINICAL_TRIAL` |
+| **French (Medical)** | `fr-FR` | 10 cases | **100.0%** (10/10) | Supported (ISO units) | Supported (International INN) | **SYNTHETIC_BENCHMARK_PASSED** | `PENDING_CLINICAL_TRIAL` |
+| **Spanish (Medical)** | `es-ES` | 10 cases | **100.0%** (10/10) | Supported (ISO units) | Supported (International INN) | **SYNTHETIC_BENCHMARK_PASSED** | `PENDING_CLINICAL_TRIAL` |
 
-## 2. Policy on Unverified Languages
-Any language or dialect not explicitly listed with a 100% verified benchmark score in this matrix is classified as `EXPERIMENTAL_UNVERIFIED`. The system emits a mandatory clinical advisory when interacting in unverified languages.
+---
+
+## 2. Statistical Limitations & Real-World Caveats
+1. **Limited Sample Size per Dialect**: The test corpus currently contains between 10 and 15 sentences per dialect. While sufficient to verify regex boundaries and clause-stop logic deterministically, this sample size is not a replacement for clinical validation against thousands of unstructured electronic health records.
+2. **Code-Switching & Dialect Blending**: Clinicians and patients frequently mix Arabic dialects with English pharmacological terms or French anatomical phrases (especially in the Maghreb and Levant). Mixed-dialect linguistic parsing must always be supervised by a fluent licensed clinician.
+3. **Phonetic Spelling & Typos**: Real clinical transcriptions contain typos, regional orthographic variations (e.g. ة vs ه, ي vs ى, أ vs ا), and phonetic slang. The deterministic normalizer handles common regional variants but does not extrapolate unknown idiomatic phrases.
+
+---
+
+## 3. Policy on Unverified Languages
+Any language or dialect not explicitly listed in this matrix is classified as `EXPERIMENTAL_UNVERIFIED`. The system emits a mandatory clinical advisory halting automated assessments until verified inputs are provided in a supported language.

@@ -1,0 +1,235 @@
+{
+  "$schema": "../schemas/clinical_rule_entry.schema.json",
+  "manifest_version": "2.1.1",
+  "generated_at": "2026-10-26T22:25:48.497682+00:00",
+  "hashing_algorithm": "SHA-256",
+  "total_fingerprinted_files": 45,
+  "provenance_policy": "ISO 14971 / IEC 62304 Medical Device File Integrity Assurance",
+  "files": {
+    "core/__init__.py": {
+      "category": "CORE_CLINICAL_ENGINE",
+      "sha256": "31d4288fbd56693cae8c69d93e3b01eac08821864d5814915a29123501c4c8d1",
+      "size_bytes": 124
+    },
+    "core/citation_validator.py": {
+      "category": "CORE_CLINICAL_ENGINE",
+      "sha256": "a0ef0c1d570456a35725edf3bb3623e7ab4f69264e9ae6aefe138e6a347e1b09",
+      "size_bytes": 3203
+    },
+    "core/claim_entailment_verifier.py": {
+      "category": "CORE_CLINICAL_ENGINE",
+      "sha256": "4a52113fe72f85e30e6c72058071c8f377bfd6a9e9ccf0844bab1fcf3ed44202",
+      "size_bytes": 5522
+    },
+    "core/clinical_calculators.py": {
+      "category": "CORE_CLINICAL_ENGINE",
+      "sha256": "a36747c53c0bbe8f20524c72b2725fbc409c94da53a4178c492a1a7583104956",
+      "size_bytes": 43324
+    },
+    "core/context_validator.py": {
+      "category": "CORE_CLINICAL_ENGINE",
+      "sha256": "f92d46beee8687bc85d5512823029283fff8bc9de65d8a2bd7c8424e5a627739",
+      "size_bytes": 6341
+    },
+    "core/integrity_manifest.py": {
+      "category": "CORE_CLINICAL_ENGINE",
+      "sha256": "1d365e0b1815931e04808e1a2e9e4a33d8c8f414729a7c84ea4ea4c0e4383a47",
+      "size_bytes": 6313
+    },
+    "core/phi_deidentifier.py": {
+      "category": "CORE_CLINICAL_ENGINE",
+      "sha256": "01002302a3795874abb6835effcd613f2abd4e9e64c9aff267c5890d3a266a63",
+      "size_bytes": 4096
+    },
+    "core/prompt_security_guard.py": {
+      "category": "CORE_CLINICAL_ENGINE",
+      "sha256": "8ca4d77c3718cf7ce5e3fae78c45fcc36bc3ce9e1f94babfa21685bd87e4739a",
+      "size_bytes": 2451
+    },
+    "core/safety_guardrails.py": {
+      "category": "CORE_CLINICAL_ENGINE",
+      "sha256": "a4807d96bbe1cd4b79d73c00dd40cc1cfa139382570e8b456509f57b279ff51f",
+      "size_bytes": 13744
+    },
+    "core/terminology_connectors.py": {
+      "category": "CORE_CLINICAL_ENGINE",
+      "sha256": "021967958d68037f682dcd5f5f8e696091b164ddfe89e82271155bd643de6ac4",
+      "size_bytes": 2743
+    },
+    "core/terminology_normalizer.py": {
+      "category": "CORE_CLINICAL_ENGINE",
+      "sha256": "040eb2f35d81c6fe06fc1b11dcd62a6353c8314d6ec20cb0649a67706ae0fa47",
+      "size_bytes": 8235
+    },
+    "dictionaries/critical_drug_interactions.json": {
+      "category": "CLINICAL_DICTIONARY",
+      "sha256": "f8e7db20434d71a27a7d52bd52afa1ffe25305213e8331f4184494dfcbc2c505",
+      "size_bytes": 8827
+    },
+    "dictionaries/multilingual_medical_lexicon.json": {
+      "category": "CLINICAL_DICTIONARY",
+      "sha256": "eb195d2f389b8a806c5bd0623b1677773b679ab640ac2dfab2cb5067a2ec2741",
+      "size_bytes": 1511
+    },
+    "dictionaries/red_flag_rules.json": {
+      "category": "CLINICAL_DICTIONARY",
+      "sha256": "bc1a24f7c32d774d85f88dd9b82e54eeb1774633777e6da61dacbd73e6951ff3",
+      "size_bytes": 14210
+    },
+    "dictionaries/regional_drug_mapping.json": {
+      "category": "CLINICAL_DICTIONARY",
+      "sha256": "d510226ba9822e7e21281f73eabdfbc6c40d017a3c54604c7d4b79030297609d",
+      "size_bytes": 3216
+    },
+    "dictionaries/verified_guidelines_registry.json": {
+      "category": "CLINICAL_DICTIONARY",
+      "sha256": "a81b5cc8a74b622a23fd4a54136a81e94b7913de018b58dcfa37a6999767954c",
+      "size_bytes": 4314
+    },
+    "schemas/clinical_context_envelope.schema.json": {
+      "category": "GOVERNANCE_SCHEMA",
+      "sha256": "77b6849487a5d5ee5159db25b740857d652721b84db8821879c990a683e8625f",
+      "size_bytes": 4056
+    },
+    "schemas/clinical_rule_entry.schema.json": {
+      "category": "GOVERNANCE_SCHEMA",
+      "sha256": "4b85b35d3086566d506da837e7f36729456e073afcd8d3e18aaa243969dfdaa6",
+      "size_bytes": 2577
+    },
+    "schemas/safety_gate_verdict.schema.json": {
+      "category": "GOVERNANCE_SCHEMA",
+      "sha256": "f230f8f0c3572a0060e455bb28580481b8a105544b65734f9e6af778b7c143f9",
+      "size_bytes": 2836
+    },
+    "schemas/skill_output_contract.schema.json": {
+      "category": "GOVERNANCE_SCHEMA",
+      "sha256": "03efc11e66e6c6551365b5b7fed3e2271f4b46794bf830952fcaeb2ff63e5cb1",
+      "size_bytes": 3820
+    },
+    "schemas/skill_risk_manifest.schema.json": {
+      "category": "GOVERNANCE_SCHEMA",
+      "sha256": "c3f11307a6207dbc0b7bc609e6a93b846561738edf9a569f33d769a5969ac3e6",
+      "size_bytes": 1336
+    },
+    "skills/clinical-nutrition-dietetics/SKILL.md": {
+      "category": "SKILL_SPECIFICATION",
+      "sha256": "3de50e9cc775c9d23e787dff98d8efdcd546f69bae186aff369ab45aad323c18",
+      "size_bytes": 3012
+    },
+    "skills/clinical-safety-auditor/SKILL.md": {
+      "category": "SKILL_SPECIFICATION",
+      "sha256": "7e222e6f0f3501e5240c118e402f24557a1d6496d38fba91af4297f7cf57e142",
+      "size_bytes": 3081
+    },
+    "skills/clinical-toxicology-overdose/SKILL.md": {
+      "category": "SKILL_SPECIFICATION",
+      "sha256": "b8b20e4022d86d94aa0fa26cc4c85aa217a4357840d8862cc96588692a15539a",
+      "size_bytes": 3163
+    },
+    "skills/differential-diagnosis-cds/SKILL.md": {
+      "category": "SKILL_SPECIFICATION",
+      "sha256": "a77cd04a1a853017531abdb24cec83793b7251f97043ab9c99754a2943c68b7f",
+      "size_bytes": 3000
+    },
+    "skills/ebm-research-biostatistics/SKILL.md": {
+      "category": "SKILL_SPECIFICATION",
+      "sha256": "a9144d9cfc32d7940b942b859c82d3824ec403182b6860e08260bcbaa42972ba",
+      "size_bytes": 3031
+    },
+    "skills/emergency-triage-redflags/SKILL.md": {
+      "category": "SKILL_SPECIFICATION",
+      "sha256": "18f2f9f3ba9d8f877e50b6bb65e3f24624d5cd4cc5e9a04ab9dda4c1c9926dd1",
+      "size_bytes": 3158
+    },
+    "skills/geriatrics-polypharmacy/SKILL.md": {
+      "category": "SKILL_SPECIFICATION",
+      "sha256": "e37c31db1b670652bfc121dcbad62949db1f709f9a7bd83d4ee1bd8ffde9c27a",
+      "size_bytes": 3089
+    },
+    "skills/health-cybersecurity-privacy/SKILL.md": {
+      "category": "SKILL_SPECIFICATION",
+      "sha256": "adbc2c9984f52159b087ae4f40dffeaa702ca74a24c8023e4633954c8c6d73d6",
+      "size_bytes": 2948
+    },
+    "skills/healthcare-ops-telemedicine-ehr/SKILL.md": {
+      "category": "SKILL_SPECIFICATION",
+      "sha256": "03b16ea524b2b0e823c9a828a490a3c4891a4a73be8f8e0056a5e2e74ed54d22",
+      "size_bytes": 2980
+    },
+    "skills/infectious-diseases-stewardship/SKILL.md": {
+      "category": "SKILL_SPECIFICATION",
+      "sha256": "b01d7867eda17cdaaab07d73cec34d03f0f19c5d20720383ec11d9be8791babe",
+      "size_bytes": 3169
+    },
+    "skills/internal-medicine-chronic/SKILL.md": {
+      "category": "SKILL_SPECIFICATION",
+      "sha256": "3b1e82cc3a5541a03ab31fa2be9d75c49f14891c3d07fe9fa962587b4d8198ff",
+      "size_bytes": 3043
+    },
+    "skills/laboratory-medicine-pathology/SKILL.md": {
+      "category": "SKILL_SPECIFICATION",
+      "sha256": "619c19332dca0bf0f691c31c3b040fdb46290c8d88fc1a6b102c1620277a122c",
+      "size_bytes": 2984
+    },
+    "skills/medical-documentation-translation/SKILL.md": {
+      "category": "SKILL_SPECIFICATION",
+      "sha256": "d59e54b431afaa34a23f0a2f1e252863d67d2f32fe6e69cbad91832c67160af7",
+      "size_bytes": 3058
+    },
+    "skills/medorqis-orchestrator/SKILL.md": {
+      "category": "SKILL_SPECIFICATION",
+      "sha256": "cc691095912e3c96bd250d5f1e27a1984738abf7841de4cb8c906936df79ccf9",
+      "size_bytes": 2987
+    },
+    "skills/mental-health-psychiatry/SKILL.md": {
+      "category": "SKILL_SPECIFICATION",
+      "sha256": "cc33649b1a9deb0a229c0637791233bdf61f381923e9489ce0e4f236a034dd02",
+      "size_bytes": 3122
+    },
+    "skills/nursing-clinical-care/SKILL.md": {
+      "category": "SKILL_SPECIFICATION",
+      "sha256": "106680d64aca3d6126fd9bd20bc43a5d1eb9d79b8de6f7b1a8258191950de39a",
+      "size_bytes": 2956
+    },
+    "skills/obstetrics-gynecology/SKILL.md": {
+      "category": "SKILL_SPECIFICATION",
+      "sha256": "c3efbbeb79738b3d072903e471f217ebdb17aa9f0d501e6c5292d7c53a7bf4fb",
+      "size_bytes": 3182
+    },
+    "skills/oncology-palliative-care/SKILL.md": {
+      "category": "SKILL_SPECIFICATION",
+      "sha256": "4b824cd1bfa54f9949e0691f6770b0405451d3d671e178123c95aab004cf9a2b",
+      "size_bytes": 3240
+    },
+    "skills/pediatrics-neonatology/SKILL.md": {
+      "category": "SKILL_SPECIFICATION",
+      "sha256": "c12b47fc43c806ad9da5c1d1b8fcc1b7760657b03ef31e4c8f79442b9139ce03",
+      "size_bytes": 3085
+    },
+    "skills/perioperative-surgical-care/SKILL.md": {
+      "category": "SKILL_SPECIFICATION",
+      "sha256": "1b5edccff76b0d91f0a201b46255a51ddafba10974e07e58a4c2c508bfa27815",
+      "size_bytes": 3100
+    },
+    "skills/pharmacology-dosing-interactions/SKILL.md": {
+      "category": "SKILL_SPECIFICATION",
+      "sha256": "6f77d7f0f68210c20800df5314e4bcb931e2fb77277921e13184c89a724ae7e2",
+      "size_bytes": 3236
+    },
+    "skills/public-health-epidemiology/SKILL.md": {
+      "category": "SKILL_SPECIFICATION",
+      "sha256": "a21776534f98d426201386cbce811196e59ebb4c44ab4b2a2de636fc20e4b3a2",
+      "size_bytes": 2944
+    },
+    "skills/radiology-medical-imaging/SKILL.md": {
+      "category": "SKILL_SPECIFICATION",
+      "sha256": "21b63a61fa80292f07f1a16b4706c1461c58b5c0c181d73cb6ca48384f324243",
+      "size_bytes": 3048
+    },
+    "skills/rehabilitation-physical-therapy/SKILL.md": {
+      "category": "SKILL_SPECIFICATION",
+      "sha256": "b0bff25cd4770a323dd6ec69e5abe5de2ac899c3b93ddd06aa12e6267c8673a6",
+      "size_bytes": 3094
+    }
+  }
+}

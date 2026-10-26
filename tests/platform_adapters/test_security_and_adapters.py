@@ -203,6 +203,12 @@ class TestSecurityAndAdapters(unittest.TestCase):
                 checked_count += 1
         self.assertEqual(checked_count, 24, "Must verify all 24 skills have scalar allowed-tools")
 
+    def test_file_integrity_manifest_fingerprints(self):
+        from core.integrity_manifest import verify_manifest
+        valid, errs = verify_manifest()
+        self.assertTrue(valid, f"File integrity verification failed with errors: {errs}")
+        self.assertEqual(len(errs), 0)
+
 
 if __name__ == "__main__":
     unittest.main()

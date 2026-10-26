@@ -43,73 +43,71 @@ def run_skill(payload_dict):
         "action_plan": verdict["action_plan"]
     }
 
-    # Domain specific computation
+    # Domain specific computation: ABCDE Primary Survey & Emergency Triage Level
+    vitals = payload_dict.get("vital_signs", {})
     demographics = payload_dict.get("patient_demographics", {})
     age = demographics.get("age_years")
     sex = demographics.get("biological_sex", "MALE")
 
     try:
-        if "emergency-triage-redflags" == "nursing-clinical-care":
-            news = calculate_news2_score(
-                respiration_rate_bpm=18,
-                spo2_percent=97.0,
-                air_or_oxygen="AIR",
-                systolic_bp_mmhg=125,
-                pulse_bpm=76,
-                consciousness="ALERT",
-                temperature_celsius=37.0,
-                age_years=age
-            )
-            result["domain_assessment"] = {
-                "score_name": news.calculator_name,
-                "score": news.score,
-                "band": news.interpretation_band,
-                "recommendation": news.clinical_recommendation
-            }
-        elif "emergency-triage-redflags" == "pediatrics-neonatology":
-            if age is None or age >= 18:
-                result["domain_assessment"] = {
-                    "status": "ABSTENTION_OR_REFUSAL",
-                    "reason": "Pediatric evaluation requires verified patient age < 18 years."
-                }
-            else:
-                weight = demographics.get("weight_kg", 20.0)
-                dose = calculate_pediatric_weight_dose(
-                    age_years=age,
-                    weight_kg=weight,
-                    dose_per_kg=15.0,
-                    max_single_adult_dose_mg=500.0
-                )
-                result["domain_assessment"] = {
-                    "dose_calculation": dose.interpretation_band,
-                    "recommendation": dose.clinical_recommendation
-                }
-        elif "emergency-triage-redflags" == "internal-medicine-chronic":
-            if age is None or age < 18:
-                result["domain_assessment"] = {
-                    "status": "ABSTENTION_OR_REFUSAL",
-                    "reason": "CKD-EPI 2021 calculation requires verified adult patient age >= 18 years."
-                }
-            else:
-                egfr = calculate_ckd_epi_2021_egfr(
-                    serum_creatinine=1.1,
-                    age_years=age,
-                    biological_sex=sex
-                )
-                result["domain_assessment"] = {
-                    "renal_function": egfr.interpretation_band,
-                    "recommendation": egfr.clinical_recommendation
-                }
-        elif "emergency-triage-redflags" == "pharmacology-dosing-interactions":
-            meds = payload_dict.get("current_medications", ["warfarin", "paracetamol"])
-            ddis = guardrails.check_drug_interactions(meds, demographics)
-            result["domain_assessment"] = {
-                "medications_screened": meds,
-                "ddi_count": len(ddis),
-                "ddis": ddis
-            }
-    except SafeCalculationRefusal as e:
-        result["domain_assessment"] = {"refusal": e.reason, "recommendation": e.recommendation}
+        # 1. ABCDE Primary Survey Analysis
+        abcde_status = {
+            "airway": "PATENT",
+            "breathing": "NORMAL",
+            "circulation": "STABLE",
+            "disability": "ALERT",
+            "exposure": "NORMAL"
+        }
+        
+        # Airway check
+        patient_symptoms = [str(p.get("value", "")).lower() for p in payload_dict.get("provenance_items", [])]
+        patient_symptoms += [str(s).lower() for s in payload_dict.get("presenting_symptoms", [])]
+        
+        if any("stridor" in s or "airway_swelling" in s or "airway" in s for s in patient_symptoms):
+            abcde_status["airway"] = "COMPROMISED_CRITICAL"
+            
+        # Breathing vitals
+        rr = vitals.get("respiratory_rate_bpm")
+        spo2 = vitals.get("spo2_percent")
+        if (rr is not None and (rr > 30 or rr < 8)) or (spo2 is not None and spo2 < 90):
+            abcde_status["breathing"] = "SEVERE_DISTRESS"
+        elif (rr is not None and rr > 24) or (spo2 is not None and spo2 < 94):
+            abcde_status["breathing"] = "MODERATE_DISTRESS"
+
+        # Circulation vitals
+        sbp = vitals.get("systolic_bp_mmhg")
+        hr = vitals.get("heart_rate_bpm") or vitals.get("pulse_bpm")
+        if (sbp is not None and sbp < 90) or (hr is not None and (hr > 130 or hr < 40)):
+            abcde_status["circulation"] = "HEMODYNAMICALLY_UNSTABLE"
+        elif (sbp is not None and sbp < 100) or (hr is not None and hr > 100):
+            abcde_status["circulation"] = "BORDERLINE_TACHYCARDIA"
+
+        # Disability
+        gcs = vitals.get("gcs_score")
+        if gcs is not None and gcs < 13:
+            abcde_status["disability"] = "ALTERED_MENTAL_STATUS"
+
+        # Determine Emergency Triage Acuity (Manchester / ESI equivalent)
+        if verdict["gate_status"] == "SAFE_ABSTENTION_EMERGENCY_ESCALATION" or any(v.startswith("COMPROMISED") or v == "SEVERE_DISTRESS" or v == "HEMODYNAMICALLY_UNSTABLE" for v in abcde_status.values()):
+            triage_acuity = "LEVEL_1_RESUSCITATION_IMMEDIATE"
+            recommended_disposition = "Immediate trauma/resuscitation bay transfer with EMS alert."
+        elif len(verdict["red_flags_detected"]) > 0 or any(v in ["MODERATE_DISTRESS", "BORDERLINE_TACHYCARDIA", "ALTERED_MENTAL_STATUS"] for v in abcde_status.values()):
+            triage_acuity = "LEVEL_2_EMERGENT_VERY_URGENT"
+            recommended_disposition = "Emergency department bed placement within 10-15 minutes."
+        else:
+            triage_acuity = "LEVEL_3_URGENT_OR_ROUTINE"
+            recommended_disposition = "Standard outpatient or urgent care evaluation."
+
+        result["domain_assessment"] = {
+            "triage_scale": "Emergency Severity Index (ESI) / Manchester Triage System Compatible",
+            "triage_acuity": triage_acuity,
+            "abcde_primary_survey": abcde_status,
+            "clinical_disposition": recommended_disposition,
+            "red_flags_count": len(verdict["red_flags_detected"]),
+            "emergency_escalation_required": verdict["action_plan"]["emergency_redirection_required"]
+        }
+    except Exception as e:
+        result["domain_assessment"] = {"status": "ERROR_DURING_ASSESSMENT", "message": str(e)}
 
 
     return result

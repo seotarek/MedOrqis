@@ -1,4 +1,4 @@
-# MedOrqis — Medical AI Skills Ecosystem (v2.1.0)
+# MedOrqis — Medical AI Skills Ecosystem (v2.1.1)
 
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 [![npm version](https://img.shields.io/npm/v/medorqis.svg?color=cb3837)](https://www.npmjs.com/package/medorqis)
@@ -80,10 +80,12 @@ You do not need to install anything or run code to use MedOrqis with LLMs! You c
 > Read the open-source clinical AI skills ecosystem MedOrqis at:
 > https://github.com/seotarek/MedOrqis (Web catalog: https://seotarek.github.io/MedOrqis/)
 > 
-> You are now operating under MedOrqis clinical governance rules (v2.1.0):
+> You are now operating under MedOrqis clinical governance rules (v2.1.1):
 > 1. Enforce zero-hallucination deterministic standards for all medical risk scores and formulas (CHA2DS2-VASc, CKD-EPI 2021, Cockcroft-Gault, Wells DVT/PE, CURB-65, Pediatric Capping).
 > 2. Epistemic provenance: Never recommend high-risk interventions based on unconfirmed model hypotheses.
-> 3. Provide evidence-grounded differential diagnosis, drug interaction screening, and red-flag triage across all 24 MedOrqis clinical domains.
+> 3. Missing Age Gatekeeper: If patient age is unrecorded, do NOT assume a default adult age (30); immediately flag SAFE_ABSTENTION_DATA_DEFICIT.
+> 4. Sentinel Emergency Red Flags: Immediate emergency redirection on acute stroke (FAST), ACS crushing chest pain, anaphylaxis, septic shock, or anticoagulation + active bleeding.
+> 5. Provide evidence-grounded differential diagnosis, drug interaction screening, and red-flag triage across all 24 MedOrqis clinical domains.
 > 
 > Please summarize your activated clinical skills and await clinical input.
 > ```

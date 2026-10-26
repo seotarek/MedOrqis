@@ -11,9 +11,10 @@
       "safety_class": "Class C",
       "algorithmic_verification_status": "VERIFIED_100_PERCENT_AGAINST_PUBLISHED_FORMULA",
       "clinical_sign_off_status": "REFERENCE_SEED_REQUIRES_INSTITUTIONAL_CLINICIAN_SIGN_OFF",
-      "sha256_content_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha256_content_hash": "a36747c53c0bbe8f20524c72b2725fbc409c94da53a4178c492a1a7583104956",
       "guideline": "ESC Guidelines for Management of Atrial Fibrillation 2024",
-      "review_date": "2026-10-26"
+      "review_date": "2026-10-26",
+      "file_reference": "core/clinical_calculators.py"
     },
     {
       "module_id": "cha2ds2_vasc_aha2023",
@@ -21,9 +22,10 @@
       "safety_class": "Class C",
       "algorithmic_verification_status": "VERIFIED_100_PERCENT_AGAINST_PUBLISHED_FORMULA",
       "clinical_sign_off_status": "REFERENCE_SEED_REQUIRES_INSTITUTIONAL_CLINICIAN_SIGN_OFF",
-      "sha256_content_hash": "a4b1c23498fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852c912",
+      "sha256_content_hash": "a36747c53c0bbe8f20524c72b2725fbc409c94da53a4178c492a1a7583104956",
       "guideline": "ACC/AHA/ACCP/HRS Guideline 2023/2024",
-      "review_date": "2026-10-26"
+      "review_date": "2026-10-26",
+      "file_reference": "core/clinical_calculators.py"
     },
     {
       "module_id": "ckd_epi_2021_egfr",
@@ -31,9 +33,10 @@
       "safety_class": "Class C",
       "algorithmic_verification_status": "VERIFIED_100_PERCENT_AGAINST_PUBLISHED_FORMULA",
       "clinical_sign_off_status": "REFERENCE_SEED_REQUIRES_INSTITUTIONAL_CLINICIAN_SIGN_OFF",
-      "sha256_content_hash": "c5d2e34598fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852d734",
+      "sha256_content_hash": "a36747c53c0bbe8f20524c72b2725fbc409c94da53a4178c492a1a7583104956",
       "guideline": "NEJM 2021 Inker et al. / NKF-ASN Task Force",
-      "review_date": "2026-10-26"
+      "review_date": "2026-10-26",
+      "file_reference": "core/clinical_calculators.py"
     },
     {
       "module_id": "bedside_schwartz_egfr",
@@ -41,9 +44,10 @@
       "safety_class": "Class C",
       "algorithmic_verification_status": "VERIFIED_100_PERCENT_AGAINST_PUBLISHED_FORMULA",
       "clinical_sign_off_status": "REFERENCE_SEED_REQUIRES_INSTITUTIONAL_CLINICIAN_SIGN_OFF",
-      "sha256_content_hash": "d6e3f45698fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852e845",
+      "sha256_content_hash": "a36747c53c0bbe8f20524c72b2725fbc409c94da53a4178c492a1a7583104956",
       "guideline": "Schwartz GJ et al. J Am Soc Nephrol 2009;20(3):629-637",
-      "review_date": "2026-10-26"
+      "review_date": "2026-10-26",
+      "file_reference": "core/clinical_calculators.py"
     },
     {
       "module_id": "cockcroft_gault_crcl",
@@ -51,9 +55,10 @@
       "safety_class": "Class C",
       "algorithmic_verification_status": "VERIFIED_100_PERCENT_AGAINST_PUBLISHED_FORMULA",
       "clinical_sign_off_status": "REFERENCE_SEED_REQUIRES_INSTITUTIONAL_CLINICIAN_SIGN_OFF",
-      "sha256_content_hash": "e7f4a56798fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852f956",
+      "sha256_content_hash": "a36747c53c0bbe8f20524c72b2725fbc409c94da53a4178c492a1a7583104956",
       "guideline": "Cockcroft & Gault 1976 / FDA Renal Dosing Labeling Standards",
-      "review_date": "2026-10-26"
+      "review_date": "2026-10-26",
+      "file_reference": "core/clinical_calculators.py"
     },
     {
       "module_id": "pediatric_dose_calculator",
@@ -61,9 +66,10 @@
       "safety_class": "Class C",
       "algorithmic_verification_status": "VERIFIED_100_PERCENT_AGAINST_PUBLISHED_FORMULA",
       "clinical_sign_off_status": "REFERENCE_SEED_REQUIRES_INSTITUTIONAL_CLINICIAN_SIGN_OFF",
-      "sha256_content_hash": "f8a5b67898fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852a167",
+      "sha256_content_hash": "a36747c53c0bbe8f20524c72b2725fbc409c94da53a4178c492a1a7583104956",
       "guideline": "Nelson Textbook of Pediatrics / AAP Pediatric Formulary Guidelines",
-      "review_date": "2026-10-26"
+      "review_date": "2026-10-26",
+      "file_reference": "core/clinical_calculators.py"
     },
     {
       "module_id": "has_bled_score",
@@ -71,9 +77,10 @@
       "safety_class": "Class C",
       "algorithmic_verification_status": "VERIFIED_100_PERCENT_AGAINST_PUBLISHED_FORMULA",
       "clinical_sign_off_status": "REFERENCE_SEED_REQUIRES_INSTITUTIONAL_CLINICIAN_SIGN_OFF",
-      "sha256_content_hash": "a9b6c78998fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b278",
+      "sha256_content_hash": "a36747c53c0bbe8f20524c72b2725fbc409c94da53a4178c492a1a7583104956",
       "guideline": "Pisters R et al. Chest 2010;138(5):1093-1100",
-      "review_date": "2026-10-26"
+      "review_date": "2026-10-26",
+      "file_reference": "core/clinical_calculators.py"
     },
     {
       "module_id": "curb65_score",
@@ -81,9 +88,10 @@
       "safety_class": "Class C",
       "algorithmic_verification_status": "VERIFIED_100_PERCENT_AGAINST_PUBLISHED_FORMULA",
       "clinical_sign_off_status": "REFERENCE_SEED_REQUIRES_INSTITUTIONAL_CLINICIAN_SIGN_OFF",
-      "sha256_content_hash": "b1c7d89098fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852c389",
+      "sha256_content_hash": "a36747c53c0bbe8f20524c72b2725fbc409c94da53a4178c492a1a7583104956",
       "guideline": "British Thoracic Society (BTS) / Lim et al. Thorax 2003",
-      "review_date": "2026-10-26"
+      "review_date": "2026-10-26",
+      "file_reference": "core/clinical_calculators.py"
     },
     {
       "module_id": "news2_score",
@@ -91,9 +99,10 @@
       "safety_class": "Class C",
       "algorithmic_verification_status": "VERIFIED_100_PERCENT_AGAINST_PUBLISHED_FORMULA",
       "clinical_sign_off_status": "REFERENCE_SEED_REQUIRES_INSTITUTIONAL_CLINICIAN_SIGN_OFF",
-      "sha256_content_hash": "c2d8e90198fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852d490",
+      "sha256_content_hash": "a36747c53c0bbe8f20524c72b2725fbc409c94da53a4178c492a1a7583104956",
       "guideline": "Royal College of Physicians NEWS2 Guidelines (2017)",
-      "review_date": "2026-10-26"
+      "review_date": "2026-10-26",
+      "file_reference": "core/clinical_calculators.py"
     },
     {
       "module_id": "wells_dvt_score",
@@ -101,9 +110,10 @@
       "safety_class": "Class C",
       "algorithmic_verification_status": "VERIFIED_100_PERCENT_AGAINST_PUBLISHED_FORMULA",
       "clinical_sign_off_status": "REFERENCE_SEED_REQUIRES_INSTITUTIONAL_CLINICIAN_SIGN_OFF",
-      "sha256_content_hash": "d3e9f01298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852e501",
+      "sha256_content_hash": "a36747c53c0bbe8f20524c72b2725fbc409c94da53a4178c492a1a7583104956",
       "guideline": "Wells PS et al. Lancet 1997 / NEJM 2003",
-      "review_date": "2026-10-26"
+      "review_date": "2026-10-26",
+      "file_reference": "core/clinical_calculators.py"
     },
     {
       "module_id": "wells_pe_score",
@@ -111,9 +121,10 @@
       "safety_class": "Class C",
       "algorithmic_verification_status": "VERIFIED_100_PERCENT_AGAINST_PUBLISHED_FORMULA",
       "clinical_sign_off_status": "REFERENCE_SEED_REQUIRES_INSTITUTIONAL_CLINICIAN_SIGN_OFF",
-      "sha256_content_hash": "e4f0a12398fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852f612",
+      "sha256_content_hash": "a36747c53c0bbe8f20524c72b2725fbc409c94da53a4178c492a1a7583104956",
       "guideline": "Wells PS et al. Ann Intern Med 2001",
-      "review_date": "2026-10-26"
+      "review_date": "2026-10-26",
+      "file_reference": "core/clinical_calculators.py"
     }
   ]
 }

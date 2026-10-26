@@ -1,6 +1,6 @@
 {
   "name": "medorqis",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "MedOrqis — Medical AI Skills Ecosystem: 24 Specialized Clinical AI Skills, Deterministic Safety Guardrails & Zero-Token Calculators",
   "main": "bin/medorqis.js",
   "bin": {

@@ -204,6 +204,57 @@ class TestSafetyAndProvenance(unittest.TestCase):
         self.assertEqual(verdict["gate_status"], "SAFE_ABSTENTION_DATA_DEFICIT")
         self.assertTrue(any("age_years" in item or "Patient age" in item for item in verdict["missing_mandatory_data"]))
 
+    def test_sentinel_acute_stroke_fast_red_flag(self):
+        # A single affirmed sentinel symptom (facial droop) MUST immediately trigger emergency redirection
+        envelope = {
+            "envelope_id": "ENV-STROKE-FAST",
+            "timestamp": "2026-10-26T10:00:00Z",
+            "patient_demographics": {"age_years": 64, "biological_sex": "MALE"},
+            "provenance_items": [
+                {"item_id": "1", "provenance_type": "DOCUMENTED_CLINICAL_RECORD", "category": "SYMPTOM", "concept_key": "facial_droop", "value": "Acute right facial droop noted 30 min ago"}
+            ],
+            "active_allergies": [],
+            "safety_status": {"red_flags_present": False, "safety_gate_cleared": True}
+        }
+        verdict = self.guardrails.evaluate_safety(envelope)
+        self.assertEqual(verdict["gate_status"], "SAFE_ABSTENTION_EMERGENCY_ESCALATION")
+        self.assertTrue(verdict["action_plan"]["emergency_redirection_required"])
+        self.assertTrue(any(f["flag_id"] == "RF-NEURO-001" for f in verdict["red_flags_detected"]))
+
+    def test_sentinel_crushing_chest_pain_acs_red_flag(self):
+        # Crushing chest pain radiating to arm MUST immediately trip RF-CARD-002
+        envelope = {
+            "envelope_id": "ENV-ACS-SENTINEL",
+            "timestamp": "2026-10-26T10:00:00Z",
+            "patient_demographics": {"age_years": 52, "biological_sex": "MALE"},
+            "provenance_items": [
+                {"item_id": "1", "provenance_type": "USER_REPORTED_UNVERIFIED", "category": "SYMPTOM", "concept_key": "crushing_chest_pain", "value": "Sudden onset crushing retrosternal pressure"}
+            ],
+            "active_allergies": [],
+            "safety_status": {"red_flags_present": False, "safety_gate_cleared": True}
+        }
+        verdict = self.guardrails.evaluate_safety(envelope)
+        self.assertEqual(verdict["gate_status"], "SAFE_ABSTENTION_EMERGENCY_ESCALATION")
+        self.assertTrue(verdict["action_plan"]["emergency_redirection_required"])
+        self.assertTrue(any(f["flag_id"] == "RF-CARD-002" for f in verdict["red_flags_detected"]))
+
+    def test_sentinel_anaphylaxis_red_flag(self):
+        # Acute anaphylaxis after peanut exposure
+        envelope = {
+            "envelope_id": "ENV-ANAPHYLAXIS",
+            "timestamp": "2026-10-26T10:00:00Z",
+            "patient_demographics": {"age_years": 22, "biological_sex": "FEMALE"},
+            "provenance_items": [
+                {"item_id": "1", "provenance_type": "DOCUMENTED_CLINICAL_RECORD", "category": "SYMPTOM", "concept_key": "anaphylaxis", "value": "Acute anaphylaxis with facial swelling"}
+            ],
+            "active_allergies": [],
+            "safety_status": {"red_flags_present": False, "safety_gate_cleared": True}
+        }
+        verdict = self.guardrails.evaluate_safety(envelope)
+        self.assertEqual(verdict["gate_status"], "SAFE_ABSTENTION_EMERGENCY_ESCALATION")
+        self.assertTrue(verdict["action_plan"]["emergency_redirection_required"])
+        self.assertTrue(any(f["flag_id"] == "RF-IMMUN-001" for f in verdict["red_flags_detected"]))
+
 
 if __name__ == "__main__":
     unittest.main()

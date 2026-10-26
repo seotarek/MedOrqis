@@ -173,6 +173,12 @@ class SafetyGuardrailsEngine:
         for med in envelope.get("current_medications", []):
             active_medications.append(str(med))
 
+        # Also collect presenting symptoms if provided directly in envelope
+        for sym in envelope.get("presenting_symptoms", []) + envelope.get("symptoms", []):
+            sym_str = str(sym).strip()
+            if not self.normalizer.extract_negation_status(sym_str, sym_str):
+                patient_concepts.add(sym_str.lower())
+
         # Layer 1: Evaluate Red Flag Rules
         detected_red_flags = []
         emergency_redirection = False
@@ -192,10 +198,21 @@ class SafetyGuardrailsEngine:
             # Check trigger criteria
             trigger_criteria = rule.get("trigger_criteria", {})
             required_concepts = trigger_criteria.get("symptom_keys", [])
+            match_mode = str(trigger_criteria.get("match_mode", "ALL")).upper()
+            min_match = trigger_criteria.get("min_match", len(required_concepts) if match_mode == "ALL" else 1)
 
             # Match criteria against affirmed (non-negated) concepts only
             matched_count = sum(1 for c in required_concepts if any(c.lower() in p for p in patient_concepts))
-            if matched_count >= len(required_concepts) and len(required_concepts) > 0:
+            
+            is_triggered = False
+            if match_mode in ["ANY", "SENTINEL_ANY"]:
+                is_triggered = (matched_count >= 1)
+            elif match_mode == "MIN_MATCH":
+                is_triggered = (matched_count >= min_match)
+            else:  # ALL
+                is_triggered = (matched_count >= len(required_concepts) and len(required_concepts) > 0)
+
+            if is_triggered:
                 action = rule.get("clinical_action", {})
                 detected_red_flags.append({
                     "flag_id": rule.get("rule_id"),

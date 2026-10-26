@@ -13,7 +13,7 @@ const command = (args[0] || '').toLowerCase();
 
 const BANNER = `
 \x1b[36m╔═══════════════════════════════════════════════════════════════════════╗\x1b[0m
-\x1b[36m║\x1b[0m   \x1b[1m\x1b[32m✚ MedOrqis — Medical AI Skills Ecosystem (v2.1.0)\x1b[0m                 \x1b[36m║\x1b[0m
+\x1b[36m║\x1b[0m   \x1b[1m\x1b[32m✚ MedOrqis — Medical AI Skills Ecosystem (v2.1.1)\x1b[0m                 \x1b[36m║\x1b[0m
 \x1b[36m║\x1b[0m   24 Specialized Skills · Zero-Token Core · Hardened Safety Gates     \x1b[36m║\x1b[0m
 \x1b[36m║\x1b[0m   \x1b[90mWebsite:\x1b[0m https://seotarek.github.io/MedOrqis/                           \x1b[36m║\x1b[0m
 \x1b[36m║\x1b[0m   \x1b[90mRepo:\x1b[0m    https://github.com/seotarek/MedOrqis                            \x1b[36m║\x1b[0m
@@ -59,7 +59,7 @@ switch (command) {
     console.log(BANNER);
     console.log('\x1b[1m\x1b[33mUniversal AI Prompt (Send to Claude, ChatGPT, Gemini, Cursor, Grok, etc.):\x1b[0m\n');
     console.log('\x1b[90m─────────────────────────────────────────────────────────────────────────────\x1b[0m');
-    console.log(`You are operating with the MedOrqis Medical AI Skills Ecosystem (v2.1.0).
+    console.log(`You are operating with the MedOrqis Medical AI Skills Ecosystem (v2.1.1).
 Repository: https://github.com/seotarek/MedOrqis
 Web Showcase: https://seotarek.github.io/MedOrqis/
 
@@ -68,7 +68,7 @@ Instructions:
 2. For clinical scores (CHA2DS2-VA ESC 2024, CKD-EPI 2021, Cockcroft-Gault, Wells DVT/PE, Bedside Schwartz, CURB-65), do NOT invent arithmetic. Rely strictly on deterministic formulas.
 3. Enforce Epistemic Provenance: NEVER generate medication dosing or therapeutic plans on diagnoses tagged as MODEL_INFERRED_HYPOTHESIS without documented clinical record sign-off.
 4. Missing Age Gatekeeper: If patient age is unrecorded, do NOT assume a default adult age (30); immediately flag SAFE_ABSTENTION_DATA_DEFICIT.
-5. Identify red flags (atypical MI in females, anticoagulation + active GI bleed) and escalate to emergency care immediately.`);
+5. Identify sentinel red flags (Acute Stroke FAST, ACS crushing chest pain, Anaphylaxis, Sepsis, Anticoagulation + Bleeding) and escalate to emergency care immediately.`);
     console.log('\x1b[90m─────────────────────────────────────────────────────────────────────────────\x1b[0m\n');
     console.log('\x1b[32m✓ Copy the prompt above and send it to any LLM alongside the repository URL.\x1b[0m\n');
     break;

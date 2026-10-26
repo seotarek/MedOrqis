@@ -47,6 +47,8 @@
         "drug_a_inn": { "type": "string" },
         "drug_b_inn": { "type": "string" },
         "symptom_keys": { "type": "array", "items": { "type": "string" } },
+        "match_mode": { "type": "string", "enum": ["ALL", "ANY", "SENTINEL_ANY", "MIN_MATCH"] },
+        "min_match": { "type": "integer" },
         "conditions": { "type": "array", "items": { "type": "string" } }
       }
     },
