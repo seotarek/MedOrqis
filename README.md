@@ -3,7 +3,7 @@
 [![Live Interactive Catalog](https://img.shields.io/badge/Live_Catalog-seotarek.github.io%2FMedOrqis-00e5a3?style=for-the-badge&logo=google-chrome&logoColor=black)](https://seotarek.github.io/MedOrqis/)
 [![Skills CLI](https://img.shields.io/badge/Skills_CLI-npx_skills_add_seotarek%2FMedOrqis-6366f1?style=for-the-badge&logo=vercel)](https://github.com/vercel-labs/skills)
 [![npm version](https://img.shields.io/badge/npm-v2.1.1-cb3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/medorqis)
-[![Verification: 100% Passed](https://img.shields.io/badge/Verification-100%25%20Passed-brightgreen.svg?style=for-the-badge)](tests/reports/VERIFICATION_REPORT.md)
+[![Verification: 36/36 Passed (100%)](https://img.shields.io/badge/Verification-36%2F36%20Passed%20(100%25)-brightgreen.svg?style=for-the-badge)](tests/reports/VERIFICATION_REPORT.md)
 [![GitHub CI](https://img.shields.io/badge/GitHub_CI-passing-success.svg?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/seotarek/MedOrqis/actions)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg?style=for-the-badge)](LICENSE)
 
@@ -112,24 +112,24 @@ python3 -m pip install -e .
 
 ---
 
-## 🧮 The 12 Deterministic Zero-Token Clinical Calculators & Guardrails
+## 🧮 Pure Deterministic Clinical Calculators (`core/clinical_calculators.py`)
 
-All medical calculations in MedOrqis run in a pure Python deterministic engine with **zero token cost and mathematical invariance**.
+All medical calculations in MedOrqis execute with **zero LLM API token overhead and strict mathematical determinism** via pure Python functions in [`core/clinical_calculators.py`](core/clinical_calculators.py):
 
-| # | Calculator / Engine | Clinical Guideline & Standard | Safety Class | Deterministic Formula / Rule | Guardrail & Provenance Enforcement | Local Python Module |
-|---|---|---|---|---|---|---|
-| **1** | **CHA₂DS₂-VA** | ESC Guidelines 2024 (Sex-Neutral) | Class C | $\text{CHF}(1) + \text{HTN}(1) + \text{Age}(\ge 75: 2, 65\text{--}74: 1) + \text{DM}(1) + \text{Stroke}(2) + \text{Vasc}(1)$ | Refuses calculation if Age missing (`SAFE_ABSTENTION_DATA_DEFICIT`). Removes 1-point female bias. | [`core/clinical_calculators.py`](core/clinical_calculators.py) |
-| **2** | **CHA₂DS₂-VASc** | ACC/AHA/ACCP/HRS 2023 | Class C | Traditional sex-differentiated stroke score ($+1$ for female sex). | Historical comparative baseline for US hospital guidelines. | [`core/clinical_calculators.py`](core/clinical_calculators.py) |
-| **3** | **CKD-EPI 2021** | NKF-ASN Task Force / NEJM 2021 | Class C | Race-free adult creatinine eGFR formula ($142 \times \min(\text{SCr}/\kappa, 1)^\alpha \times \dots$). | **Hard Refusal** if patient Age $< 18$ years (`SAFE_REFUSAL_PEDIATRIC`). | [`core/clinical_calculators.py`](core/clinical_calculators.py) |
-| **4** | **Bedside Schwartz (2009)** | Schwartz GJ et al. (JASN 2009) | Class C | $\text{eGFR} = 0.413 \times \text{Height (cm)} / \text{SCr (mg/dL)}$. | **Hard Refusal** if patient Age $\ge 18$ years (`SAFE_REFUSAL_ADULT`). | [`core/clinical_calculators.py`](core/clinical_calculators.py) |
-| **5** | **Cockcroft-Gault CrCl** | FDA Renal Dosing Labeling Standards | Class C | $[(140 - \text{Age}) \times \text{Weight}] / (72 \times \text{SCr}) \times (0.85 \text{ if female})$. | Automatically calculates Ideal Body Weight (IBW) and Adjusted Body Weight (AdjBW $0.4$) if BMI $\ge 30$. | [`core/clinical_calculators.py`](core/clinical_calculators.py) |
-| **6** | **Pediatric Dose Capper** | Nelson Pediatrics / AAP | Class C | $\text{Dose} = \min(\text{Weight (kg)} \times \text{mg/kg}, \text{Adult Max Ceiling})$. | Prevents fatal pediatric overdose by locking to adult maximum single and daily doses. | [`core/clinical_calculators.py`](core/clinical_calculators.py) |
-| **7** | **HAS-BLED Bleeding Risk** | Pisters R et al. (Chest 2010) | Class C | HTN, Abnormal renal/liver, Stroke, Bleeding, Labile INR, Elderly ($>65$), Drugs/Alcohol. | Flags High Bleeding Risk ($\ge 3$); warns against unmonitored anticoagulation. | [`core/clinical_calculators.py`](core/clinical_calculators.py) |
-| **8** | **CURB-65 Pneumonia** | British Thoracic Society (BTS) | Class C | Confusion, Urea $>7\,\text{mmol/L}$, $\text{RR} \ge 30$, $\text{BP} < 90/60$, $\text{Age} \ge 65$. | Stratifies 30-day mortality and dictates Outpatient vs Inpatient vs ICU admission. | [`core/clinical_calculators.py`](core/clinical_calculators.py) |
-| **9** | **NEWS2 Early Warning** | Royal College of Physicians (2017) | Class C | Physiological scoring across RR, $\text{SpO}_2$, Temp, SBP, Pulse, Consciousness. | Automated sentinel sepsis and clinical deterioration escalation. | [`core/clinical_calculators.py`](core/clinical_calculators.py) |
-| **10** | **Wells DVT Criteria** | Wells PS et al. (NEJM 2003) | Class C | Pre-test clinical probability of Deep Vein Thrombosis. | Categorizes DVT Unlikely vs Likely; guides D-dimer vs Compression Ultrasound. | [`core/clinical_calculators.py`](core/clinical_calculators.py) |
-| **11** | **Wells PE Criteria** | Wells PS et al. (Ann Intern Med 2001) | Class C | Pre-test clinical probability of Pulmonary Embolism. | Categorizes PE Unlikely vs Likely; guides CT Pulmonary Angiography escalation. | [`core/clinical_calculators.py`](core/clinical_calculators.py) |
-| **12** | **Deterministic DDI Engine** | FDA Black Box / Hansten & Horn | Class C | High-consequence contraindicated drug-drug interaction pairs. | Blocks fatal co-prescriptions (Warfarin + NSAIDs, Apixaban + Diclofenac, Sildenafil + Nitrates). | [`core/safety_guardrails.py`](core/safety_guardrails.py) |
+| # | Clinical Calculator | Function Name | Clinical Guideline & Standard | Target Population | Safety Gate & Boundary Enforcement |
+|---|---|---|---|---|---|
+| **1** | **CHA₂DS₂-VA** | `calculate_cha2ds2_va_esc2024` | ESC Guidelines 2024 (Sex-Neutral) | Adults ($\ge 18\text{y}$) with AF | Refuses if Age missing (`SAFE_ABSTENTION_DATA_DEFICIT`). Removes 1-point female bias. |
+| **2** | **CHA₂DS₂-VASc** | `calculate_cha2ds2_vasc_aha2023` | ACC/AHA/ACCP/HRS 2023 | Adults ($\ge 18\text{y}$) with AF | Historical comparative baseline for US guidelines ($+1$ for female sex). |
+| **3** | **CKD-EPI 2021** | `calculate_ckd_epi_2021_egfr` | NKF-ASN Task Force / NEJM 2021 | Adults ($\ge 18\text{y}$) | Race-free adult eGFR formula. **Hard Refusal** if Age $< 18$ years (`SAFE_REFUSAL_PEDIATRIC`). |
+| **4** | **Bedside Schwartz** | `calculate_bedside_schwartz_egfr` | Schwartz GJ et al. (JASN 2009) | Pediatrics ($< 18\text{y}$) | Height-based eGFR ($0.413 \times \text{Ht}/\text{SCr}$). **Hard Refusal** if Age $\ge 18$ years (`SAFE_REFUSAL_ADULT`). |
+| **5** | **Cockcroft-Gault** | `calculate_cockcroft_gault_crcl` | FDA Renal Dosing Standards | Adults ($\ge 18\text{y}$) | Automatically calculates IBW and Adjusted Body Weight (AdjBW $0.4$) if BMI $\ge 30$. |
+| **6** | **HAS-BLED** | `calculate_has_bled_score` | Pisters R et al. (Chest 2010) | Adults on Anticoagulation | Flags High Bleeding Risk ($\ge 3$); warns against unmonitored DOAC initiation. |
+| **7** | **CURB-65** | `calculate_curb65_score` | British Thoracic Society (BTS) | Adults with CAP | Stratifies 30-day mortality risk (Outpatient vs Inpatient vs ICU admission). |
+| **8** | **NEWS2** | `calculate_news2_score` | Royal College of Physicians (2017) | Acute Inpatient Care | Physiological aggregate triage across 6 vital signs; automated sepsis escalation. |
+| **9** | **Wells DVT Criteria** | `calculate_wells_dvt_score` | Wells PS et al. (NEJM 2003) | Suspected DVT | Pre-test probability (Unlikely vs Likely); dictates D-dimer vs Compression Ultrasound. |
+| **10** | **Wells PE Criteria** | `calculate_wells_pe_score` | Wells PS et al. (Ann Intern Med 2001) | Suspected PE | Pre-test probability (Unlikely vs Likely); dictates D-dimer vs CT Pulmonary Angiography. |
+
+*(Auxiliary dosing & safety engines: `calculate_pediatric_weight_dose` & `calculate_mosteller_bsa` in `core/clinical_calculators.py`, and Contraindicated DDI Screening in `core/safety_guardrails.py`)*.
 
 ---
 
@@ -185,8 +185,12 @@ MedOrqis includes a deterministic natural language processing normalizer verifie
 
 ## 🧪 Automated Verification & Provenance
 
-Execute the harmonized clinical test suite (all 36 unit, safety, multilingual, and adapter tests):
+Execute cryptographic file integrity verification and the harmonized clinical test suite (all 36 unit, safety, multilingual, and adapter tests):
 ```bash
+# 1. Verify SHA-256 cryptographic fingerprints across all 45 modules
+python3 core/integrity_manifest.py --verify
+
+# 2. Execute the harmonized clinical test suite
 python3 tests/run_all_tests.py
 ```
 This automatically verifies:

@@ -838,12 +838,16 @@
           <div class="stat-lbl" id="lbl-skills">Clinical Skills</div>
         </div>
         <div class="stat-box">
-          <div class="stat-val">0</div>
-          <div class="stat-lbl" id="lbl-token">Token Overhead</div>
+          <div class="stat-val">36/36</div>
+          <div class="stat-lbl" id="lbl-pass">Automated Tests</div>
         </div>
         <div class="stat-box">
-          <div class="stat-val">100%</div>
-          <div class="stat-lbl" id="lbl-pass">Test Pass Rate</div>
+          <div class="stat-val">126</div>
+          <div class="stat-lbl" id="lbl-cases">Multilingual Cases</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">0</div>
+          <div class="stat-lbl" id="lbl-token">Token Overhead</div>
         </div>
         <div class="stat-box">
           <div class="stat-val">&lt; 0.4s</div>
@@ -953,9 +957,9 @@ Instructions:
       <div class="calc-tabs" style="flex-wrap: wrap;">
         <button class="calc-tab active" id="tab-btn-cha2ds2" onclick="switchCalc('cha2ds2')">CHA2DS2-VA (ESC 2024 vs AHA 2023)</button>
         <button class="calc-tab" id="tab-btn-egfr" onclick="switchCalc('egfr')">CKD-EPI 2021 eGFR (Adult)</button>
-        <button class="calc-tab" id="tab-btn-schwartz" onclick="switchCalc('schwartz')">Bedside Schwartz (Pediatric eGFR)</button>
+        <button class="calc-tab" id="tab-btn-schwartz" onclick="switchCalc('schwartz')">Bedside Schwartz Pediatric eGFR</button>
         <button class="calc-tab" id="tab-btn-hasbled" onclick="switchCalc('hasbled')">HAS-BLED (Bleeding Risk)</button>
-        <button class="calc-tab" id="tab-btn-news2" onclick="switchCalc('news2')">NEWS2 (Early Warning)</button>
+        <button class="calc-tab" id="tab-btn-news2" onclick="switchCalc('news2')">NEWS2 Score</button>
         <button class="calc-tab" id="tab-btn-ddi" onclick="switchCalc('ddi')">DDI Screening Engine</button>
       </div>
 
@@ -974,12 +978,12 @@ Instructions:
             <select id="cha-age" class="form-select" onchange="runChaCalc()">
               <option value="under_65">&lt; 65 years (0 pts)</option>
               <option value="65_74">65 – 74 years (+1 pt)</option>
-              <option value="75_plus">≥ 75 years (+2 pts)</option>
+              <option value="75_plus">&ge; 75 years (+2 pts)</option>
             </select>
           </div>
           <label class="form-checkbox-label">
             <input type="checkbox" id="cha-chf" onchange="runChaCalc()">
-            <span id="lbl-chf">Congestive Heart Failure / LVEF ≤ 40% (+1 pt)</span>
+            <span id="lbl-chf">Congestive Heart Failure / LVEF &le; 40% (+1 pt)</span>
           </label>
           <label class="form-checkbox-label">
             <input type="checkbox" id="cha-htn" onchange="runChaCalc()">
@@ -2166,9 +2170,19 @@ python3 tests/run_all_tests.py`
       document.getElementById('btn-copy-u-prompt').innerText = isAr ? 'انسخ البرومبت السريري' : 'Copy AI Prompt';
 
       document.getElementById('lbl-skills').innerText = isAr ? 'مهارة سريرية' : 'Clinical Skills';
+      document.getElementById('lbl-pass').innerText = isAr ? 'اختبار آلي ناجح' : 'Automated Tests';
+      if (document.getElementById('lbl-cases')) {
+        document.getElementById('lbl-cases').innerText = isAr ? 'حالة لغوية مختبرة' : 'Multilingual Cases';
+      }
       document.getElementById('lbl-token').innerText = isAr ? 'استهلاك توكنز للحسابات' : 'Token Overhead';
-      document.getElementById('lbl-pass').innerText = isAr ? 'نسبة نجاح الاختبارات' : 'Test Pass Rate';
       document.getElementById('lbl-runtime').innerText = isAr ? 'سرعة المعالجة القطعية' : 'Deterministic Speed';
+
+      if (document.getElementById('tab-btn-schwartz')) {
+        document.getElementById('tab-btn-schwartz').innerText = isAr ? 'معادلة شفارتز للأطفال (Schwartz eGFR)' : 'Bedside Schwartz Pediatric eGFR';
+      }
+      if (document.getElementById('tab-btn-news2')) {
+        document.getElementById('tab-btn-news2').innerText = isAr ? 'مقياس الإنذار المبكر (NEWS2 Score)' : 'NEWS2 Score';
+      }
 
       document.getElementById('search-input').placeholder = isAr
         ? 'ابحث باسم المهارة، الأعراض، الكلمات المفتاحية، أو الدليل السريري (مثال: طوارئ، جلطة، كلى، مسنين)...'
