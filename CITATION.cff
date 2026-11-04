@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use MedOrqis in clinical research, medical AI development, or academic publications, please cite it as below."
+title: "MedOrqis: Medical AI Skills Ecosystem with Deterministic Safety Guardrails & Zero-Token Calculators"
+authors:
+  - family-names: "Mohamed"
+    given-names: "Tarek"
+    email: "seotarek@gmail.com"
+version: "2.1.1"
+date-released: "2026-10-27"
+license: "Apache-2.0"
+repository-code: "https://github.com/seotarek/MedOrqis"
+url: "https://seotarek.github.io/MedOrqis/"
+keywords:
+  - "medical-ai"
+  - "clinical-decision-support"
+  - "deterministic-calculators"
+  - "safety-guardrails"
+  - "model-context-protocol"
+  - "zero-token"
+  - "healthcare"
+  - "fhir"
+  - "pediatrics"
+  - "cardiology"
+  - "pharmacology"
+  - "claude-code"
+abstract: >-
+  MedOrqis is an open-source, evidence-grounded clinical AI skills ecosystem comprising 24 specialized
+  clinical AI skills, 10 pure deterministic zero-token calculators (ESC 2024 CHA2DS2-VA, CKD-EPI 2021,
+  Bedside Schwartz, Cockcroft-Gault, HAS-BLED, CURB-65, NEWS2, Wells Criteria), epistemic context provenance
+  gating, and cross-platform adapters for Claude Code, Cursor, Antigravity, and the Model Context Protocol (MCP).
