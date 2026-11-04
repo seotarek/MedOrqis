@@ -4,12 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "medorqis"
-version = "2.0.0"
-description = "MedOrqis — Medical AI Skills Ecosystem: Evidence-grounded medical AI skills, deterministic clinical engines, and platform adapters."
+version = "2.1.1"
+description = "MedOrqis — Medical AI Skills Ecosystem: 24 Specialized Clinical AI Skills, Deterministic Safety Guardrails & Zero-Token Calculators."
 readme = "README.md"
 license = { text = "Apache-2.0" }
-authors = [{ name = "Tarek Mohamed", email = "tarek@medorqis.org" }]
-keywords = ["medical-ai", "clinical-decision-support", "mcp", "claude-skills", "gemini-extensions", "patient-safety"]
+authors = [{ name = "Tarek Mohamed", email = "seotarek@gmail.com" }]
+keywords = ["medical-ai", "clinical-decision-support", "mcp", "claude-skills", "gemini-extensions", "patient-safety", "zero-token"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Healthcare Industry",
@@ -37,3 +37,17 @@ dev = [
 
 [project.scripts]
 medorqis-mcp = "mcp_server.medorqis_mcp_server:run_stdio_server"
+
+[project.urls]
+Homepage = "https://seotarek.github.io/MedOrqis/"
+Repository = "https://github.com/seotarek/MedOrqis"
+Documentation = "https://seotarek.github.io/MedOrqis/"
+Zenodo_DOI = "https://doi.org/10.5281/zenodo.23937802"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["core*", "mcp_server*", "adapters*"]
+exclude = ["tests*", "chat*", "assets*", "docs*", "governance*"]
+
+[tool.setuptools.package-data]
+"*" = ["*.json", "*.md"]
