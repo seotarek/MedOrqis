@@ -1,8 +1,8 @@
 # MedOrqis — Automated Verification Report (v2.1.1)
 
-**Execution Timestamp**: `2026-11-04T07:23:22.126525+00:00`  
-**Release Tag**: `v2.1.1-9-gc2c4f8b`  
-**Base Commit**: `c2c4f8b3de708c741995c1f09735041f3ef9a5c3`  
+**Execution Timestamp**: `2026-11-04T08:46:15.807446+00:00`  
+**Release Tag**: `v2.1.1-10-gbdf56f9`  
+**Base Commit**: `bdf56f92ece929ac9684016ae2e33723bd94305d`  
 **Overall Automated Status**: **ALL_TESTS_PASSED (100.0% Pass Rate)**  
 **Total Tests**: `36/36` passed  
 **Clinical Review Status**: `PENDING_INSTITUTIONAL_CLINICAL_SIGN_OFF` (Decoupled Governance Policy)

@@ -1,14 +1,15 @@
-# MedOrqis — Medical AI Skills Ecosystem (v2.1.1)
+# MedOrqis — Medical AI Skills Ecosystem (v2.1.2)
 
 [![Live Interactive Catalog](https://img.shields.io/badge/Live_Catalog-seotarek.github.io%2FMedOrqis-00e5a3?style=for-the-badge&logo=google-chrome&logoColor=black)](https://seotarek.github.io/MedOrqis/)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.23937802-blue.svg?style=for-the-badge&logo=zenodo&logoColor=white)](https://doi.org/10.5281/zenodo.23937802)
 [![PyPI version](https://img.shields.io/pypi/v/medorqis.svg?style=for-the-badge&logo=pypi&logoColor=white&color=3775A9)](https://pypi.org/project/medorqis/)
 [![Glama MCP Server](https://glama.ai/mcp/servers/seotarek/MedOrqis/badges/score.svg)](https://glama.ai/mcp/servers/seotarek/MedOrqis)
+[![TDQS Score](https://tdqs.dev/reports/f8u67tchoa/badge.svg)](https://tdqs.dev/reports/f8u67tchoa)
 [![Hugging Face Space](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Web_Hub-yellow?style=for-the-badge)](https://huggingface.co/spaces/seotarek/MedOrqis)
 [![HF MCP Server](https://img.shields.io/badge/%F0%9F%A4%97%20Gradio-MCP_Server-blue?style=for-the-badge)](https://huggingface.co/spaces/seotarek/medorqis-mcp-server)
 [![Hugging Face Dataset](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Dataset-orange?style=for-the-badge)](https://huggingface.co/datasets/seotarek/medorqis-clinical-dialect-benchmark)
 [![Skills CLI](https://img.shields.io/badge/Skills_CLI-npx_skills_add_seotarek%2FMedOrqis-6366f1?style=for-the-badge&logo=vercel)](https://github.com/vercel-labs/skills)
-[![npm version](https://img.shields.io/badge/npm-v2.1.1-cb3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/medorqis)
+[![npm version](https://img.shields.io/badge/npm-v2.1.2-cb3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/medorqis)
 [![Verification: 36/36 Passed (100%)](https://img.shields.io/badge/Verification-36%2F36%20Passed%20(100%25)-brightgreen.svg?style=for-the-badge)](tests/reports/VERIFICATION_REPORT.md)
 [![GitHub CI](https://img.shields.io/badge/GitHub_CI-passing-success.svg?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/seotarek/MedOrqis/actions)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg?style=for-the-badge)](LICENSE)
@@ -91,6 +92,9 @@ You do not need to install anything or run code to use MedOrqis with LLMs! You c
 ---
 
 ### 🔌 Option 4: Model Context Protocol (MCP Server)
+
+[![TDQS Score](https://tdqs.dev/reports/f8u67tchoa/badge.svg)](https://tdqs.dev/reports/f8u67tchoa)
+> 🛡️ **Verified TDQS Grade A · 4.9 / 5.0 (Coherence 5.0 / 5.0)**: Evaluated for tool disambiguation, parameter semantic boundaries, and schema completeness. [View Full TDQS Report](https://tdqs.dev/reports/f8u67tchoa).
 
 #### A. Remote Hosted MCP (Hugging Face ZeroGPU — Zero Installation)
 Connect your MCP client directly to our live hosted server on Hugging Face Spaces:

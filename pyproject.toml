@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "medorqis"
-version = "2.1.1"
+version = "2.1.2"
 description = "MedOrqis — Medical AI Skills Ecosystem: 24 Specialized Clinical AI Skills, Deterministic Safety Guardrails & Zero-Token Calculators."
 readme = "README.md"
 license = { text = "Apache-2.0" }
