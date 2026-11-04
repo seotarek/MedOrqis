@@ -1,0 +1,34 @@
+name: 🐛 Bug Report
+description: Report a software bug, adapter failure, or CLI error in MedOrqis
+title: "[BUG]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting an issue! Please describe the technical bug in the CLI, MCP server, or adapters.
+  - type: textarea
+    id: bug_description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the software bug is.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction_steps
+    attributes:
+      label: Steps to Reproduce
+      description: How do we reproduce this? (e.g., commands run, environment, Python/Node versions)
+      placeholder: |
+        1. Run `npx medorqis list`
+        2. Execute `python3 mcp_server/medorqis_mcp_server.py`
+        3. See error...
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment Info
+      description: OS (Linux, macOS, Windows), Python version, Node.js version, Agent platform (Claude Code, Cursor, Gemini CLI, etc.).
+    validations:
+      required: true

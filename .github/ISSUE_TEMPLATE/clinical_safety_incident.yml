@@ -1,0 +1,53 @@
+name: 🚨 Clinical Safety or Guideline Concern
+description: Report a clinical equation discrepancy, dangerous drug-drug interaction omission, or safety boundary gap
+title: "[CLINICAL SAFETY]: "
+labels: ["clinical-safety", "triage-critical"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### ⚠️ Clinical Safety Incident / Guideline Discrepancy Report
+        Please use this template to report any clinical calculation inaccuracy, omitted severe drug interaction, or patient safety boundary concern.
+  - type: dropdown
+    id: clinical_domain
+    attributes:
+      label: Clinical Specialty / Domain
+      options:
+        - Cardiology / Hemodynamics (CHA2DS2-VA, Anticoagulation)
+        - Nephrology (CKD-EPI, Schwartz, Cockcroft-Gault)
+        - Emergency & Acute Care (Triage, Sepsis, NEWS2, CURB-65)
+        - Pediatrics & Neonatology (Dose Capping, Growth)
+        - Pharmacology & Toxicology (DDI, Teratogens, Antidotes)
+        - Other Clinical Domain
+    validations:
+      required: true
+  - type: textarea
+    id: issue_description
+    attributes:
+      label: Clinical Description of Concern
+      description: What calculation, dosing recommendation, or safety gate produced an inaccurate or unsafe result?
+      placeholder: "e.g., Under 2024 ESC guidelines, female sex should not add 1 point to CHA2DS2-VA..."
+    validations:
+      required: true
+  - type: input
+    id: clinical_guideline_citation
+    attributes:
+      label: Authoritative Clinical Guideline & DOI
+      description: Provide the authoritative professional guideline (e.g., ESC, AHA, KDIGO, AAP, NICE, WHO) with DOI or PubMed ID.
+      placeholder: "e.g., Van Gelder IC, et al. Eur Heart J 2024 (DOI: 10.1093/eurheartj/ehae176)"
+    validations:
+      required: true
+  - type: textarea
+    id: expected_vs_observed
+    attributes:
+      label: Expected vs. Observed Output
+      description: Provide exact input numbers and the expected mathematical/clinical result versus what MedOrqis returned.
+    validations:
+      required: true
+  - type: checkboxes
+    id: verification_acknowledgment
+    attributes:
+      label: Safety Acknowledgment
+      options:
+        - label: I understand that MedOrqis is open-source research software and outputs must be verified by a licensed clinician before bedside application.
+          required: true

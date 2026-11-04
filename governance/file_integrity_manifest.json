@@ -1,7 +1,7 @@
 {
   "$schema": "../schemas/clinical_rule_entry.schema.json",
   "manifest_version": "2.1.1",
-  "generated_at": "2026-11-04T05:04:24.642124+00:00",
+  "generated_at": "2026-11-04T05:30:41.948195+00:00",
   "hashing_algorithm": "SHA-256",
   "total_fingerprinted_files": 45,
   "provenance_policy": "ISO 14971 / IEC 62304 Medical Device File Integrity Assurance",

@@ -1,8 +1,8 @@
 {
   "report_version": "2.1.1",
-  "timestamp": "2026-11-04T05:04:25.213554+00:00",
-  "release_tag": "v2.1.1",
-  "base_commit": "a025e811358376a75126a967d88fa8682ae0864f",
+  "timestamp": "2026-11-04T05:30:43.219002+00:00",
+  "release_tag": "v2.1.1-1-g43b21d5",
+  "base_commit": "43b21d568e727c856ded72e4dc6ff1f5d7c08811",
   "python_version": "3.14.8 (main, Oct  1 2026, 00:00:00) [GCC 16.2.1 20260819 (Red Hat 16.2.1-2)]",
   "total_tests": 36,
   "passed": 36,
@@ -28,7 +28,7 @@
       "errors": 0,
       "pass_rate": 100.0,
       "status": "PASSED",
-      "duration_seconds": 0.002
+      "duration_seconds": 0.008
     },
     {
       "id": "2",
@@ -43,7 +43,7 @@
       "errors": 0,
       "pass_rate": 100.0,
       "status": "PASSED",
-      "duration_seconds": 0.028
+      "duration_seconds": 0.033
     },
     {
       "id": "3",
@@ -58,7 +58,7 @@
       "errors": 0,
       "pass_rate": 100.0,
       "status": "PASSED",
-      "duration_seconds": 0.023
+      "duration_seconds": 0.024
     },
     {
       "id": "4",
@@ -73,7 +73,7 @@
       "errors": 0,
       "pass_rate": 100.0,
       "status": "PASSED",
-      "duration_seconds": 0.204
+      "duration_seconds": 0.307
     }
   ]
 }

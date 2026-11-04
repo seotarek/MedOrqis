@@ -1,0 +1,40 @@
+name: 🧮 Propose New Clinical Calculator
+description: Propose adding a new pure deterministic clinical calculator to core/clinical_calculators.py
+title: "[CALCULATOR PROPOSAL]: "
+labels: ["enhancement", "clinical-calculator"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### 🧮 New Deterministic Clinical Calculator Proposal
+        All medical calculations in MedOrqis must be implemented as pure, zero-token deterministic Python functions with peer-reviewed guideline attribution.
+  - type: input
+    id: calculator_name
+    attributes:
+      label: Calculator Name & Acronym
+      placeholder: "e.g., MELD-Na (Model for End-Stage Liver Disease)"
+    validations:
+      required: true
+  - type: input
+    id: guideline_source
+    attributes:
+      label: Primary Clinical Guideline & DOI
+      placeholder: "e.g., Kamath PS, et al. Hepatology 2007 (DOI: 10.1002/hep.21563)"
+    validations:
+      required: true
+  - type: textarea
+    id: mathematical_formula
+    attributes:
+      label: Exact Mathematical Formula & Units
+      description: Provide the complete mathematical equation and all expected input units (e.g., mg/dL vs µmol/L).
+      placeholder: "Formula: 10 * (0.957 * ln(Cr) + 0.378 * ln(Bilirubin) + 1.120 * ln(INR) + 0.643)..."
+    validations:
+      required: true
+  - type: textarea
+    id: safety_boundaries
+    attributes:
+      label: Population Boundaries & Missing Data Rules
+      description: Specify target population (pediatric vs adult), physiological min/max cutoffs, and required fail-closed abstentions.
+      placeholder: "Target: Adults >= 18y with end-stage liver disease. Hard refusal if age < 18 or Cr < 1.0..."
+    validations:
+      required: true
