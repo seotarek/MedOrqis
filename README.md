@@ -4,6 +4,8 @@
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.23937802-blue.svg?style=for-the-badge&logo=zenodo&logoColor=white)](https://doi.org/10.5281/zenodo.23937802)
 [![PyPI version](https://img.shields.io/pypi/v/medorqis.svg?style=for-the-badge&logo=pypi&logoColor=white&color=3775A9)](https://pypi.org/project/medorqis/)
 [![Glama MCP Server](https://glama.ai/mcp/servers/seotarek/MedOrqis/badges/score.svg)](https://glama.ai/mcp/servers/seotarek/MedOrqis)
+[![Hugging Face Space](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-yellow?style=for-the-badge)](https://huggingface.co/spaces/seotarek/MedOrqis)
+[![Hugging Face Dataset](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Dataset-orange?style=for-the-badge)](https://huggingface.co/datasets/seotarek/medorqis-clinical-dialect-benchmark)
 [![Skills CLI](https://img.shields.io/badge/Skills_CLI-npx_skills_add_seotarek%2FMedOrqis-6366f1?style=for-the-badge&logo=vercel)](https://github.com/vercel-labs/skills)
 [![npm version](https://img.shields.io/badge/npm-v2.1.1-cb3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/medorqis)
 [![Verification: 36/36 Passed (100%)](https://img.shields.io/badge/Verification-36%2F36%20Passed%20(100%25)-brightgreen.svg?style=for-the-badge)](tests/reports/VERIFICATION_REPORT.md)

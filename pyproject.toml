@@ -43,6 +43,8 @@ Homepage = "https://seotarek.github.io/MedOrqis/"
 Repository = "https://github.com/seotarek/MedOrqis"
 Documentation = "https://seotarek.github.io/MedOrqis/"
 Zenodo_DOI = "https://doi.org/10.5281/zenodo.23937802"
+HuggingFace_Space = "https://huggingface.co/spaces/seotarek/MedOrqis"
+HuggingFace_Dataset = "https://huggingface.co/datasets/seotarek/medorqis-clinical-dialect-benchmark"
 
 [tool.setuptools.packages.find]
 where = ["."]
