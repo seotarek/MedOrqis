@@ -5,6 +5,7 @@
 [![PyPI version](https://img.shields.io/pypi/v/medorqis.svg?style=for-the-badge&logo=pypi&logoColor=white&color=3775A9)](https://pypi.org/project/medorqis/)
 [![Glama MCP Server](https://glama.ai/mcp/servers/seotarek/MedOrqis/badges/score.svg)](https://glama.ai/mcp/servers/seotarek/MedOrqis)
 [![TDQS Score](https://tdqs.dev/reports/f8u67tchoa/badge.svg)](https://tdqs.dev/reports/f8u67tchoa)
+[![M8ven Score](https://m8ven.ai/badge/mcp/seotarek-medorqis-uxezzz?v=8a5f358e51730d8f991e6ca4cc6bd001)](https://m8ven.ai/mcp/seotarek-medorqis-uxezzz?s=readme)
 [![Hugging Face Space](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Web_Hub-yellow?style=for-the-badge)](https://huggingface.co/spaces/seotarek/MedOrqis)
 [![HF MCP Server](https://img.shields.io/badge/%F0%9F%A4%97%20Gradio-MCP_Server-blue?style=for-the-badge)](https://huggingface.co/spaces/seotarek/medorqis-mcp-server)
 [![Hugging Face Dataset](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Dataset-orange?style=for-the-badge)](https://huggingface.co/datasets/seotarek/medorqis-clinical-dialect-benchmark)
