@@ -1,8 +1,8 @@
 # MedOrqis — Synthetic NLP Benchmark & Dialect Regression Matrix (v2.1.1)
 
-**Execution Timestamp**: `2026-11-04T06:37:17.920949+00:00`  
-**Release Tag**: `v2.1.1-7-ge8e59fc`  
-**Base Commit**: `e8e59fc`  
+**Execution Timestamp**: `2026-11-04T06:53:15.493245+00:00`  
+**Release Tag**: `v2.1.1-8-g58ef4c2`  
+**Base Commit**: `58ef4c2`  
 **Benchmark Scope**: Automated Syntactic Unit-Test Fixtures (126 cases)  
 **Governance Policy**: Two-Axis Separation (Algorithmic Invariance vs Real-World Clinical Validation)
 
