@@ -1,6 +1,7 @@
 # MedOrqis — Medical AI Skills Ecosystem (v2.1.1)
 
 [![Live Interactive Catalog](https://img.shields.io/badge/Live_Catalog-seotarek.github.io%2FMedOrqis-00e5a3?style=for-the-badge&logo=google-chrome&logoColor=black)](https://seotarek.github.io/MedOrqis/)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.23937802-blue.svg?style=for-the-badge&logo=zenodo&logoColor=white)](https://doi.org/10.5281/zenodo.23937802)
 [![Skills CLI](https://img.shields.io/badge/Skills_CLI-npx_skills_add_seotarek%2FMedOrqis-6366f1?style=for-the-badge&logo=vercel)](https://github.com/vercel-labs/skills)
 [![npm version](https://img.shields.io/badge/npm-v2.1.1-cb3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/medorqis)
 [![Verification: 36/36 Passed (100%)](https://img.shields.io/badge/Verification-36%2F36%20Passed%20(100%25)-brightgreen.svg?style=for-the-badge)](tests/reports/VERIFICATION_REPORT.md)
@@ -208,6 +209,24 @@ Artifacts generated:
 
 ## ⚖️ Governance & Regulatory Disclaimer
 MedOrqis is an open-source clinical reference architecture and research framework. It is **NOT** a certified Medical Device (SaMD) and does not autonomously diagnose or prescribe. Clinical Decision Support outputs must always be reviewed by a licensed healthcare professional. See [MEDICAL_DISCLAIMER.md](MEDICAL_DISCLAIMER.md) and [SAFETY_AND_GOVERNANCE.md](SAFETY_AND_GOVERNANCE.md).
+
+---
+
+## 📚 Academic Citation & Persistent DOI
+If you use MedOrqis in clinical informatics, medical AI research, or clinical decision support development, please cite our persistent Zenodo repository DOI:
+
+```bibtex
+@software{mohamed_2026_medorqis,
+  author       = {Mohamed, Tarek},
+  title        = {MedOrqis: Medical AI Skills Ecosystem with Deterministic Safety Guardrails & Zero-Token Calculators},
+  month        = nov,
+  year         = 2026,
+  publisher    = {Zenodo},
+  version      = {v2.1.1},
+  doi          = {10.5281/zenodo.23937802},
+  url          = {https://doi.org/10.5281/zenodo.23937802}
+}
+```
 
 ---
 
