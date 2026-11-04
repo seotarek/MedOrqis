@@ -77,7 +77,7 @@ def generate_manifest(root_dir: str = BASE_DIR) -> Dict[str, Any]:
 
     manifest = {
         "$schema": "../schemas/clinical_rule_entry.schema.json",
-        "manifest_version": "2.1.1",
+        "manifest_version": "2.1.2",
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "hashing_algorithm": "SHA-256",
         "total_fingerprinted_files": len(file_entries),
