@@ -19,7 +19,7 @@ jobs:
       - name: Setup Node.js for GitHub Packages
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           registry-url: 'https://npm.pkg.github.com'
           scope: '@seotarek'
 
@@ -37,6 +37,22 @@ jobs:
           '
 
       - name: Publish Scoped Package to GitHub Packages
-        run: npm publish
+        run: |
+          PKG_VERSION=$(node -p 'require("./package.json").version')
+          echo "Attempting to publish @seotarek/medorqis@$PKG_VERSION to GitHub Packages..."
+          OUTPUT=$(npm publish 2>&1) && {
+            echo "$OUTPUT"
+            echo "Successfully published @seotarek/medorqis@$PKG_VERSION"
+          } || {
+            EXIT_CODE=$?
+            echo "$OUTPUT"
+            if echo "$OUTPUT" | grep -q "Cannot publish over existing version"; then
+              echo "Notice: @seotarek/medorqis@$PKG_VERSION is already published to GitHub Packages. Skipping (idempotent)."
+              exit 0
+            else
+              echo "Error: Publishing failed with non-conflict error."
+              exit $EXIT_CODE
+            fi
+          }
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
