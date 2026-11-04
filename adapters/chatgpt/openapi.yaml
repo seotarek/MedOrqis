@@ -1,0 +1,122 @@
+openapi: 3.1.0
+info:
+  title: MedOrqis Clinical AI Engine API
+  description: 24 specialized clinical skills, deterministic zero-token calculators, and fail-closed safety guardrails.
+  version: 2.1.1
+servers:
+  - url: https://glama.ai/mcp/servers/seotarek/MedOrqis
+    description: Official Glama MCP Hosted Gateway
+paths:
+  /calculate_clinical_score:
+    post:
+      operationId: calculateClinicalScore
+      summary: Calculates deterministic, guideline-grounded clinical scores
+      description: Computes clinical risk scores (CHA2DS2-VA ESC 2024, CKD-EPI 2021 eGFR, Bedside Schwartz, Cockcroft-Gault CrCl, NEWS2, CURB-65, Wells DVT/PE).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - calculator_id
+                - params
+              properties:
+                calculator_id:
+                  type: string
+                  enum:
+                    - cha2ds2_va_esc2024
+                    - cha2ds2_vasc_aha2023
+                    - ckd_epi_2021_egfr
+                    - bedside_schwartz_egfr
+                    - cockcroft_gault_crcl
+                    - pediatric_dose_calculator
+                    - mosteller_bsa
+                    - has_bled_score
+                    - news2_score
+                    - curb65_score
+                    - wells_dvt_score
+                    - wells_pe_score
+                params:
+                  type: object
+                  description: Calculator specific input parameters.
+      responses:
+        '200':
+          description: Deterministic calculation result with clinical interpretation and guideline citation.
+          content:
+            application/json:
+              schema:
+                type: object
+  /check_drug_interactions:
+    post:
+      operationId: checkDrugInteractions
+      summary: Screens medications for severe or fatal drug-drug interactions
+      description: Identifies severe DDIs, flags pregnancy/organ failure contraindications, and normalizes brand names to INN.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - medications
+              properties:
+                medications:
+                  type: array
+                  items:
+                    type: string
+                  description: List of brand or INN generic drug names.
+      responses:
+        '200':
+          description: DDI screening report.
+          content:
+            application/json:
+              schema:
+                type: object
+  /scrub_phi:
+    post:
+      operationId: scrubPhi
+      summary: De-identifies Protected Health Information from clinical text
+      description: Redacts HIPAA 18 identifiers, Egyptian National ID, Saudi Iqama ID, phone numbers, and MRNs.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - text
+              properties:
+                text:
+                  type: string
+                  description: Unscrubbed clinical narrative or patient query.
+      responses:
+        '200':
+          description: Redacted text with audit report.
+          content:
+            application/json:
+              schema:
+                type: object
+  /normalize_terminology:
+    post:
+      operationId: normalizeTerminology
+      summary: Maps trade brand names to INN and ATC codes
+      description: Converts regional commercial brand names (e.g., Concor, Augmentin, Plavix) into international generic names.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - brand_name
+              properties:
+                brand_name:
+                  type: string
+      responses:
+        '200':
+          description: Normalized generic entity details.
+          content:
+            application/json:
+              schema:
+                type: object
