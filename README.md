@@ -7,8 +7,10 @@
 [![TDQS Score](https://tdqs.dev/reports/f8u67tchoa/badge.svg)](https://tdqs.dev/reports/f8u67tchoa)
 [![M8ven Score](https://m8ven.ai/badge/mcp/seotarek-medorqis-uxezzz)](https://m8ven.ai/mcp/seotarek-medorqis-uxezzz?s=readme)
 [![Hugging Face Space](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Web_Hub-yellow?style=for-the-badge)](https://huggingface.co/spaces/seotarek/MedOrqis)
+[![HF Model](https://img.shields.io/badge/%F0%9F%A4%97%20HF%20Model-MedOrqis--Hakim--6B-emerald?style=for-the-badge)](https://huggingface.co/seotarek/medorqis-hakim-6b)
+[![HF Dataset](https://img.shields.io/badge/%F0%9F%A4%97%20HF%20Dataset-Clinical--Instructions-orange?style=for-the-badge)](https://huggingface.co/datasets/seotarek/medorqis-clinical-instructions)
+[![Free Colab Training](https://img.shields.io/badge/Colab-Free_Training-yellow?style=for-the-badge&logo=googlecolab)](https://colab.research.google.com/github/seotarek/MedOrqis/blob/main/training/MedOrqis_Free_Training_Colab.ipynb)
 [![HF MCP Server](https://img.shields.io/badge/%F0%9F%A4%97%20Gradio-MCP_Server-blue?style=for-the-badge)](https://huggingface.co/spaces/seotarek/medorqis-mcp-server)
-[![Hugging Face Dataset](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Dataset-orange?style=for-the-badge)](https://huggingface.co/datasets/seotarek/medorqis-clinical-dialect-benchmark)
 [![Skills CLI](https://img.shields.io/badge/Skills_CLI-npx_skills_add_seotarek%2FMedOrqis-6366f1?style=for-the-badge&logo=vercel)](https://github.com/vercel-labs/skills)
 [![npm version](https://img.shields.io/badge/npm-v2.1.2-cb3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/medorqis)
 [![Verification: 36/36 Passed (100%)](https://img.shields.io/badge/Verification-36%2F36%20Passed%20(100%25)-brightgreen.svg?style=for-the-badge)](tests/reports/VERIFICATION_REPORT.md)
@@ -140,6 +142,20 @@ git clone https://github.com/seotarek/MedOrqis.git
 cd MedOrqis
 python3 -m pip install -e .
 ```
+
+---
+
+## 🧠 MedOrqis Medical Foundation Model: Hakim-6B (حكيم)
+
+[![HF Model](https://img.shields.io/badge/%F0%9F%A4%97%20HF%20Model-MedOrqis--Hakim--6B-emerald?style=for-the-badge)](https://huggingface.co/seotarek/medorqis-hakim-6b)
+[![HF Dataset](https://img.shields.io/badge/%F0%9F%A4%97%20HF%20Dataset-Clinical--Instructions-orange?style=for-the-badge)](https://huggingface.co/datasets/seotarek/medorqis-clinical-instructions)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/seotarek/MedOrqis/blob/main/training/MedOrqis_Free_Training_Colab.ipynb)
+
+**MedOrqis-Hakim-6B (حكيم)** is the official bilingual (Arabic & English) clinical decision intelligence foundation model of the MedOrqis ecosystem. Fine-tuned on top of `Applied-Innovation-Center/Karnak-6B-v1.0` (Qwen3 architecture) via QLoRA 4-bit NF4, it acts as the **Clinical Brain** of MedOrqis:
+
+- **Clinical Narrative & Dialect Comprehension**: Accurately parses complex patient histories, lab reports, and colloquial complaints in Modern Standard Arabic, Medical English, and regional dialects (Egyptian & Gulf colloquialisms like *"كرشة نفس وعرق ساقع"* and *"حرقان ف فم المعدة بيسمع ف كتفي"* mapped to ICD-10 and SNOMED-CT).
+- **Native Deterministic Tool-Calling**: The model is trained never to guess clinical scores, drug dosages, or drug-drug interactions. Instead, it emits structured `<tool_call>` requests to MedOrqis's verified zero-token Python calculators.
+- **100% Free Cloud Training**: Fine-tune the model for free in ~20 minutes on Google Colab's free T4 GPU with zero local download footprint. Read the full [Foundation Model Architecture & Governance Specification](docs/FOUNDATION_MODEL.md).
 
 ---
 
