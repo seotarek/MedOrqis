@@ -155,6 +155,7 @@ python3 -m pip install -e .
 
 - **Clinical Narrative & Dialect Comprehension**: Accurately parses complex patient histories, lab reports, and colloquial complaints in Modern Standard Arabic, Medical English, and regional dialects (Egyptian & Gulf colloquialisms like *"كرشة نفس وعرق ساقع"* and *"حرقان ف فم المعدة بيسمع ف كتفي"* mapped to ICD-10 and SNOMED-CT).
 - **Native Deterministic Tool-Calling**: The model is trained never to guess clinical scores, drug dosages, or drug-drug interactions. Instead, it emits structured `<tool_call>` requests to MedOrqis's verified zero-token Python calculators.
+- **Dedicated Model Repository**: For the complete model training pipeline, LoRA weights, and inference guides, visit the dedicated repository: 🔗 **[seotarek/medorqis-hakim](https://github.com/seotarek/medorqis-hakim)**.
 - **100% Free Cloud Training**: Fine-tune the model for free in ~20 minutes on Google Colab's free T4 GPU with zero local download footprint. Read the full [Foundation Model Architecture & Governance Specification](docs/FOUNDATION_MODEL.md).
 
 ---
