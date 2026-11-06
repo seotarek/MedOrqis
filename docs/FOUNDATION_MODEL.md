@@ -2,7 +2,7 @@
 
 The MedOrqis Medical Foundation Model (`MedOrqis-LLM`) has been modularized into its dedicated standalone repository:
 
-👉 🔗 **[https://github.com/seotarek/medorqis-llm](https://github.com/seotarek/medorqis-llm)**
+**[https://github.com/seotarek/medorqis-llm](https://github.com/seotarek/medorqis-llm)**
 
 Please refer to the dedicated repository for:
 - Model serving (vLLM, Transformers, PEFT 4-bit)
