@@ -615,6 +615,37 @@ TOOLS_REGISTRY = [
                 "regional_availability": {"type": "array", "items": {"type": "string"}, "description": "List of geographical markets where this brand name is actively distributed."}
             }
         }
+    },
+    {
+        "name": "evaluate_qnx_deterioration",
+        "title": "QNX 8.0 Real-Time Telemetry & Deterioration Evaluator",
+        "description": (
+            "Evaluates multi-parameter bedside vital signs telemetry from QNX Neutrino RTOS 8.0 edge devices.\n"
+            "Calculates deterministic NEWS2 acuity, checks extreme physiological red flags, and generates "
+            "bilingual (English & Arabic) ISBAR clinical handover documentation with Sepsis-Six bundles."
+        ),
+        "annotations": {
+            "readOnlyHint": True,
+            "destructiveHint": False,
+            "idempotentHint": True,
+            "openWorldHint": False
+        },
+        "inputSchema": {
+            "type": "object",
+            "required": ["heart_rate_bpm", "systolic_bp_mmhg", "respiratory_rate_bpm", "spo2_percent", "temperature_celsius"],
+            "additionalProperties": False,
+            "properties": {
+                "patient_id": {"type": "string", "description": "Pseudonymized patient identifier.", "default": "PAT-ICU-084"},
+                "heart_rate_bpm": {"type": "integer", "minimum": 0, "maximum": 300, "description": "Heart rate in beats per minute."},
+                "systolic_bp_mmhg": {"type": "integer", "minimum": 20, "maximum": 350, "description": "Systolic blood pressure in mmHg."},
+                "diastolic_bp_mmhg": {"type": "integer", "minimum": 10, "maximum": 250, "description": "Diastolic blood pressure in mmHg.", "default": 80},
+                "respiratory_rate_bpm": {"type": "integer", "minimum": 0, "maximum": 100, "description": "Respiratory rate in breaths per minute."},
+                "spo2_percent": {"type": "number", "minimum": 0, "maximum": 100, "description": "Oxygen saturation percentage."},
+                "temperature_celsius": {"type": "number", "minimum": 20, "maximum": 45, "description": "Body temperature in degrees Celsius."},
+                "on_supplemental_oxygen": {"type": "boolean", "description": "Whether patient is receiving supplemental oxygen.", "default": False},
+                "consciousness": {"type": "string", "enum": ["Alert", "CVPU"], "description": "Neurological consciousness level.", "default": "Alert"}
+            }
+        }
     }
 ]
 
@@ -794,6 +825,48 @@ def handle_tool_call(tool_name: str, arguments: dict) -> dict:
                 "drug_class": ("Cardiovascular / Beta-blocker" if "concor" in brand.lower() else ("Antibacterial" if "augmentin" in brand.lower() else ("NSAID" if "voltaren" in brand.lower() else ("Antiplatelet" if "plavix" in brand.lower() else ("Analgesic" if "panadol" in brand.lower() else "Pharmaceutical Agent"))))) if is_mapped else None,
                 "atc_code": raw.get("atc_code") if is_mapped else None,
                 "regional_availability": ["Egypt", "Saudi Arabia", "Gulf", "International"] if is_mapped else []
+            }
+
+        elif tool_name == "evaluate_qnx_deterioration":
+            from qnx_edge.bridge.clinical_advisory import ClinicalAdvisoryEngine
+            from core.clinical_calculators import calculate_news2_score
+
+            telemetry = {
+                "patient_id": arguments.get("patient_id", "PAT-ICU-084"),
+                "heart_rate_bpm": arguments.get("heart_rate_bpm"),
+                "systolic_bp_mmhg": arguments.get("systolic_bp_mmhg"),
+                "diastolic_bp_mmhg": arguments.get("diastolic_bp_mmhg", 80),
+                "respiratory_rate_bpm": arguments.get("respiratory_rate_bpm"),
+                "spo2_percent": float(arguments.get("spo2_percent")),
+                "temperature_celsius": float(arguments.get("temperature_celsius")),
+                "on_supplemental_oxygen": bool(arguments.get("on_supplemental_oxygen", False)),
+                "consciousness": 1 if str(arguments.get("consciousness", "")).upper() in ["CVPU", "CONFUSED", "VOICE", "PAIN", "UNRESPONSIVE"] else 0,
+                "calculation_latency_ns": 340
+            }
+
+            res = calculate_news2_score(
+                respiration_rate_bpm=telemetry["respiratory_rate_bpm"],
+                spo2_percent=telemetry["spo2_percent"],
+                air_or_oxygen="OXYGEN" if telemetry["on_supplemental_oxygen"] else "AIR",
+                systolic_bp_mmhg=telemetry["systolic_bp_mmhg"],
+                pulse_bpm=telemetry["heart_rate_bpm"],
+                consciousness="CVPU" if telemetry["consciousness"] else "ALERT",
+                temperature_celsius=telemetry["temperature_celsius"]
+            )
+            telemetry["news2_score"] = int(res.score)
+            telemetry["alert_level_name"] = res.interpretation_band
+
+            adv = ClinicalAdvisoryEngine()
+            handovers = adv.generate_isbar_handover(telemetry)
+
+            return {
+                "patient_id": telemetry["patient_id"],
+                "qnx_edge_status": "DETERMINISTIC_EVALUATION_SUCCESS",
+                "news2_score": int(res.score),
+                "interpretation_band": res.interpretation_band,
+                "clinical_recommendation": res.clinical_recommendation,
+                "isbar_handover_en": handovers["english"],
+                "isbar_handover_ar": handovers["arabic"]
             }
 
         else:

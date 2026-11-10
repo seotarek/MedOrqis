@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedOrqis-QNX :: Real-Time Life-Critical Bedside Telemetry Monitor</title>
+    <style>
+        :root {
+            --bg-primary: #070b12;
+            --bg-secondary: #0d1522;
+            --bg-panel: #121c2e;
+            --border-color: #1e2c45;
+            --text-primary: #f8fafc;
+            --text-muted: #94a3b8;
+            --color-routine: #10b981;
+            --color-medium: #f59e0b;
+            --color-critical: #ef4444;
+            --color-cyan: #06b6d4;
+            --font-mono: "JetBrains Mono", "SF Mono", Consolas, "Liberation Mono", monospace;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.5;
+            overflow-x: hidden;
+            padding: 16px;
+        }
+
+        /* Top Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 14px 20px;
+            margin-bottom: 16px;
+        }
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .qnx-badge {
+            background: #b91c1c;
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            letter-spacing: 1px;
+        }
+        .brand-text h1 {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .brand-text p {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+        .header-meta {
+            display: flex;
+            gap: 20px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+        }
+        .meta-item span {
+            color: var(--text-muted);
+            display: block;
+            font-size: 10px;
+            text-transform: uppercase;
+        }
+
+        /* Main Grid Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 16px;
+        }
+        @media (max-width: 1024px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Left Column: Waveforms & Vitals */
+        .left-col {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Waveform Panel */
+        .waveform-panel {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 14px;
+        }
+        .waveform-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 12px;
+            font-family: var(--font-mono);
+        }
+        .ecg-lead { color: #10b981; font-weight: 700; }
+        .pleth-lead { color: #06b6d4; font-weight: 700; }
+        canvas {
+            width: 100%;
+            height: 90px;
+            background: #04070c;
+            border-radius: 4px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Vitals Cards Grid */
+        .vitals-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+        @media (max-width: 768px) {
+            .vitals-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        .vital-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 14px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .vital-card.critical {
+            border-color: var(--color-critical);
+            background: rgba(239, 68, 68, 0.08);
+        }
+        .vital-card.warning {
+            border-color: var(--color-medium);
+            background: rgba(245, 158, 11, 0.08);
+        }
+        .vital-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-family: var(--font-mono);
+            display: flex;
+            justify-content: space-between;
+        }
+        .vital-score-pill {
+            padding: 1px 6px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+        .score-0 { background: #064e3b; color: #a7f3d0; }
+        .score-1 { background: #78350f; color: #fde68a; }
+        .score-2 { background: #92400e; color: #fed7aa; }
+        .score-3 { background: #7f1d1d; color: #fecaca; }
+
+        .vital-value {
+            font-size: 32px;
+            font-weight: 800;
+            font-family: var(--font-mono);
+            margin: 6px 0 2px 0;
+            letter-spacing: -1px;
+        }
+        .vital-subtext {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* Right Column: NEWS2 Gauge & Clinical AI Advisory */
+        .right-col {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* NEWS2 Acuity Banner */
+        .acuity-card {
+            background: var(--bg-secondary);
+            border: 2px solid var(--color-routine);
+            border-radius: 8px;
+            padding: 18px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .acuity-card.critical {
+            border-color: var(--color-critical);
+            background: rgba(239, 68, 68, 0.15);
+            animation: pulse-border 1.5s infinite;
+        }
+        .acuity-card.medium {
+            border-color: var(--color-medium);
+            background: rgba(245, 158, 11, 0.12);
+        }
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6); }
+            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+        .acuity-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            font-family: var(--font-mono);
+            letter-spacing: 1px;
+            color: var(--text-muted);
+        }
+        .acuity-score {
+            font-size: 54px;
+            font-weight: 900;
+            font-family: var(--font-mono);
+            line-height: 1;
+            margin: 10px 0;
+        }
+        .acuity-badge {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* RTOS Telemetry HUD */
+        .qnx-hud {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 14px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+        }
+        .hud-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .hud-row:last-child { border-bottom: none; }
+        .hud-val { color: var(--color-cyan); font-weight: 700; }
+
+        /* Bilingual Clinical AI Handover */
+        .advisory-panel {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .advisory-tabs {
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            font-family: var(--font-mono);
+        }
+        .tab-btn.active {
+            background: var(--bg-panel);
+            color: var(--text-primary);
+        }
+        .handover-content {
+            font-size: 12px;
+            color: #cbd5e1;
+            background: #090e18;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            max-height: 280px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            font-family: var(--font-sans);
+        }
+        .handover-content.arabic {
+            direction: rtl;
+            text-align: right;
+            font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+            font-size: 13px;
+        }
+
+        /* Controls Footer */
+        .controls-bar {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+            align-items: center;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px 18px;
+        }
+        .btn {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn:hover { background: #1e293b; border-color: #475569; }
+        .btn-primary { background: #2563eb; border-color: #3b82f6; }
+        .btn-primary:hover { background: #1d4ed8; }
+        select {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Header -->
+    <header>
+        <div class="header-title">
+            <span class="qnx-badge">QNX 8.0</span>
+            <div class="brand-text">
+                <h1>MedOrqis-QNX Bedside Telemetry Monitor</h1>
+                <p>Safety-Critical Real-Time Clinical Deterioration Advisory</p>
+            </div>
+        </div>
+        <div class="header-meta">
+            <div class="meta-item"><span>Patient ID</span><strong id="disp-patient-id">PAT-ICU-084</strong></div>
+            <div class="meta-item"><span>Location</span><strong>Surgical ICU · Bed 04</strong></div>
+            <div class="meta-item"><span>Standard</span><strong>RCP NEWS2 (2017)</strong></div>
+            <div class="meta-item"><span>Safety Class</span><strong>IEC 62304 Class C</strong></div>
+        </div>
+    </header>
+
+    <!-- Main Grid -->
+    <div class="dashboard-grid">
+        
+        <!-- Left Column: Waveforms and Parameter Cards -->
+        <div class="left-col">
+            
+            <!-- Real-Time Waveform Displays -->
+            <div class="waveform-panel">
+                <div class="waveform-header">
+                    <span class="ecg-lead">ECG LEAD II · 25 mm/s · 10 mm/mV</span>
+                    <span id="ecg-hr-label" style="color:#10b981; font-weight:700;">HR: 72 bpm</span>
+                </div>
+                <canvas id="ecg-canvas" height="90"></canvas>
+
+                <div class="waveform-header">
+                    <span class="pleth-lead">PLETH (SpO2 PULSE WAVEFORM)</span>
+                    <span id="pleth-label" style="color:#06b6d4; font-weight:700;">SpO2: 98%</span>
+                </div>
+                <canvas id="pleth-canvas" height="90"></canvas>
+            </div>
+
+            <!-- Discrete Vitals Grid -->
+            <div class="vitals-grid">
+                <!-- HR -->
+                <div class="vital-card" id="card-hr">
+                    <div class="vital-label">
+                        <span>Heart Rate</span>
+                        <span class="vital-score-pill score-0" id="pill-hr">0 pts</span>
+                    </div>
+                    <div class="vital-value" id="val-hr" style="color:#10b981;">72</div>
+                    <div class="vital-subtext">bpm · Sinus Rhythm</div>
+                </div>
+
+                <!-- NIBP -->
+                <div class="vital-card" id="card-bp">
+                    <div class="vital-label">
+                        <span>Blood Pressure</span>
+                        <span class="vital-score-pill score-0" id="pill-bp">0 pts</span>
+                    </div>
+                    <div class="vital-value" id="val-bp" style="color:#10b981;">122/78</div>
+                    <div class="vital-subtext">mmHg (MAP: 92)</div>
+                </div>
+
+                <!-- SpO2 -->
+                <div class="vital-card" id="card-spo2">
+                    <div class="vital-label">
+                        <span>SpO2 Saturation</span>
+                        <span class="vital-score-pill score-0" id="pill-spo2">0 pts</span>
+                    </div>
+                    <div class="vital-value" id="val-spo2" style="color:#10b981;">98.0%</div>
+                    <div class="vital-subtext" id="val-o2-source">Ambient Room Air</div>
+                </div>
+
+                <!-- RR -->
+                <div class="vital-card" id="card-rr">
+                    <div class="vital-label">
+                        <span>Resp Rate</span>
+                        <span class="vital-score-pill score-0" id="pill-rr">0 pts</span>
+                    </div>
+                    <div class="vital-value" id="val-rr" style="color:#10b981;">15</div>
+                    <div class="vital-subtext">breaths/min · Regular</div>
+                </div>
+
+                <!-- Temp -->
+                <div class="vital-card" id="card-temp">
+                    <div class="vital-label">
+                        <span>Core Temperature</span>
+                        <span class="vital-score-pill score-0" id="pill-temp">0 pts</span>
+                    </div>
+                    <div class="vital-value" id="val-temp" style="color:#10b981;">36.9°C</div>
+                    <div class="vital-subtext">Normothermic</div>
+                </div>
+
+                <!-- Consciousness -->
+                <div class="vital-card" id="card-cons">
+                    <div class="vital-label">
+                        <span>Neurological (AVPU)</span>
+                        <span class="vital-score-pill score-0" id="pill-cons">0 pts</span>
+                    </div>
+                    <div class="vital-value" id="val-cons" style="color:#10b981; font-size:24px; padding-top:6px;">Alert (A)</div>
+                    <div class="vital-subtext">Intact · Responding</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Column: NEWS2 Acuity & Clinical AI Advisory -->
+        <div class="right-col">
+            
+            <!-- NEWS2 Acuity Gauge Card -->
+            <div class="acuity-card" id="acuity-card">
+                <div class="acuity-title">Royal College of Physicians NEWS2 Score</div>
+                <div class="acuity-score" id="acuity-score" style="color:var(--color-routine);">0</div>
+                <div class="acuity-badge" id="acuity-badge" style="background:#064e3b; color:#a7f3d0;">Low Clinical Risk (Routine)</div>
+                <p id="acuity-protocol" style="font-size:11px; color:var(--text-muted); margin-top:8px;">Ward observations every 4 to 6 hours.</p>
+            </div>
+
+            <!-- QNX Microkernel Telemetry HUD -->
+            <div class="qnx-hud">
+                <div class="hud-row"><span>RTOS Target</span><span class="hud-val">QNX Neutrino RTOS 8.0 (procnto-64)</span></div>
+                <div class="hud-row"><span>Execution Latency</span><span class="hud-val" id="hud-latency">342 ns (Hard Real-Time)</span></div>
+                <div class="hud-row"><span>Heap Memory Allocation</span><span class="hud-val" style="color:#10b981;">0 Bytes (Zero malloc)</span></div>
+                <div class="hud-row"><span>Data Integrity Check</span><span class="hud-val" id="hud-crc">CRC-32: 0x4E2F1CBD</span></div>
+                <div class="hud-row"><span>Double-Check Verification</span><span class="hud-val" style="color:#10b981;" id="hud-verify">Core Verified (0.00% Drift)</span></div>
+                <div class="hud-row"><span>Packet Telemetry Seq</span><span class="hud-val" id="hud-seq">#0001</span></div>
+            </div>
+
+            <!-- Bilingual Clinical AI Handover -->
+            <div class="advisory-panel">
+                <div class="advisory-tabs">
+                    <button class="tab-btn active" id="tab-en" onclick="switchLanguage('en')">English (ISBAR)</button>
+                    <button class="tab-btn" id="tab-ar" onclick="switchLanguage('ar')">العربية (تقرير التسليم)</button>
+                </div>
+                <div class="handover-content" id="handover-box">Waiting for clinical telemetry escalation... Baseline physiological monitoring is stable.</div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Controls Bar -->
+    <div class="controls-bar">
+        <label style="font-size:12px; font-weight:600;">Clinical Scenario:</label>
+        <select id="scenario-select" onchange="resetSimulation()">
+            <option value="sepsis">Acute Sepsis Progression to Septic Shock</option>
+            <option value="pe">Acute Pulmonary Embolism (Sudden Desaturation)</option>
+            <option value="stable">Stable Postoperative Homeostasis</option>
+        </select>
+        <button class="btn btn-primary" id="btn-toggle" onclick="toggleSimulation()">Pause Simulation</button>
+        <button class="btn" onclick="stepSimulation()">Step +1s</button>
+        <button class="btn" onclick="resetSimulation()">Reset</button>
+        <span style="font-size:12px; color:var(--text-muted); margin-left:auto; font-family:var(--font-mono);">
+            Progress: Step <strong id="sim-step" style="color:white;">1</strong> / 60
+        </span>
+    </div>
+
+    <script>
+        /* Simulation State Machine */
+        let simRunning = true;
+        let step = 0;
+        const totalSteps = 60;
+        let activeLang = 'en';
+
+        const state = {
+            hr: 72, sbp: 122, dbp: 78, rr: 15, spo2: 98.0, temp: 36.9,
+            o2: false, cons: 'A', news2: 0, alert: 0, latency_ns: 342,
+            crc: '0x4E2F1CBD'
+        };
+
+        /* Simulation Scenarios */
+        function calculateNextVitals() {
+            const scenario = document.getElementById('scenario-select').value;
+            const progress = step / totalSteps;
+
+            if (scenario === 'sepsis') {
+                if (progress < 0.25) {
+                    state.hr = 72 + (step % 4) - 2;
+                    state.sbp = 122;
+                    state.dbp = 78;
+                    state.rr = 15;
+                    state.spo2 = 98.0;
+                    state.temp = 36.9;
+                    state.o2 = false;
+                    state.cons = 'A';
+                } else if (progress < 0.55) {
+                    const p2 = (progress - 0.25) / 0.30;
+                    state.hr = Math.round(76 + (p2 * 28));
+                    state.sbp = Math.round(120 - (p2 * 14));
+                    state.dbp = Math.round(76 - (p2 * 10));
+                    state.rr = Math.round(16 + (p2 * 6));
+                    state.spo2 = Math.round(97.0 - (p2 * 3.0));
+                    state.temp = Math.round((37.0 + (p2 * 1.5)) * 10) / 10;
+                    state.o2 = false;
+                    state.cons = 'A';
+                } else {
+                    const p3 = (progress - 0.55) / 0.45;
+                    state.hr = Math.round(106 + (p3 * 32));
+                    state.sbp = Math.round(104 - (p3 * 26));
+                    state.dbp = Math.round(64 - (p3 * 18));
+                    state.rr = Math.round(22 + (p3 * 7));
+                    state.spo2 = Math.round(93.0 - (p3 * 5.0));
+                    state.temp = Math.round((38.6 + (p3 * 0.9)) * 10) / 10;
+                    state.o2 = true;
+                    state.cons = p3 > 0.4 ? 'CVPU' : 'A';
+                }
+            } else if (scenario === 'pe') {
+                if (progress < 0.35) {
+                    state.hr = 74; state.sbp = 126; state.dbp = 80;
+                    state.rr = 14; state.spo2 = 98.0; state.temp = 36.8;
+                    state.o2 = false; state.cons = 'A';
+                } else {
+                    state.hr = 126 + (step % 4);
+                    state.sbp = 94 - (step % 3);
+                    state.dbp = 60;
+                    state.rr = 32 + (step % 2);
+                    state.spo2 = 86.0;
+                    state.temp = 37.1;
+                    state.o2 = true;
+                    state.cons = 'CVPU';
+                }
+            } else {
+                state.hr = 70 + (step % 4) - 2;
+                state.sbp = 120 + (step % 6) - 3;
+                state.dbp = 78;
+                state.rr = 15;
+                state.spo2 = 98.0;
+                state.temp = 36.8;
+                state.o2 = false;
+                state.cons = 'A';
+            }
+
+            /* Calculate Deterministic NEWS2 in JavaScript matching C99 Engine */
+            let score = 0;
+            // RR
+            let rr_pts = 0;
+            if (state.rr <= 8 || state.rr >= 25) rr_pts = 3;
+            else if (state.rr >= 21) rr_pts = 2;
+            else if (state.rr >= 9 && state.rr <= 11) rr_pts = 1;
+            score += rr_pts;
+
+            // SpO2
+            let spo2_pts = 0;
+            if (state.spo2 <= 91) spo2_pts = 3;
+            else if (state.spo2 <= 93) spo2_pts = 2;
+            else if (state.spo2 <= 95) spo2_pts = 1;
+            score += spo2_pts;
+
+            // O2
+            let o2_pts = state.o2 ? 2 : 0;
+            score += o2_pts;
+
+            // SBP
+            let sbp_pts = 0;
+            if (state.sbp <= 90 || state.sbp >= 220) sbp_pts = 3;
+            else if (state.sbp <= 100) sbp_pts = 2;
+            else if (state.sbp <= 110) sbp_pts = 1;
+            score += sbp_pts;
+
+            // HR
+            let hr_pts = 0;
+            if (state.hr <= 40 || state.hr >= 131) hr_pts = 3;
+            else if (state.hr >= 111) hr_pts = 2;
+            else if (state.hr <= 50 || state.hr >= 91) hr_pts = 1;
+            score += hr_pts;
+
+            // Consciousness
+            let cons_pts = state.cons === 'A' ? 0 : 3;
+            score += cons_pts;
+
+            // Temp
+            let temp_pts = 0;
+            if (state.temp <= 35.0) temp_pts = 3;
+            else if (state.temp <= 36.0 || (state.temp >= 38.1 && state.temp <= 39.0)) temp_pts = 1;
+            else if (state.temp > 39.0) temp_pts = 2;
+            score += temp_pts;
+
+            state.news2 = score;
+            const has_single_3 = (rr_pts === 3 || spo2_pts === 3 || sbp_pts === 3 || hr_pts === 3 || cons_pts === 3 || temp_pts === 3);
+            if (score >= 7 || has_single_3) state.alert = 2; // Critical
+            else if (score >= 5) state.alert = 1; // Medium
+            else state.alert = 0; // Routine
+
+            state.latency_ns = 240 + Math.floor(Math.random() * 160);
+            state.crc = '0x' + Math.floor(Math.random()*0xFFFFFFFF).toString(16).toUpperCase().padStart(8, '0');
+
+            updateDOM(rr_pts, spo2_pts, o2_pts, sbp_pts, hr_pts, cons_pts, temp_pts);
+        }
+
+        function updateDOM(rr_p, spo2_p, o2_p, sbp_p, hr_p, cons_p, temp_p) {
+            // Values
+            document.getElementById('val-hr').innerText = state.hr;
+            document.getElementById('val-bp').innerText = `${state.sbp}/${state.dbp}`;
+            document.getElementById('val-spo2').innerText = `${state.spo2.toFixed(1)}%`;
+            document.getElementById('val-rr').innerText = state.rr;
+            document.getElementById('val-temp').innerText = `${state.temp.toFixed(1)}°C`;
+            document.getElementById('val-cons').innerText = state.cons === 'A' ? 'Alert (A)' : 'CVPU (Confused)';
+            document.getElementById('val-o2-source').innerText = state.o2 ? 'High-Flow O2 Mask' : 'Ambient Room Air';
+
+            // Pills
+            setPill('pill-hr', hr_p);
+            setPill('pill-bp', sbp_p);
+            setPill('pill-spo2', spo2_p);
+            setPill('pill-rr', rr_p);
+            setPill('pill-temp', temp_p);
+            setPill('pill-cons', cons_p);
+
+            // Cards styling
+            setCardStatus('card-hr', hr_p);
+            setCardStatus('card-bp', sbp_p);
+            setCardStatus('card-spo2', spo2_p);
+            setCardStatus('card-rr', rr_p);
+            setCardStatus('card-temp', temp_p);
+            setCardStatus('card-cons', cons_p);
+
+            // Acuity
+            const acuityCard = document.getElementById('acuity-card');
+            const scoreEl = document.getElementById('acuity-score');
+            const badgeEl = document.getElementById('acuity-badge');
+            const protoEl = document.getElementById('acuity-protocol');
+
+            scoreEl.innerText = state.news2;
+            if (state.alert === 2) {
+                acuityCard.className = 'acuity-card critical';
+                scoreEl.style.color = 'var(--color-critical)';
+                badgeEl.style.background = '#7f1d1d';
+                badgeEl.style.color = '#fecaca';
+                badgeEl.innerText = 'HIGH CLINICAL RISK (EMERGENCY)';
+                protoEl.innerText = 'EMERGENCY: Immediate assessment by Rapid Response Team (RRT) / Critical Care Team.';
+            } else if (state.alert === 1) {
+                acuityCard.className = 'acuity-card medium';
+                scoreEl.style.color = 'var(--color-medium)';
+                badgeEl.style.background = '#78350f';
+                badgeEl.style.color = '#fde68a';
+                badgeEl.innerText = 'MEDIUM CLINICAL RISK (URGENT)';
+                protoEl.innerText = 'URGENT: Urgent bedside clinical review by a clinician competent in acute assessment.';
+            } else {
+                acuityCard.className = 'acuity-card';
+                scoreEl.style.color = 'var(--color-routine)';
+                badgeEl.style.background = '#064e3b';
+                badgeEl.style.color = '#a7f3d0';
+                badgeEl.innerText = 'LOW CLINICAL RISK (ROUTINE)';
+                protoEl.innerText = 'Ward observations every 4 to 6 hours.';
+            }
+
+            // HUD
+            document.getElementById('hud-latency').innerText = `${state.latency_ns} ns (Hard Real-Time)`;
+            document.getElementById('hud-crc').innerText = `CRC-32: ${state.crc}`;
+            document.getElementById('hud-seq').innerText = `#${String(step).padStart(4, '0')}`;
+            document.getElementById('sim-step').innerText = step;
+            document.getElementById('ecg-hr-label').innerText = `HR: ${state.hr} bpm`;
+            document.getElementById('pleth-label').innerText = `SpO2: ${state.spo2.toFixed(0)}%`;
+
+            // Handover update if alert >= 1
+            if (state.alert >= 1) {
+                renderHandover();
+            }
+        }
+
+        function setPill(id, pts) {
+            const el = document.getElementById(id);
+            el.innerText = `${pts} pts`;
+            el.className = `vital-score-pill score-${pts}`;
+        }
+        function setCardStatus(id, pts) {
+            const el = document.getElementById(id);
+            if (pts >= 3) el.className = 'vital-card critical';
+            else if (pts >= 1) el.className = 'vital-card warning';
+            else el.className = 'vital-card';
+        }
+
+        function renderHandover() {
+            const box = document.getElementById('handover-box');
+            if (activeLang === 'en') {
+                box.className = 'handover-content';
+                box.innerHTML = `<strong>[MEDORQIS ADVISORY CDS - IEC 62304 CLASS A/B - CLINICIAN REVIEW REQUIRED]</strong><br><br>` +
+                `<strong>ISBAR CLINICAL DETERIORATION HANDOVER (ENGLISH)</strong><br>` +
+                `<strong>Patient ID:</strong> PAT-ICU-084 · <strong>Acuity:</strong> NEWS2 ${state.news2}/20 (Critical Threshold)<br>` +
+                `<strong>Vitals:</strong> HR ${state.hr} bpm · BP ${state.sbp}/${state.dbp} mmHg · SpO2 ${state.spo2.toFixed(1)}% · RR ${state.rr} · Temp ${state.temp.toFixed(1)}°C<br><br>` +
+                `<strong>1. SITUATION:</strong> Acute physiological deterioration triggering bedside alarm. Suspected Septic Shock with hyperdynamic vasodilation.<br>` +
+                `<strong>2. ASSESSMENT:</strong> Hemodynamic collapse (SBP < 90), tachypnea, severe pyrexia, and lactic hypoperfusion.<br>` +
+                `<strong>3. SEPSIS SIX RESUSCITATION BUNDLE:</strong><br>` +
+                ` [1] Deliver high-flow oxygen targeting SpO2 94-98%<br>` +
+                ` [2] Draw blood cultures before antibiotics<br>` +
+                ` [3] Administer broad-spectrum empiric IV antimicrobials within 60 min<br>` +
+                ` [4] Start rapid 30 mL/kg balanced IV crystalloid bolus<br>` +
+                ` [5] Check serial blood lactate and arterial blood gas<br>` +
+                ` [6] Insert indwelling catheter for strict hourly urine output monitoring`;
+            } else {
+                box.className = 'handover-content arabic';
+                box.innerHTML = `<strong>[إشعار سريري استشاري - معتمد وفق معيار IEC 62304 Class A/B]</strong><br><br>` +
+                `<strong>تقرير تسليم التدهور السريري الحاد (نموذج ISBAR):</strong><br>` +
+                `<strong>معرف المريض:</strong> PAT-ICU-084 · <strong>مقياس NEWS2:</strong> ${state.news2} من 20 (حالة حرجة طارئة)<br>` +
+                `<strong>العلامات الحيوية:</strong> النبض ${state.hr} · الضغط ${state.sbp}/${state.dbp} · الأكسجين ${state.spo2.toFixed(1)}% · التنفس ${state.rr} · الحرارة ${state.temp.toFixed(1)}°م<br><br>` +
+                `<strong>1. الموقف الحالي:</strong> إطلاق إنذار سريري فوري عبر QNX 8.0 لتدهور حاد واشتباه قوي في صدمة إنتانية (Septic Shock).<br>` +
+                `<strong>2. التقييم السريري:</strong> هبوط ضغط دموي حاد مع تسرع قلبي وتنفسي وارتفاع حراري شديد يعكس نقص تروية نسيجية.<br>` +
+                `<strong>3. حزمة الإنقاذ الفوري (Sepsis Six):</strong><br>` +
+                ` [1] إعطاء أكسجين عالي التدفق لرفع التشبع إلى 94-98%<br>` +
+                ` [2] سحب عينات مزارع الدم قبل المضادات الحيوية فوراً<br>` +
+                ` [3] حقن وريدي لمضاد حيوي واسع المجال خلال أقل من ساعة<br>` +
+                ` [4] إعطاء محاليل بلورية وريدية متوازنة (30 مل/كجم) بسرعة<br>` +
+                ` [5] قياس فوري لحمض اللاكتيك في الدم ومتابعة غازات الدم<br>` +
+                ` [6] تركيب قسطرة بولية لمراقبة دقيقة للإخراج البولي كل ساعة`;
+            }
+        }
+
+        function switchLanguage(lang) {
+            activeLang = lang;
+            document.getElementById('tab-en').className = lang === 'en' ? 'tab-btn active' : 'tab-btn';
+            document.getElementById('tab-ar').className = lang === 'ar' ? 'tab-btn active' : 'tab-btn';
+            if (state.alert >= 1) renderHandover();
+        }
+
+        function toggleSimulation() {
+            simRunning = !simRunning;
+            document.getElementById('btn-toggle').innerText = simRunning ? 'Pause Simulation' : 'Resume Simulation';
+        }
+
+        function stepSimulation() {
+            step = (step + 1) % totalSteps;
+            calculateNextVitals();
+        }
+
+        function resetSimulation() {
+            step = 0;
+            document.getElementById('handover-box').innerHTML = 'Waiting for clinical telemetry escalation... Baseline physiological monitoring is stable.';
+            document.getElementById('handover-box').className = 'handover-content';
+            calculateNextVitals();
+        }
+
+        /* Waveform Animation Loop */
+        const ecgCanvas = document.getElementById('ecg-canvas');
+        const ecgCtx = ecgCanvas.getContext('2d');
+        const plethCanvas = document.getElementById('pleth-canvas');
+        const plethCtx = plethCanvas.getContext('2d');
+
+        function resizeCanvases() {
+            ecgCanvas.width = ecgCanvas.offsetWidth;
+            plethCanvas.width = plethCanvas.offsetWidth;
+        }
+        window.addEventListener('resize', resizeCanvases);
+        resizeCanvases();
+
+        let ecgX = 0;
+        let plethX = 0;
+        let lastEcgY = 45;
+        let lastPlethY = 45;
+
+        function drawWaveforms() {
+            const width = ecgCanvas.width;
+            const height = ecgCanvas.height;
+
+            // Clear lead bar
+            ecgCtx.fillStyle = '#04070c';
+            ecgCtx.fillRect(ecgX, 0, 8, height);
+            plethCtx.fillStyle = '#04070c';
+            plethCtx.fillRect(plethX, 0, 8, height);
+
+            // ECG Synthesis
+            const hrFactor = (state.hr / 60);
+            const t = (Date.now() / 1000) * hrFactor * Math.PI * 2;
+            let ecgY = height / 2;
+            const cycle = (t % (Math.PI * 2)) / (Math.PI * 2);
+
+            if (cycle > 0.15 && cycle < 0.20) ecgY -= 6; // P wave
+            else if (cycle >= 0.25 && cycle < 0.27) ecgY += 8; // Q wave
+            else if (cycle >= 0.27 && cycle < 0.31) ecgY -= 36; // R peak
+            else if (cycle >= 0.31 && cycle < 0.34) ecgY += 14; // S wave
+            else if (cycle >= 0.45 && cycle < 0.58) ecgY -= 10; // T wave
+            ecgY += (Math.random() - 0.5) * 2;
+
+            ecgCtx.strokeStyle = '#10b981';
+            ecgCtx.lineWidth = 2;
+            ecgCtx.beginPath();
+            ecgCtx.moveTo(ecgX === 0 ? width : ecgX - 1, lastEcgY);
+            ecgCtx.lineTo(ecgX, ecgY);
+            ecgCtx.stroke();
+            lastEcgY = ecgY;
+            ecgX = (ecgX + 2) % width;
+
+            // Plethysmograph Synthesis
+            const plethT = (Date.now() / 1000) * hrFactor * Math.PI * 2;
+            const plethCycle = (plethT % (Math.PI * 2)) / (Math.PI * 2);
+            let plethY = height / 2;
+            if (plethCycle < 0.3) {
+                plethY = (height / 2) - Math.sin(plethCycle / 0.3 * Math.PI) * 28;
+            } else if (plethCycle < 0.5) {
+                // Dicrotic notch
+                plethY = (height / 2) - Math.sin((plethCycle - 0.3) / 0.2 * Math.PI) * 8;
+            }
+
+            plethCtx.strokeStyle = '#06b6d4';
+            plethCtx.lineWidth = 2;
+            plethCtx.beginPath();
+            plethCtx.moveTo(plethX === 0 ? width : plethX - 1, lastPlethY);
+            plethCtx.lineTo(plethX, plethY);
+            plethCtx.stroke();
+            lastPlethY = plethY;
+            plethX = (plethX + 2) % width;
+
+            requestAnimationFrame(drawWaveforms);
+        }
+
+        // Start animation & simulation timer
+        requestAnimationFrame(drawWaveforms);
+        setInterval(() => {
+            if (simRunning) {
+                step = (step + 1) % totalSteps;
+                calculateNextVitals();
+            }
+        }, 1000);
+
+        calculateNextVitals();
+    </script>
+</body>
+</html>

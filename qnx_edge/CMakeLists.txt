@@ -14,6 +14,7 @@ add_library(medorqis_qnx_core STATIC
     src/news2_deterministic.c
     src/patient_simulator.c
     src/vitals_acq.c
+    src/vitals_resmgr.c
 )
 find_package(Threads REQUIRED)
 target_link_libraries(medorqis_qnx_core PUBLIC Threads::Threads)

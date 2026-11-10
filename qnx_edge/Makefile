@@ -25,7 +25,8 @@ TEST_BIN = $(BIN_DIR)/test_news2_deterministic
 # Sources
 CORE_SRCS = $(SRC_DIR)/news2_deterministic.c \
             $(SRC_DIR)/patient_simulator.c \
-            $(SRC_DIR)/vitals_acq.c
+            $(SRC_DIR)/vitals_acq.c \
+            $(SRC_DIR)/vitals_resmgr.c
 
 MONITOR_SRCS = $(CORE_SRCS) $(SRC_DIR)/qnx_monitor_main.c
 TEST_SRCS = $(SRC_DIR)/news2_deterministic.c $(TEST_DIR)/test_news2_deterministic.c
