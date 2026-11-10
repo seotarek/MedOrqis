@@ -1,0 +1,9 @@
+bin/
+build/
+*.o
+*.a
+*.so
+*.qnx
+reports/qnx_telemetry_audit.jsonl
+__pycache__/
+*.pyc
