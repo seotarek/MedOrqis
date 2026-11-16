@@ -1,11 +1,11 @@
 {
   "report_version": "2.1.1",
-  "timestamp": "2026-11-04T08:50:30.376319+00:00",
-  "release_tag": "v2.1.2",
-  "base_commit": "faae24a2b2f400a40f79787996619e2439bfb100",
-  "python_version": "3.14.8 (main, Oct  1 2026, 00:00:00) [GCC 16.2.1 20260819 (Red Hat 16.2.1-2)]",
-  "total_tests": 36,
-  "passed": 36,
+  "timestamp": "2026-11-16T10:09:41.709035+00:00",
+  "release_tag": "v2.1.2-16-gf3bfdec",
+  "base_commit": "f3bfdecadd5471cdc005a92b0a33b7f750592dde",
+  "python_version": "3.15.2 (3.15.2-1.fc45.x86_64, Oct 26 2026, 00:00:00) [GCC 16.2.1 20260819 (Red Hat 16.2.1-2)]",
+  "total_tests": 42,
+  "passed": 42,
   "failures": 0,
   "errors": 0,
   "pass_rate_percent": 100.0,
@@ -17,23 +17,23 @@
   "suites": [
     {
       "id": "1",
-      "name": "Deterministic Clinical Engine & Boundary Tests",
-      "dir": "/home/tarek/Desktop/MedOrqis \u2014 Medical AI Skills Ecosystem/tests/unit",
-      "pattern": "test_clinical_calculators.py",
-      "module": "core/clinical_calculators.py",
-      "scope": "CHA2DS2-VA (ESC 2024 sex neutrality vs AHA 2023), CKD-EPI 2021 (adult vs pediatric refusal), Bedside Schwartz pediatric eGFR, Cockcroft-Gault (IBW/AdjBW in obesity), Pediatric Dose Capping, HAS-BLED, NEWS2, CURB-65 physiological bounds, Wells DVT & PE.",
-      "tests_run": 12,
-      "passed": 12,
+      "name": "Deterministic Clinical Engines & Documentation Tests",
+      "dir": "/home/tarek/Desktop/\u0627\u0644\u0645\u0634\u0627\u0631\u064a\u0639/MedOrqis \u2014 Medical AI Skills Ecosystem/tests/unit",
+      "pattern": "test_*.py",
+      "module": "core/clinical_calculators.py & core/clinical_documenter.py",
+      "scope": "CHA2DS2-VA (ESC 2024 sex neutrality), CKD-EPI 2021, Bedside Schwartz, Cockcroft-Gault, Pediatric Dose Capping, HAS-BLED, NEWS2, Wells DVT/PE, plus Deterministic SOAP/ISBAR generation, Laboratory Panic Values, and automated risk score embedding.",
+      "tests_run": 18,
+      "passed": 18,
       "failures": 0,
       "errors": 0,
       "pass_rate": 100.0,
       "status": "PASSED",
-      "duration_seconds": 0.004
+      "duration_seconds": 0.035
     },
     {
       "id": "2",
       "name": "Clinical Safety Guardrails & Epistemic Provenance Tests",
-      "dir": "/home/tarek/Desktop/MedOrqis \u2014 Medical AI Skills Ecosystem/tests/safety",
+      "dir": "/home/tarek/Desktop/\u0627\u0644\u0645\u0634\u0627\u0631\u064a\u0639/MedOrqis \u2014 Medical AI Skills Ecosystem/tests/safety",
       "pattern": "test_safety_and_provenance.py",
       "module": "core/safety_guardrails.py & core/context_validator.py",
       "scope": "Epistemic provenance lockdown (hypothesis dosing refusal, empty provenance refusal), missing age gatekeeper, sentinel emergency triggers (Stroke FAST, ACS crushing chest pain, anaphylaxis, match_mode ANY), red-flag female atypical MI, anticoagulation + GI bleed conflict, critical DDI screening (Warfarin + NSAID, Apixaban + Diclofenac, Sildenafil + Nitroglycerin), negated symptom filtering.",
@@ -43,12 +43,12 @@
       "errors": 0,
       "pass_rate": 100.0,
       "status": "PASSED",
-      "duration_seconds": 0.026
+      "duration_seconds": 0.011
     },
     {
       "id": "3",
       "name": "Multilingual Semantic Invariance & Dialect Benchmark",
-      "dir": "/home/tarek/Desktop/MedOrqis \u2014 Medical AI Skills Ecosystem/tests/multilingual",
+      "dir": "/home/tarek/Desktop/\u0627\u0644\u0645\u0634\u0627\u0631\u064a\u0639/MedOrqis \u2014 Medical AI Skills Ecosystem/tests/multilingual",
       "pattern": "test_multilingual_benchmark.py",
       "module": "core/terminology_normalizer.py",
       "scope": "Negation preservation with clause-stop boundaries across 126 curated test cases (MSA, Egyptian, Gulf, Levantine, Maghrebi, EN, FR, ES), BiDi numeric/unit fidelity (mg, mcg, g), regional trade brand-to-INN mapping.",
@@ -58,12 +58,12 @@
       "errors": 0,
       "pass_rate": 100.0,
       "status": "PASSED",
-      "duration_seconds": 0.016
+      "duration_seconds": 0.006
     },
     {
       "id": "4",
       "name": "Security, PHI Redaction, Citation & Platform Adapter Tests",
-      "dir": "/home/tarek/Desktop/MedOrqis \u2014 Medical AI Skills Ecosystem/tests/platform_adapters",
+      "dir": "/home/tarek/Desktop/\u0627\u0644\u0645\u0634\u0627\u0631\u064a\u0639/MedOrqis \u2014 Medical AI Skills Ecosystem/tests/platform_adapters",
       "pattern": "test_security_and_adapters.py",
       "module": "core/ & mcp_server/ & adapters/ & skills/",
       "scope": "SHA-256 cryptographic file integrity manifest (45 files: 24 skills, 11 core modules, dictionaries), PHI scrubbing (Egypt NID 14d, Saudi Iqama 10d, MRN), prompt injection defense, 2-stage citation entailment & population mismatch, live stdio MCP JSON-RPC contract, OpenAI strict parameters, scalar allowed-tools frontmatter in all 24 skills.",
@@ -73,7 +73,7 @@
       "errors": 0,
       "pass_rate": 100.0,
       "status": "PASSED",
-      "duration_seconds": 0.236
+      "duration_seconds": 0.108
     }
   ]
 }

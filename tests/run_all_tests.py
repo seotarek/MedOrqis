@@ -149,11 +149,11 @@ def run_all_suites():
     suites_info = [
         {
             "id": "1",
-            "name": "Deterministic Clinical Engine & Boundary Tests",
+            "name": "Deterministic Clinical Engines & Documentation Tests",
             "dir": os.path.join(BASE_DIR, "tests", "unit"),
-            "pattern": "test_clinical_calculators.py",
-            "module": "core/clinical_calculators.py",
-            "scope": "CHA2DS2-VA (ESC 2024 sex neutrality vs AHA 2023), CKD-EPI 2021 (adult vs pediatric refusal), Bedside Schwartz pediatric eGFR, Cockcroft-Gault (IBW/AdjBW in obesity), Pediatric Dose Capping, HAS-BLED, NEWS2, CURB-65 physiological bounds, Wells DVT & PE."
+            "pattern": "test_*.py",
+            "module": "core/clinical_calculators.py & core/clinical_documenter.py",
+            "scope": "CHA2DS2-VA (ESC 2024 sex neutrality), CKD-EPI 2021, Bedside Schwartz, Cockcroft-Gault, Pediatric Dose Capping, HAS-BLED, NEWS2, Wells DVT/PE, plus Deterministic SOAP/ISBAR generation, Laboratory Panic Values, and automated risk score embedding."
         },
         {
             "id": "2",

@@ -1,15 +1,15 @@
 {
   "$schema": "../schemas/clinical_rule_entry.schema.json",
   "manifest_version": "2.1.2",
-  "generated_at": "2026-11-04T08:50:29.758311+00:00",
+  "generated_at": "2026-11-16T10:09:41.519674+00:00",
   "hashing_algorithm": "SHA-256",
-  "total_fingerprinted_files": 45,
+  "total_fingerprinted_files": 46,
   "provenance_policy": "ISO 14971 / IEC 62304 Medical Device File Integrity Assurance",
   "files": {
     "core/__init__.py": {
       "category": "CORE_CLINICAL_ENGINE",
-      "sha256": "31d4288fbd56693cae8c69d93e3b01eac08821864d5814915a29123501c4c8d1",
-      "size_bytes": 124
+      "sha256": "43fddfc8a3c3ee49c75a3df7ca9bb7f6575e349a8223fe8dc417641443cd1085",
+      "size_bytes": 498
     },
     "core/citation_validator.py": {
       "category": "CORE_CLINICAL_ENGINE",
@@ -25,6 +25,11 @@
       "category": "CORE_CLINICAL_ENGINE",
       "sha256": "a36747c53c0bbe8f20524c72b2725fbc409c94da53a4178c492a1a7583104956",
       "size_bytes": 43324
+    },
+    "core/clinical_documenter.py": {
+      "category": "CORE_CLINICAL_ENGINE",
+      "sha256": "555b11039c4e06216f90e772915df97e7f8291c5e4ec820b15ec595538f6445b",
+      "size_bytes": 40015
     },
     "core/context_validator.py": {
       "category": "CORE_CLINICAL_ENGINE",
