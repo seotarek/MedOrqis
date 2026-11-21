@@ -68,8 +68,12 @@
       --text-subtle: #64748b;
       --accent-primary: #00e5a3;
       --accent-primary-dim: rgba(0, 229, 163, 0.12);
+      --accent-primary-border: rgba(0, 229, 163, 0.3);
       --accent-cyan: #0ea5e9;
       --accent-cyan-dim: rgba(14, 165, 233, 0.12);
+      --accent-star: #fbbf24;
+      --accent-star-dim: rgba(251, 191, 36, 0.12);
+      --accent-star-border: rgba(251, 191, 36, 0.4);
       --class-a: #10b981;
       --class-a-bg: rgba(16, 185, 129, 0.12);
       --class-b: #0ea5e9;
@@ -95,8 +99,12 @@
       --text-subtle: #94a3b8;
       --accent-primary: #059669;
       --accent-primary-dim: rgba(5, 150, 105, 0.1);
+      --accent-primary-border: rgba(5, 150, 105, 0.3);
       --accent-cyan: #0284c7;
       --accent-cyan-dim: rgba(2, 132, 199, 0.1);
+      --accent-star: #a16207;
+      --accent-star-dim: rgba(161, 98, 7, 0.1);
+      --accent-star-border: rgba(161, 98, 7, 0.45);
       --class-a: #059669;
       --class-a-bg: rgba(5, 150, 105, 0.1);
       --class-b: #0284c7;
@@ -203,6 +211,29 @@
     .btn-icon:hover {
       background: var(--bg-surface-elevated);
       border-color: var(--accent-primary);
+    }
+    /* Vector icon primitive (replaces raw emoji glyphs) */
+    svg.icon {
+      width: 1em;
+      height: 1em;
+      flex: 0 0 auto;
+      display: block;
+      pointer-events: none;
+    }
+    /* Theme toggle: show the icon of the theme you would switch TO.
+       Selectors are doubled-class so they outrank `svg.icon`. */
+    svg.icon.icon-sun { display: block; }
+    svg.icon.icon-moon { display: none; }
+    [data-theme="light"] svg.icon.icon-sun { display: none; }
+    [data-theme="light"] svg.icon.icon-moon { display: block; }
+    /* Tokenised star (GitHub CTA) accent */
+    .btn-star-accent {
+      color: var(--accent-star) !important;
+      border-color: var(--accent-star-border) !important;
+    }
+    .btn-star-accent:hover {
+      background: var(--accent-star-dim);
+      border-color: var(--accent-star) !important;
     }
 
     /* Container */
@@ -409,15 +440,13 @@
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
-      padding: 0.85rem 1rem 0.85rem 2.75rem;
+      padding-block: 0.85rem;
+      padding-inline: 2.75rem 1rem;
       font-size: 1rem;
       color: var(--text-main);
       font-family: inherit;
       outline: none;
       transition: border-color 0.15s ease;
-    }
-    [dir="rtl"] .search-input {
-      padding: 0.85rem 2.75rem 0.85rem 1rem;
     }
     .search-input:focus {
       border-color: var(--accent-primary);
@@ -425,15 +454,11 @@
     }
     .search-icon {
       position: absolute;
-      left: 1rem;
+      inset-inline-start: 1rem;
       top: 50%;
       transform: translateY(-50%);
       color: var(--text-subtle);
       pointer-events: none;
-    }
-    [dir="rtl"] .search-icon {
-      left: auto;
-      right: 1rem;
     }
     .filter-pills {
       display: flex;
@@ -707,6 +732,9 @@
       padding-bottom: 0.5rem;
     }
     .install-tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
       background: transparent;
       border: none;
       color: var(--text-muted);
@@ -739,7 +767,7 @@
     .btn-copy-code {
       position: absolute;
       top: 0.75rem;
-      right: 0.75rem;
+      inset-inline-end: 0.75rem;
       background: var(--bg-surface);
       border: 1px solid var(--border);
       color: var(--text-muted);
@@ -747,10 +775,6 @@
       padding: 0.35rem 0.65rem;
       border-radius: var(--radius-sm);
       cursor: pointer;
-    }
-    [dir="rtl"] .btn-copy-code {
-      right: auto;
-      left: 0.75rem;
     }
     .btn-copy-code:hover {
       color: var(--accent-primary);
@@ -761,7 +785,7 @@
     .modal-backdrop {
       position: fixed;
       top: 0;
-      left: 0;
+      inset-inline-start: 0;
       width: 100vw;
       height: 100vh;
       background: rgba(0, 0, 0, 0.75);
@@ -787,7 +811,7 @@
     .modal-close {
       position: absolute;
       top: 1.25rem;
-      right: 1.25rem;
+      inset-inline-end: 1.25rem;
       background: transparent;
       border: none;
       color: var(--text-subtle);
@@ -795,12 +819,30 @@
       cursor: pointer;
       line-height: 1;
     }
-    [dir="rtl"] .modal-close {
-      right: auto;
-      left: 1.25rem;
-    }
     .modal-close:hover { color: var(--text-main); }
     .modal-section { margin-bottom: 1.25rem; }
+    .modal-prohibited-list {
+      font-size: 0.88rem;
+      color: var(--class-c);
+      padding-inline-start: 1.25rem;
+    }
+    .input-chip {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+    .dep-chip {
+      background: var(--accent-primary-dim);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary-border);
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
     .modal-sec-title {
       font-size: 0.8rem;
       font-weight: 700;
@@ -830,7 +872,7 @@
     .toast {
       position: fixed;
       bottom: 2rem;
-      right: 2rem;
+      inset-inline-end: 2rem;
       background: var(--accent-primary);
       color: #070a13;
       font-weight: 700;
@@ -840,10 +882,6 @@
       z-index: 200;
       display: none;
       font-size: 0.85rem;
-    }
-    [dir="rtl"] .toast {
-      right: auto;
-      left: 2rem;
     }
   </style>
 </head>
@@ -872,11 +910,13 @@
       <button class="btn-icon" id="btn-lang-toggle" onclick="toggleLanguage()">
         <span id="lang-label">عربي</span>
       </button>
-      <button class="btn-icon" id="btn-theme-toggle" onclick="toggleTheme()">
-        <span id="theme-icon">☀️</span>
+      <button class="btn-icon" id="btn-theme-toggle" onclick="toggleTheme()" title="Toggle color theme" aria-label="Toggle color theme">
+        <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
       </button>
-      <a class="btn-icon" href="https://github.com/seotarek/MedOrqis" target="_blank" rel="noopener" style="color: #fbbf24; border-color: rgba(251, 191, 36, 0.4);" title="Star MedOrqis on GitHub">
-        <span>⭐ Star</span>
+      <a class="btn-icon btn-star-accent" href="https://github.com/seotarek/MedOrqis" target="_blank" rel="noopener" title="Star MedOrqis on GitHub">
+        <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2l2.9 6.26 6.85.72-5.1 4.6 1.44 6.72L12 17.77 5.91 20.3l1.44-6.72-5.1-4.6 6.85-.72z"/></svg>
+        <span>Star</span>
       </a>
     </div>
   </header>
@@ -913,11 +953,11 @@
 
       <div class="hero-actions">
         <button class="btn-hero-primary" onclick="copyUniversalPrompt()">
-          <span>⚡</span>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
           <span id="btn-hero-copy-prompt">Copy Universal AI Prompt</span>
         </button>
         <button class="btn-hero-secondary" onclick="copyNpxInstall()">
-          <span>📋</span>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>
           <span>npx medorqis</span>
         </button>
         <a class="btn-hero-secondary" href="https://pypi.org/project/medorqis/" target="_blank" rel="noopener" style="border-color: rgba(55, 117, 169, 0.4); color: #60a5fa;" title="PyPI Python Package">
@@ -925,11 +965,11 @@
           <span>pip install medorqis</span>
         </a>
         <a class="btn-hero-secondary" href="https://www.npmjs.com/package/medorqis" target="_blank" rel="noopener">
-          <span>📦</span>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>
           <span>npm package</span>
         </a>
-        <a class="btn-hero-secondary" href="https://github.com/seotarek/MedOrqis" target="_blank" rel="noopener" style="border-color: rgba(251, 191, 36, 0.4); color: #fbbf24;">
-          <span>⭐</span>
+        <a class="btn-hero-secondary btn-star-accent" href="https://github.com/seotarek/MedOrqis" target="_blank" rel="noopener">
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2l2.9 6.26 6.85.72-5.1 4.6 1.44 6.72L12 17.77 5.91 20.3l1.44-6.72-5.1-4.6 6.85-.72z"/></svg>
           <span id="btn-hero-star">Star on GitHub</span>
         </a>
       </div>
@@ -1263,8 +1303,14 @@ Instructions:
       <p id="inst-desc">Deploy MedOrqis skills across your preferred agentic runtime with zero setup friction.</p>
 
       <div class="install-tabs">
-        <button class="install-tab-btn active" onclick="switchInstallTab('prompt')">⚡ Universal AI Prompt (Zero Setup)</button>
-        <button class="install-tab-btn" onclick="switchInstallTab('npm')">📦 NPM Package (npx medorqis)</button>
+        <button class="install-tab-btn active" onclick="switchInstallTab('prompt')">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+          Universal AI Prompt (Zero Setup)
+        </button>
+        <button class="install-tab-btn" onclick="switchInstallTab('npm')">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>
+          NPM Package (npx medorqis)
+        </button>
         <button class="install-tab-btn" onclick="switchInstallTab('skills-cli')">Skills CLI (Vercel Labs)</button>
         <button class="install-tab-btn" onclick="switchInstallTab('mcp')">Model Context Protocol (MCP)</button>
         <button class="install-tab-btn" onclick="switchInstallTab('claude')">Claude Code</button>
@@ -1671,7 +1717,7 @@ Instructions:
             </div>
             <div class="skill-card-footer">
               <button class="btn-copy-install" onclick="copyInstallCmd('${skill.name}')">
-                <span>📋</span> <span>npx add</span>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg> <span>npx add</span>
               </button>
               <button class="btn-view-spec" onclick="openSkillModal('${skill.name}')">
                 ${currentLang === 'ar' ? 'عرض المواصفات' : 'View Specs'} →
@@ -1731,7 +1777,7 @@ Instructions:
 
         <div class="modal-section">
           <div class="modal-sec-title">${currentLang === 'ar' ? 'الاستخدامات المحظورة' : 'Prohibited Uses'}</div>
-          <ul style="font-size: 0.88rem; color: var(--class-c); padding-left: 1.25rem;">
+          <ul class="modal-prohibited-list">
             ${skill.prohibited.map(p => `<li>${p}</li>`).join('')}
           </ul>
         </div>
@@ -1739,14 +1785,14 @@ Instructions:
         <div class="modal-section">
           <div class="modal-sec-title">${currentLang === 'ar' ? 'المدخلات الإلزامية' : 'Mandatory Input Parameters'}</div>
           <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
-            ${skill.inputs.map(inp => `<code style="background:var(--bg); padding:0.25rem 0.5rem; border-radius:4px; font-size:0.8rem; border:1px solid var(--border);">${inp}</code>`).join('')}
+            ${skill.inputs.map(inp => `<code class="input-chip">${inp}</code>`).join('')}
           </div>
         </div>
 
         <div class="modal-section">
           <div class="modal-sec-title">${currentLang === 'ar' ? 'الاعتمادات القطعية المحلية' : 'Deterministic Dependencies (Zero-Token Core)'}</div>
           <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
-            ${skill.deps.map(d => `<code style="background:var(--accent-primary-dim); color:var(--accent-primary); padding:0.25rem 0.5rem; border-radius:4px; font-size:0.8rem; border:1px solid rgba(0,229,163,0.3);">${d}</code>`).join('')}
+            ${skill.deps.map(d => `<code class="dep-chip">${d}</code>`).join('')}
           </div>
         </div>
 
@@ -2194,7 +2240,6 @@ python3 tests/run_all_tests.py`
       const current = document.body.getAttribute('data-theme');
       const next = current === 'dark' ? 'light' : 'dark';
       document.body.setAttribute('data-theme', next);
-      document.getElementById('theme-icon').innerText = next === 'dark' ? '☀️' : '🌙';
     }
 
     // Language Toggle (English / Arabic RTL)
@@ -2215,7 +2260,7 @@ python3 tests/run_all_tests.py`
 
       document.getElementById('btn-hero-copy-prompt').innerText = isAr ? 'انسخ برومبت الذكاء الاصطناعي الشامل' : 'Copy Universal AI Prompt';
       if (document.getElementById('btn-hero-star')) {
-        document.getElementById('btn-hero-star').innerText = isAr ? 'ادعمنا بنجمة ⭐' : 'Star on GitHub';
+        document.getElementById('btn-hero-star').innerText = isAr ? 'ادعمنا بنجمة' : 'Star on GitHub';
       }
       document.getElementById('u-badge').innerText = isAr ? 'تشغيل فوري بدون أي تثبيت' : 'Zero Installation Required';
       document.getElementById('u-title').innerText = isAr ? 'وجّه أي نموذج ذكاء اصطناعي للعمل بمنظومة MedOrqis فوراً' : 'Prompt Any AI Model Directly with MedOrqis';
