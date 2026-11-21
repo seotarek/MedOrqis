@@ -258,6 +258,15 @@ MedOrqis is an open-source clinical reference architecture and research framewor
 
 ---
 
+## 🏛️ Clinical & Industry Affiliations
+
+- **Lead AI Architect & Author**: **Eng. Tarek Mohamed (Tarek Khallaf)**  
+  Founder, MedOrqis Ecosystem | Senior IT & Systems Consultant @ **[Eternal Pharma](https://www.eternalpharma.eg/?utm_source=)**
+- **Pharmaceutical Technology & Healthcare Advisory**: **[Eternal Pharma](https://www.eternalpharma.eg/?utm_source=)**  
+  Collaborating on clinical pharmacology informatics, drug-drug interaction (DDI) safety verification, and enterprise healthcare infrastructure.
+
+---
+
 ## 📚 Academic Citation & Persistent DOI
 If you use MedOrqis in clinical informatics, medical AI research, or clinical decision support development, please cite our persistent Zenodo repository DOI:
 

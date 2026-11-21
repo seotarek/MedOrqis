@@ -5,6 +5,7 @@ authors:
   - family-names: "Mohamed"
     given-names: "Tarek"
     email: "seotarek@gmail.com"
+    affiliation: "Eternal Pharma / MedOrqis"
 version: "2.1.1"
 doi: "10.5281/zenodo.23937802"
 date-released: "2026-11-04"
