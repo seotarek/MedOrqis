@@ -16,6 +16,16 @@
             --color-medium: #f59e0b;
             --color-critical: #ef4444;
             --color-cyan: #06b6d4;
+            --chart-background: #04070c;
+            --color-neutral: var(--text-primary);
+            --status-low-bg: #064e3b;
+            --status-low-fg: #a7f3d0;
+            --status-medium-bg: #78350f;
+            --status-medium-fg: #fde68a;
+            --status-elevated-bg: #92400e;
+            --status-elevated-fg: #fed7aa;
+            --status-critical-bg: #7f1d1d;
+            --status-critical-fg: #fecaca;
             --font-mono: "JetBrains Mono", "SF Mono", Consolas, "Liberation Mono", monospace;
             --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
@@ -110,16 +120,19 @@
             font-size: 12px;
             font-family: var(--font-mono);
         }
-        .ecg-lead { color: #10b981; font-weight: 700; }
-        .pleth-lead { color: #06b6d4; font-weight: 700; }
+        .ecg-lead { color: var(--color-routine); font-weight: 700; }
+        .pleth-lead { color: var(--color-cyan); font-weight: 700; }
         canvas {
             width: 100%;
             height: 90px;
-            background: #04070c;
+            background: var(--chart-background);
             border-radius: 4px;
             display: block;
             margin-bottom: 10px;
         }
+        .waveform-value { font-weight: 700; }
+        .waveform-value.ecg { color: var(--color-routine); }
+        .waveform-value.pleth { color: var(--color-cyan); }
 
         /* Vitals Cards Grid */
         .vitals-grid {
@@ -160,10 +173,10 @@
             font-size: 10px;
             font-weight: 700;
         }
-        .score-0 { background: #064e3b; color: #a7f3d0; }
-        .score-1 { background: #78350f; color: #fde68a; }
-        .score-2 { background: #92400e; color: #fed7aa; }
-        .score-3 { background: #7f1d1d; color: #fecaca; }
+        .score-0 { background: var(--status-low-bg); color: var(--status-low-fg); }
+        .score-1 { background: var(--status-medium-bg); color: var(--status-medium-fg); }
+        .score-2 { background: var(--status-elevated-bg); color: var(--status-elevated-fg); }
+        .score-3 { background: var(--status-critical-bg); color: var(--status-critical-fg); }
 
         .vital-value {
             font-size: 32px;
@@ -171,7 +184,14 @@
             font-family: var(--font-mono);
             margin: 6px 0 2px 0;
             letter-spacing: -1px;
+            color: var(--color-routine);
         }
+        .vital-value.consciousness {
+            font-size: 24px;
+            padding-top: 6px;
+        }
+        .vital-value.neutral { color: var(--color-neutral); }
+        .hud-val.ok { color: var(--color-routine); }
         .vital-subtext {
             font-size: 11px;
             color: var(--text-muted);
@@ -229,7 +249,25 @@
             border-radius: 20px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            background: var(--status-low-bg);
+            color: var(--status-low-fg);
         }
+        .acuity-badge.medium {
+            background: var(--status-medium-bg);
+            color: var(--status-medium-fg);
+        }
+        .acuity-badge.critical {
+            background: var(--status-critical-bg);
+            color: var(--status-critical-fg);
+        }
+        .acuity-protocol {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+        .acuity-score.routine { color: var(--color-routine); }
+        .acuity-score.medium { color: var(--color-medium); }
+        .acuity-score.critical { color: var(--color-critical); }
 
         /* RTOS Telemetry HUD */
         .qnx-hud {
@@ -294,7 +332,7 @@
         }
         .handover-content.arabic {
             direction: rtl;
-            text-align: right;
+            text-align: end;
             font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
             font-size: 13px;
         }
@@ -363,13 +401,13 @@
             <div class="waveform-panel">
                 <div class="waveform-header">
                     <span class="ecg-lead">ECG LEAD II · 25 mm/s · 10 mm/mV</span>
-                    <span id="ecg-hr-label" style="color:#10b981; font-weight:700;">HR: 72 bpm</span>
+                    <span id="ecg-hr-label" class="waveform-value ecg">HR: 72 bpm</span>
                 </div>
                 <canvas id="ecg-canvas" height="90"></canvas>
 
                 <div class="waveform-header">
                     <span class="pleth-lead">PLETH (SpO2 PULSE WAVEFORM)</span>
-                    <span id="pleth-label" style="color:#06b6d4; font-weight:700;">SpO2: 98%</span>
+                    <span id="pleth-label" class="waveform-value pleth">SpO2: 98%</span>
                 </div>
                 <canvas id="pleth-canvas" height="90"></canvas>
             </div>
@@ -382,7 +420,7 @@
                         <span>Heart Rate</span>
                         <span class="vital-score-pill score-0" id="pill-hr">0 pts</span>
                     </div>
-                    <div class="vital-value" id="val-hr" style="color:#10b981;">72</div>
+                    <div class="vital-value" id="val-hr">72</div>
                     <div class="vital-subtext">bpm · Sinus Rhythm</div>
                 </div>
 
@@ -392,7 +430,7 @@
                         <span>Blood Pressure</span>
                         <span class="vital-score-pill score-0" id="pill-bp">0 pts</span>
                     </div>
-                    <div class="vital-value" id="val-bp" style="color:#10b981;">122/78</div>
+                    <div class="vital-value" id="val-bp">122/78</div>
                     <div class="vital-subtext">mmHg (MAP: 92)</div>
                 </div>
 
@@ -402,7 +440,7 @@
                         <span>SpO2 Saturation</span>
                         <span class="vital-score-pill score-0" id="pill-spo2">0 pts</span>
                     </div>
-                    <div class="vital-value" id="val-spo2" style="color:#10b981;">98.0%</div>
+                    <div class="vital-value" id="val-spo2">98.0%</div>
                     <div class="vital-subtext" id="val-o2-source">Ambient Room Air</div>
                 </div>
 
@@ -412,7 +450,7 @@
                         <span>Resp Rate</span>
                         <span class="vital-score-pill score-0" id="pill-rr">0 pts</span>
                     </div>
-                    <div class="vital-value" id="val-rr" style="color:#10b981;">15</div>
+                    <div class="vital-value" id="val-rr">15</div>
                     <div class="vital-subtext">breaths/min · Regular</div>
                 </div>
 
@@ -422,7 +460,7 @@
                         <span>Core Temperature</span>
                         <span class="vital-score-pill score-0" id="pill-temp">0 pts</span>
                     </div>
-                    <div class="vital-value" id="val-temp" style="color:#10b981;">36.9°C</div>
+                    <div class="vital-value" id="val-temp">36.9°C</div>
                     <div class="vital-subtext">Normothermic</div>
                 </div>
 
@@ -432,7 +470,7 @@
                         <span>Neurological (AVPU)</span>
                         <span class="vital-score-pill score-0" id="pill-cons">0 pts</span>
                     </div>
-                    <div class="vital-value" id="val-cons" style="color:#10b981; font-size:24px; padding-top:6px;">Alert (A)</div>
+                    <div class="vital-value consciousness" id="val-cons">Alert (A)</div>
                     <div class="vital-subtext">Intact · Responding</div>
                 </div>
             </div>
@@ -445,18 +483,18 @@
             <!-- NEWS2 Acuity Gauge Card -->
             <div class="acuity-card" id="acuity-card">
                 <div class="acuity-title">Royal College of Physicians NEWS2 Score</div>
-                <div class="acuity-score" id="acuity-score" style="color:var(--color-routine);">0</div>
-                <div class="acuity-badge" id="acuity-badge" style="background:#064e3b; color:#a7f3d0;">Low Clinical Risk (Routine)</div>
-                <p id="acuity-protocol" style="font-size:11px; color:var(--text-muted); margin-top:8px;">Ward observations every 4 to 6 hours.</p>
+                <div class="acuity-score routine" id="acuity-score">0</div>
+                <div class="acuity-badge" id="acuity-badge">Low Clinical Risk (Routine)</div>
+                <p id="acuity-protocol" class="acuity-protocol">Ward observations every 4 to 6 hours.</p>
             </div>
 
             <!-- QNX Microkernel Telemetry HUD -->
             <div class="qnx-hud">
                 <div class="hud-row"><span>RTOS Target</span><span class="hud-val">QNX Neutrino RTOS 8.0 (procnto-64)</span></div>
                 <div class="hud-row"><span>Execution Latency</span><span class="hud-val" id="hud-latency">342 ns (Hard Real-Time)</span></div>
-                <div class="hud-row"><span>Heap Memory Allocation</span><span class="hud-val" style="color:#10b981;">0 Bytes (Zero malloc)</span></div>
+                <div class="hud-row"><span>Heap Memory Allocation</span><span class="hud-val ok">0 Bytes (Zero malloc)</span></div>
                 <div class="hud-row"><span>Data Integrity Check</span><span class="hud-val" id="hud-crc">CRC-32: 0x4E2F1CBD</span></div>
-                <div class="hud-row"><span>Double-Check Verification</span><span class="hud-val" style="color:#10b981;" id="hud-verify">Core Verified (0.00% Drift)</span></div>
+                <div class="hud-row"><span>Double-Check Verification</span><span class="hud-val ok" id="hud-verify">Core Verified (0.00% Drift)</span></div>
                 <div class="hud-row"><span>Packet Telemetry Seq</span><span class="hud-val" id="hud-seq">#0001</span></div>
             </div>
 
@@ -484,7 +522,7 @@
         <button class="btn btn-primary" id="btn-toggle" onclick="toggleSimulation()">Pause Simulation</button>
         <button class="btn" onclick="stepSimulation()">Step +1s</button>
         <button class="btn" onclick="resetSimulation()">Reset</button>
-        <span style="font-size:12px; color:var(--text-muted); margin-left:auto; font-family:var(--font-mono);">
+        <span style="font-size:12px; color:var(--text-muted); margin-inline-start:auto; font-family:var(--font-mono);">
             Progress: Step <strong id="sim-step" style="color:white;">1</strong> / 60
         </span>
     </div>
@@ -656,23 +694,20 @@
             scoreEl.innerText = state.news2;
             if (state.alert === 2) {
                 acuityCard.className = 'acuity-card critical';
-                scoreEl.style.color = 'var(--color-critical)';
-                badgeEl.style.background = '#7f1d1d';
-                badgeEl.style.color = '#fecaca';
+                scoreEl.className = 'acuity-score critical';
+                badgeEl.className = 'acuity-badge critical';
                 badgeEl.innerText = 'HIGH CLINICAL RISK (EMERGENCY)';
                 protoEl.innerText = 'EMERGENCY: Immediate assessment by Rapid Response Team (RRT) / Critical Care Team.';
             } else if (state.alert === 1) {
                 acuityCard.className = 'acuity-card medium';
-                scoreEl.style.color = 'var(--color-medium)';
-                badgeEl.style.background = '#78350f';
-                badgeEl.style.color = '#fde68a';
+                scoreEl.className = 'acuity-score medium';
+                badgeEl.className = 'acuity-badge medium';
                 badgeEl.innerText = 'MEDIUM CLINICAL RISK (URGENT)';
                 protoEl.innerText = 'URGENT: Urgent bedside clinical review by a clinician competent in acute assessment.';
             } else {
                 acuityCard.className = 'acuity-card';
-                scoreEl.style.color = 'var(--color-routine)';
-                badgeEl.style.background = '#064e3b';
-                badgeEl.style.color = '#a7f3d0';
+                scoreEl.className = 'acuity-score routine';
+                badgeEl.className = 'acuity-badge';
                 badgeEl.innerText = 'LOW CLINICAL RISK (ROUTINE)';
                 protoEl.innerText = 'Ward observations every 4 to 6 hours.';
             }
@@ -768,6 +803,17 @@
         const plethCanvas = document.getElementById('pleth-canvas');
         const plethCtx = plethCanvas.getContext('2d');
 
+        /* Canvas paint colors resolve from the DTCG-backed custom properties. */
+        const rootStyles = getComputedStyle(document.documentElement);
+        function tokenColor(name) {
+            return rootStyles.getPropertyValue(name).trim();
+        }
+        const waveformColors = {
+            background: tokenColor('--chart-background'),
+            ecg: tokenColor('--color-routine'),
+            pleth: tokenColor('--color-cyan')
+        };
+
         function resizeCanvases() {
             ecgCanvas.width = ecgCanvas.offsetWidth;
             plethCanvas.width = plethCanvas.offsetWidth;
@@ -785,9 +831,9 @@
             const height = ecgCanvas.height;
 
             // Clear lead bar
-            ecgCtx.fillStyle = '#04070c';
+            ecgCtx.fillStyle = waveformColors.background;
             ecgCtx.fillRect(ecgX, 0, 8, height);
-            plethCtx.fillStyle = '#04070c';
+            plethCtx.fillStyle = waveformColors.background;
             plethCtx.fillRect(plethX, 0, 8, height);
 
             // ECG Synthesis
@@ -803,7 +849,7 @@
             else if (cycle >= 0.45 && cycle < 0.58) ecgY -= 10; // T wave
             ecgY += (Math.random() - 0.5) * 2;
 
-            ecgCtx.strokeStyle = '#10b981';
+            ecgCtx.strokeStyle = waveformColors.ecg;
             ecgCtx.lineWidth = 2;
             ecgCtx.beginPath();
             ecgCtx.moveTo(ecgX === 0 ? width : ecgX - 1, lastEcgY);
@@ -823,7 +869,7 @@
                 plethY = (height / 2) - Math.sin((plethCycle - 0.3) / 0.2 * Math.PI) * 8;
             }
 
-            plethCtx.strokeStyle = '#06b6d4';
+            plethCtx.strokeStyle = waveformColors.pleth;
             plethCtx.lineWidth = 2;
             plethCtx.beginPath();
             plethCtx.moveTo(plethX === 0 ? width : plethX - 1, lastPlethY);

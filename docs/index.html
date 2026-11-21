@@ -235,6 +235,15 @@
       background: var(--accent-star-dim);
       border-color: var(--accent-star) !important;
     }
+    /* Brand link badges & buttons */
+    .badge-pypi { background: rgba(55, 117, 169, 0.2); border: 1px solid rgba(55, 117, 169, 0.6); color: #60a5fa; }
+    .badge-glama { background: rgba(14, 165, 233, 0.15); border: 1px solid rgba(14, 165, 233, 0.5); color: #38bdf8; }
+    .badge-tdqs { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.5); color: #34d399; }
+    .badge-hf-spaces { background: rgba(234, 179, 8, 0.15); border: 1px solid rgba(234, 179, 8, 0.5); color: #facc15; }
+    .badge-hf-mcp { background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.5); color: #93c5fd; }
+    .badge-hf-data { background: rgba(249, 115, 22, 0.15); border: 1px solid rgba(249, 115, 22, 0.5); color: #fb923c; }
+    .badge-doi { background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.5); color: #60a5fa; }
+    .btn-pypi { border-color: rgba(55, 117, 169, 0.4); color: #60a5fa; }
 
     /* Container */
     .container {
@@ -898,13 +907,13 @@
       <span class="badge badge-cyan" id="badge-skills-count">24 Skills</span>
       <span class="badge badge-teal" id="badge-zero-token">Zero-Token Core</span>
       <span class="badge badge-class-a" id="badge-verified">36/36 Tests</span>
-      <a href="https://pypi.org/project/medorqis/" target="_blank" rel="noopener" class="badge" style="background: rgba(55, 117, 169, 0.2); border: 1px solid rgba(55, 117, 169, 0.6); color: #60a5fa;" title="PyPI Python Package">PyPI v2.1.2</a>
-      <a href="https://glama.ai/mcp/servers/seotarek/MedOrqis" target="_blank" rel="noopener" class="badge" style="background: rgba(14, 165, 233, 0.15); border: 1px solid rgba(14, 165, 233, 0.5); color: #38bdf8;" title="Glama MCP Server Rated A">Glama: Grade A</a>
-      <a href="https://tdqs.dev/reports/f8u67tchoa" target="_blank" rel="noopener" class="badge" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.5); color: #34d399;" title="TDQS Quality Score 4.9/5.0 Grade A">TDQS: 4.9 Grade A</a>
-      <a href="https://huggingface.co/spaces/seotarek/MedOrqis" target="_blank" rel="noopener" class="badge" style="background: rgba(234, 179, 8, 0.15); border: 1px solid rgba(234, 179, 8, 0.5); color: #facc15;" title="Hugging Face Spaces Portal">HF Hub</a>
-      <a href="https://huggingface.co/spaces/seotarek/medorqis-mcp-server" target="_blank" rel="noopener" class="badge" style="background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.5); color: #93c5fd;" title="Hugging Face Gradio Remote MCP Server">HF MCP Server</a>
-      <a href="https://huggingface.co/datasets/seotarek/medorqis-clinical-dialect-benchmark" target="_blank" rel="noopener" class="badge" style="background: rgba(249, 115, 22, 0.15); border: 1px solid rgba(249, 115, 22, 0.5); color: #fb923c;" title="Hugging Face Clinical Dialect Benchmark Dataset">HF Dataset</a>
-      <a href="https://doi.org/10.5281/zenodo.23937802" target="_blank" rel="noopener" class="badge" style="background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.5); color: #60a5fa;" title="Citable Zenodo DOI">DOI: 10.5281/zenodo.23937802</a>
+      <a href="https://pypi.org/project/medorqis/" target="_blank" rel="noopener" class="badge badge-pypi" title="PyPI Python Package">PyPI v2.1.2</a>
+      <a href="https://glama.ai/mcp/servers/seotarek/MedOrqis" target="_blank" rel="noopener" class="badge badge-glama" title="Glama MCP Server Rated A">Glama: Grade A</a>
+      <a href="https://tdqs.dev/reports/f8u67tchoa" target="_blank" rel="noopener" class="badge badge-tdqs" title="TDQS Quality Score 4.9/5.0 Grade A">TDQS: 4.9 Grade A</a>
+      <a href="https://huggingface.co/spaces/seotarek/MedOrqis" target="_blank" rel="noopener" class="badge badge-hf-spaces" title="Hugging Face Spaces Portal">HF Hub</a>
+      <a href="https://huggingface.co/spaces/seotarek/medorqis-mcp-server" target="_blank" rel="noopener" class="badge badge-hf-mcp" title="Hugging Face Gradio Remote MCP Server">HF MCP Server</a>
+      <a href="https://huggingface.co/datasets/seotarek/medorqis-clinical-dialect-benchmark" target="_blank" rel="noopener" class="badge badge-hf-data" title="Hugging Face Clinical Dialect Benchmark Dataset">HF Dataset</a>
+      <a href="https://doi.org/10.5281/zenodo.23937802" target="_blank" rel="noopener" class="badge badge-doi" title="Citable Zenodo DOI">DOI: 10.5281/zenodo.23937802</a>
     </div>
     <div class="nav-actions">
       <button class="btn-icon" id="btn-lang-toggle" onclick="toggleLanguage()">
@@ -960,7 +969,7 @@
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>
           <span>npx medorqis</span>
         </button>
-        <a class="btn-hero-secondary" href="https://pypi.org/project/medorqis/" target="_blank" rel="noopener" style="border-color: rgba(55, 117, 169, 0.4); color: #60a5fa;" title="PyPI Python Package">
+        <a class="btn-hero-secondary btn-pypi" href="https://pypi.org/project/medorqis/" target="_blank" rel="noopener" title="PyPI Python Package">
           <span>🐍</span>
           <span>pip install medorqis</span>
         </a>

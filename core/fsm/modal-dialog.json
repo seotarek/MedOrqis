@@ -1,0 +1,67 @@
+{
+  "name": "OrthotectModalFSM",
+  "initialState": "closed",
+  "states": {
+    "closed": {
+      "description": "Modal is hidden from DOM or aria-hidden=true.",
+      "on": {
+        "OPEN": "opening"
+      }
+    },
+    "opening": {
+      "description": "Entrance transition running (scale/fade spring). Focus lock initiated.",
+      "allowClick": false,
+      "on": {
+        "ANIMATION_END": "open"
+      }
+    },
+    "open": {
+      "description": "Active dialog. Focus trapped. Backdrop locked.",
+      "on": {
+        "CLOSE": "closing",
+        "ESCAPE": "closing",
+        "BACKDROP_CLICK": "closing",
+        "SUBMIT": "submitting"
+      }
+    },
+    "submitting": {
+      "description": "Async submit in flight. Secondary actions and backdrop dismiss locked.",
+      "isAsync": true,
+      "allowClick": false,
+      "on": {
+        "RESOLVE_SUCCESS": "successFeedback",
+        "REJECT_ERROR": "errorFeedback"
+      }
+    },
+    "successFeedback": {
+      "description": "Submission success feedback before automatic dismissal.",
+      "durationMs": 800,
+      "on": {
+        "TIMEOUT": "closing",
+        "CLOSE": "closing"
+      }
+    },
+    "errorFeedback": {
+      "description": "Inline error banner displayed with retry capability. Re-enables interaction.",
+      "on": {
+        "RETRY": "submitting",
+        "DISMISS_ERROR": "open",
+        "CLOSE": "closing",
+        "ESCAPE": "closing"
+      }
+    },
+    "closing": {
+      "description": "Exit transition running. Restores focus to trigger element.",
+      "allowClick": false,
+      "on": {
+        "ANIMATION_END": "closed"
+      }
+    }
+  },
+  "invariants": [
+    "Focus MUST be trapped within the modal container while active",
+    "Escape key and backdrop click MUST transition to closing state",
+    "Submitting state MUST lock interactions against double-submission",
+    "On exit, keyboard focus MUST be restored to the invoking element"
+  ]
+}
