@@ -1,11 +1,11 @@
 {
   "report_version": "2.1.1",
-  "timestamp": "2026-11-21T05:54:29.411953+00:00",
-  "release_tag": "v2.1.1-40-ga181d85",
-  "base_commit": "a181d85fddda2f3763d4d11c4204c7f3d637ccea",
+  "timestamp": "2026-11-21T06:05:00.081455+00:00",
+  "release_tag": "v2.1.1-41-g7cc3bca",
+  "base_commit": "7cc3bca473b5a3b6bc3e3f6ecc00e2e96427d064",
   "python_version": "3.15.2 (3.15.2-1.fc45.x86_64, Oct 26 2026, 00:00:00) [GCC 16.2.1 20260819 (Red Hat 16.2.1-2)]",
-  "total_tests": 58,
-  "passed": 58,
+  "total_tests": 59,
+  "passed": 59,
   "failures": 0,
   "errors": 0,
   "pass_rate_percent": 100.0,
@@ -28,7 +28,7 @@
       "errors": 0,
       "pass_rate": 100.0,
       "status": "PASSED",
-      "duration_seconds": 0.022
+      "duration_seconds": 0.05
     },
     {
       "id": "2",
@@ -43,7 +43,7 @@
       "errors": 0,
       "pass_rate": 100.0,
       "status": "PASSED",
-      "duration_seconds": 0.009
+      "duration_seconds": 0.026
     },
     {
       "id": "3",
@@ -58,7 +58,7 @@
       "errors": 0,
       "pass_rate": 100.0,
       "status": "PASSED",
-      "duration_seconds": 0.006
+      "duration_seconds": 0.029
     },
     {
       "id": "4",
@@ -67,13 +67,13 @@
       "pattern": "test_security_and_adapters.py",
       "module": "core/ & mcp_server/ & adapters/ & skills/",
       "scope": "SHA-256 cryptographic file integrity manifest (45 files: 24 skills, 11 core modules, dictionaries), PHI scrubbing (Egypt NID 14d, Saudi Iqama 10d, MRN), prompt injection defense, 2-stage citation entailment & population mismatch, live stdio MCP JSON-RPC contract, OpenAI strict parameters, scalar allowed-tools frontmatter in all 24 skills.",
-      "tests_run": 10,
-      "passed": 10,
+      "tests_run": 11,
+      "passed": 11,
       "failures": 0,
       "errors": 0,
       "pass_rate": 100.0,
       "status": "PASSED",
-      "duration_seconds": 0.082
+      "duration_seconds": 0.399
     }
   ]
 }

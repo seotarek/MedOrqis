@@ -26,6 +26,9 @@ from core.clinical_calculators import (
     calculate_curb65_score,
     calculate_wells_dvt_score,
     calculate_wells_pe_score,
+    calculate_meld_na_score,
+    calculate_glasgow_blatchford_score,
+    calculate_ascvd_risk_acc_aha,
     SafeCalculationRefusal
 )
 from core.safety_guardrails import SafetyGuardrailsEngine
@@ -56,7 +59,9 @@ TOOLS_REGISTRY = [
             "  * Cardiovascular & bleeding ('cha2ds2_va_esc2024', 'cha2ds2_vasc_aha2023', 'has_bled_score'): age_years, biological_sex, and medical history booleans evaluating ESC 2024 and HAS-BLED thresholds.\n"
             "  * Acuity & pneumonia triage ('news2_score', 'curb65_score'): respiratory_rate, oxygen_saturation, systolic_bp, pulse_rate, temperature_celsius, consciousness_level ('Alert'|'CVPU'), on_supplemental_oxygen, confusion, BUN.\n"
             "  * Pediatric dosing & BSA ('pediatric_dose_calculator', 'mosteller_bsa'): weight_kg, height_cm, dose_per_kg, max_single_adult_dose_mg (enforcing adult ceiling caps to prevent pediatric overdosing).\n"
-            "  * Thromboembolism criteria ('wells_dvt_score', 'wells_pe_score'): clinical criteria booleans evaluating pre-test probability for DVT and pulmonary embolism.\n\n"
+            "  * Thromboembolism criteria ('wells_dvt_score', 'wells_pe_score'): clinical criteria booleans evaluating pre-test probability for DVT and pulmonary embolism.\n"
+            "  * Hepatic & upper GI bleeding ('meld_na_score', 'glasgow_blatchford_score'): serum_bilirubin_mg_dl, inr, serum_creatinine_mg_dl, serum_sodium_meq_l, dialysis_within_7_days (OPTN/UNOS 2016 MELD-Na); blood_urea_nitrogen_mg_dl, hemoglobin_g_dl, systolic_bp_mmhg, pulse_bpm, history booleans, biological_sex (Blatchford 2000 GBS).\n"
+            "  * Primary prevention cardiovascular risk ('ascvd_risk_acc_aha'): age_years (40-79), biological_sex, race, total_cholesterol_mg_dl, hdl_cholesterol_mg_dl, systolic_bp_mmhg, on_hypertension_meds, has_diabetes, is_current_smoker (ACC/AHA Pooled Cohort Equations).\n\n"
             "Behavioral guarantees & return states:\n"
             "- Pure deterministic arithmetic: Stateless in-memory execution; requires no API keys, credentials, or network auth, with zero rate limits.\n"
             "- Physiological boundary validation: Parameters exceeding safe physiological limits trigger SafeCalculationRefusal (status='CALCULATION_REFUSED_SAFE_ABSTENTION') with clinical reason; unrecognized calculator_id safely returns an explicit error message without throwing uncaught exceptions.\n"
@@ -88,7 +93,10 @@ TOOLS_REGISTRY = [
                         "news2_score",
                         "curb65_score",
                         "wells_dvt_score",
-                        "wells_pe_score"
+                        "wells_pe_score",
+                        "meld_na_score",
+                        "glasgow_blatchford_score",
+                        "ascvd_risk_acc_aha"
                     ],
                     "examples": ["cha2ds2_va_esc2024", "ckd_epi_2021_egfr"]
                 },
@@ -139,7 +147,24 @@ TOOLS_REGISTRY = [
                         "immobilization_or_surgery_past_4wks": {"type": "boolean", "default": False, "description": "Immobilization >= 3 days or surgery in past 4 weeks (+1.5 points in Wells PE)."},
                         "previous_pe_or_dvt": {"type": "boolean", "default": False, "description": "Previous objectively documented PE or DVT (+1.5 points in Wells PE)."},
                         "hemoptysis": {"type": "boolean", "default": False, "description": "Hemoptysis / coughing up blood (+1 point in Wells PE)."},
-                        "active_malignancy": {"type": "boolean", "default": False, "description": "Active malignancy treated within past 6 months or palliative (+1 point in Wells PE)."}
+                        "active_malignancy": {"type": "boolean", "default": False, "description": "Active malignancy treated within past 6 months or palliative (+1 point in Wells PE)."},
+                        "serum_bilirubin_mg_dl": {"type": "number", "minimum": 0.1, "maximum": 60.0, "description": "Serum total bilirubin in mg/dL, strictly positive (required for MELD-Na).", "examples": [2.4]},
+                        "inr": {"type": "number", "minimum": 0.5, "maximum": 20.0, "description": "Prothrombin time INR, strictly positive (required for MELD-Na).", "examples": [1.8]},
+                        "serum_sodium_meq_l": {"type": "number", "minimum": 100, "maximum": 180, "description": "Serum sodium in mEq/L; physiologically plausible window 100-180 (required for MELD-Na).", "examples": [132]},
+                        "dialysis_within_7_days": {"type": "boolean", "default": False, "description": "Dialysis within the preceding 7 days; forces creatinine to the 4.0 mg/dL OPTN ceiling (MELD-Na)."},
+                        "hemoglobin_g_dl": {"type": "number", "minimum": 1.0, "maximum": 25.0, "description": "Hemoglobin in g/dL, strictly positive (required for Glasgow-Blatchford Score).", "examples": [10.4]},
+                        "systolic_bp_mmhg": {"type": "integer", "minimum": 21, "maximum": 350, "description": "Systolic blood pressure in mmHg (Glasgow-Blatchford and ASCVD thresholds).", "examples": [98]},
+                        "pulse_bpm": {"type": "integer", "minimum": 1, "maximum": 350, "description": "Pulse in beats per minute; >=100 scores 1 point in the Glasgow-Blatchford Score.", "examples": [104]},
+                        "hx_melena": {"type": "boolean", "default": False, "description": "History of melena (+1 point in Glasgow-Blatchford Score)."},
+                        "hx_syncope": {"type": "boolean", "default": False, "description": "History of syncope (+2 points in Glasgow-Blatchford Score)."},
+                        "hx_hepatic_disease": {"type": "boolean", "default": False, "description": "Known hepatic disease (+2 points in Glasgow-Blatchford Score)."},
+                        "hx_cardiac_failure": {"type": "boolean", "default": False, "description": "Known cardiac failure (+2 points in Glasgow-Blatchford Score)."},
+                        "race": {"type": "string", "enum": ["white", "african_american", "other"], "default": "white", "description": "Race category for the ACC/AHA Pooled Cohort Equations ('other' maps to the White coefficient set).", "examples": ["white"]},
+                        "total_cholesterol_mg_dl": {"type": "number", "minimum": 130, "maximum": 320, "description": "Total cholesterol in mg/dL, validated range 130-320 (required for ASCVD risk).", "examples": [213]},
+                        "hdl_cholesterol_mg_dl": {"type": "number", "minimum": 20, "maximum": 100, "description": "HDL cholesterol in mg/dL, validated range 20-100 (required for ASCVD risk).", "examples": [50]},
+                        "on_hypertension_meds": {"type": "boolean", "default": False, "description": "Currently on antihypertensive medication (treated systolic BP term in the ASCVD equations)."},
+                        "has_diabetes": {"type": "boolean", "default": False, "description": "Diagnosed diabetes mellitus (ASCVD risk coefficient)."},
+                        "is_current_smoker": {"type": "boolean", "default": False, "description": "Current cigarette smoker (ASCVD risk coefficient)."}
                     }
                 }
             }
@@ -745,6 +770,38 @@ def handle_tool_call(tool_name: str, arguments: dict) -> dict:
                 res = calculate_wells_dvt_score(**p)
             elif calc_id == "wells_pe_score":
                 res = calculate_wells_pe_score(**p)
+            elif calc_id == "meld_na_score":
+                res = calculate_meld_na_score(
+                    serum_bilirubin_mg_dl=p["serum_bilirubin_mg_dl"],
+                    inr=p["inr"],
+                    serum_creatinine_mg_dl=p["serum_creatinine_mg_dl"],
+                    serum_sodium_meq_l=p["serum_sodium_meq_l"],
+                    dialysis_within_7_days=p.get("dialysis_within_7_days", False)
+                )
+            elif calc_id == "glasgow_blatchford_score":
+                res = calculate_glasgow_blatchford_score(
+                    blood_urea_nitrogen_mg_dl=p["blood_urea_nitrogen_mg_dl"],
+                    hemoglobin_g_dl=p["hemoglobin_g_dl"],
+                    systolic_bp_mmhg=p["systolic_bp_mmhg"],
+                    pulse_bpm=p["pulse_bpm"],
+                    hx_melena=p.get("hx_melena", False),
+                    hx_syncope=p.get("hx_syncope", False),
+                    hx_hepatic_disease=p.get("hx_hepatic_disease", False),
+                    hx_cardiac_failure=p.get("hx_cardiac_failure", False),
+                    biological_sex=p["biological_sex"]
+                )
+            elif calc_id == "ascvd_risk_acc_aha":
+                res = calculate_ascvd_risk_acc_aha(
+                    age_years=p["age_years"],
+                    biological_sex=p["biological_sex"],
+                    race=p.get("race", "WHITE"),
+                    total_cholesterol_mg_dl=p["total_cholesterol_mg_dl"],
+                    hdl_cholesterol_mg_dl=p["hdl_cholesterol_mg_dl"],
+                    systolic_bp_mmhg=p["systolic_bp_mmhg"],
+                    on_hypertension_meds=p.get("on_hypertension_meds", False),
+                    has_diabetes=p.get("has_diabetes", False),
+                    is_current_smoker=p.get("is_current_smoker", False)
+                )
             else:
                 return {"error": f"Unknown calculator_id: '{calc_id}'"}
 

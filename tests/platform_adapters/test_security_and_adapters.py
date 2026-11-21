@@ -138,6 +138,109 @@ class TestSecurityAndAdapters(unittest.TestCase):
         proc.terminate()
         proc.wait(timeout=2)
 
+    def test_mcp_new_clinical_calculators(self):
+        """Exercises MELD-Na, Glasgow-Blatchford, and ASCVD risk over JSON-RPC stdio."""
+        server_path = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
+            "mcp_server",
+            "medorqis_mcp_server.py"
+        )
+        proc = subprocess.Popen(
+            [sys.executable, server_path],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+
+        def call(req_id, calculator_id, params):
+            request = json.dumps({
+                "jsonrpc": "2.0",
+                "id": req_id,
+                "method": "tools/call",
+                "params": {
+                    "name": "calculate_clinical_score",
+                    "arguments": {"calculator_id": calculator_id, "params": params}
+                }
+            }) + "\n"
+            proc.stdin.write(request)
+            proc.stdin.flush()
+            response = json.loads(proc.stdout.readline())
+            return json.loads(response["result"]["content"][0]["text"])
+
+        try:
+            # 1. MELD-Na: decompensated cirrhosis
+            meld = call(1, "meld_na_score", {
+                "serum_bilirubin_mg_dl": 3.2,
+                "inr": 2.1,
+                "serum_creatinine_mg_dl": 2.4,
+                "serum_sodium_meq_l": 129.0,
+                "dialysis_within_7_days": False
+            })
+            self.assertEqual(meld["calculator_id"], "meld_na_score")
+            self.assertIsInstance(meld["score"], (int, float))
+            self.assertGreaterEqual(meld["score"], 6.0)
+            self.assertLessEqual(meld["score"], 40.0)
+            self.assertIn("MELD-Na", meld["interpretation_band"])
+            self.assertTrue(len(meld["clinical_recommendation"]) > 0)
+            self.assertTrue(len(meld["warnings"]) > 0)
+
+            # 2. Glasgow-Blatchford: acute upper GI bleed
+            gbs = call(2, "glasgow_blatchford_score", {
+                "blood_urea_nitrogen_mg_dl": 42.0,
+                "hemoglobin_g_dl": 9.4,
+                "systolic_bp_mmhg": 96,
+                "pulse_bpm": 108,
+                "hx_melena": True,
+                "hx_syncope": True,
+                "hx_hepatic_disease": True,
+                "hx_cardiac_failure": False,
+                "biological_sex": "male"
+            })
+            self.assertEqual(gbs["calculator_id"], "glasgow_blatchford_score")
+            self.assertIsInstance(gbs["score"], (int, float))
+            self.assertGreater(gbs["score"], 0)
+            self.assertIn("Glasgow-Blatchford", gbs["interpretation_band"])
+
+            # 3. ASCVD: primary prevention, 55-year-old male
+            ascvd = call(3, "ascvd_risk_acc_aha", {
+                "age_years": 55,
+                "biological_sex": "male",
+                "race": "white",
+                "total_cholesterol_mg_dl": 213.0,
+                "hdl_cholesterol_mg_dl": 50.0,
+                "systolic_bp_mmhg": 138,
+                "on_hypertension_meds": False,
+                "has_diabetes": False,
+                "is_current_smoker": True
+            })
+            self.assertEqual(ascvd["calculator_id"], "ascvd_risk_acc_aha")
+            self.assertIsInstance(ascvd["score"], (int, float))
+            self.assertGreaterEqual(ascvd["score"], 0.0)
+            self.assertLessEqual(ascvd["score"], 100.0)
+            self.assertIn("%", ascvd["interpretation_band"])
+
+            # 4. Safe refusal: age outside the validated Pooled Cohort Equations window
+            refusal = call(4, "ascvd_risk_acc_aha", {
+                "age_years": 85,
+                "biological_sex": "female",
+                "race": "white",
+                "total_cholesterol_mg_dl": 200.0,
+                "hdl_cholesterol_mg_dl": 55.0,
+                "systolic_bp_mmhg": 130,
+                "on_hypertension_meds": False,
+                "has_diabetes": False,
+                "is_current_smoker": False
+            })
+            self.assertEqual(refusal["status"], "CALCULATION_REFUSED_SAFE_ABSTENTION")
+            self.assertEqual(refusal["parameter"], "age_years")
+        finally:
+            proc.stdin.close()
+            proc.stdout.close()
+            proc.stderr.close()
+            proc.terminate()
+            proc.wait(timeout=2)
+
     def test_platform_adapters_exist_and_valid(self):
         base_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
         # Claude
