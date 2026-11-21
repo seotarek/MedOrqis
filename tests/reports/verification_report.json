@@ -1,11 +1,11 @@
 {
   "report_version": "2.1.1",
-  "timestamp": "2026-11-16T10:09:41.709035+00:00",
-  "release_tag": "v2.1.2-16-gf3bfdec",
-  "base_commit": "f3bfdecadd5471cdc005a92b0a33b7f750592dde",
+  "timestamp": "2026-11-21T05:54:29.411953+00:00",
+  "release_tag": "v2.1.1-40-ga181d85",
+  "base_commit": "a181d85fddda2f3763d4d11c4204c7f3d637ccea",
   "python_version": "3.15.2 (3.15.2-1.fc45.x86_64, Oct 26 2026, 00:00:00) [GCC 16.2.1 20260819 (Red Hat 16.2.1-2)]",
-  "total_tests": 42,
-  "passed": 42,
+  "total_tests": 58,
+  "passed": 58,
   "failures": 0,
   "errors": 0,
   "pass_rate_percent": 100.0,
@@ -18,22 +18,22 @@
     {
       "id": "1",
       "name": "Deterministic Clinical Engines & Documentation Tests",
-      "dir": "/home/tarek/Desktop/\u0627\u0644\u0645\u0634\u0627\u0631\u064a\u0639/MedOrqis \u2014 Medical AI Skills Ecosystem/tests/unit",
+      "dir": "/media/tarek/FOLLOWIX/projects/medorqis/medorqis-source/tests/unit",
       "pattern": "test_*.py",
       "module": "core/clinical_calculators.py & core/clinical_documenter.py",
-      "scope": "CHA2DS2-VA (ESC 2024 sex neutrality), CKD-EPI 2021, Bedside Schwartz, Cockcroft-Gault, Pediatric Dose Capping, HAS-BLED, NEWS2, Wells DVT/PE, plus Deterministic SOAP/ISBAR generation, Laboratory Panic Values, and automated risk score embedding.",
-      "tests_run": 18,
-      "passed": 18,
+      "scope": "CHA2DS2-VA (ESC 2024 sex neutrality), CKD-EPI 2021, Bedside Schwartz, Cockcroft-Gault, Pediatric Dose Capping, HAS-BLED, NEWS2, Wells DVT/PE, MELD-Na (OPTN 2016), Glasgow-Blatchford, ACC/AHA Pooled Cohort ASCVD, plus Deterministic SOAP/ISBAR generation, Laboratory Panic Values, and automated risk score embedding.",
+      "tests_run": 34,
+      "passed": 34,
       "failures": 0,
       "errors": 0,
       "pass_rate": 100.0,
       "status": "PASSED",
-      "duration_seconds": 0.035
+      "duration_seconds": 0.022
     },
     {
       "id": "2",
       "name": "Clinical Safety Guardrails & Epistemic Provenance Tests",
-      "dir": "/home/tarek/Desktop/\u0627\u0644\u0645\u0634\u0627\u0631\u064a\u0639/MedOrqis \u2014 Medical AI Skills Ecosystem/tests/safety",
+      "dir": "/media/tarek/FOLLOWIX/projects/medorqis/medorqis-source/tests/safety",
       "pattern": "test_safety_and_provenance.py",
       "module": "core/safety_guardrails.py & core/context_validator.py",
       "scope": "Epistemic provenance lockdown (hypothesis dosing refusal, empty provenance refusal), missing age gatekeeper, sentinel emergency triggers (Stroke FAST, ACS crushing chest pain, anaphylaxis, match_mode ANY), red-flag female atypical MI, anticoagulation + GI bleed conflict, critical DDI screening (Warfarin + NSAID, Apixaban + Diclofenac, Sildenafil + Nitroglycerin), negated symptom filtering.",
@@ -43,12 +43,12 @@
       "errors": 0,
       "pass_rate": 100.0,
       "status": "PASSED",
-      "duration_seconds": 0.011
+      "duration_seconds": 0.009
     },
     {
       "id": "3",
       "name": "Multilingual Semantic Invariance & Dialect Benchmark",
-      "dir": "/home/tarek/Desktop/\u0627\u0644\u0645\u0634\u0627\u0631\u064a\u0639/MedOrqis \u2014 Medical AI Skills Ecosystem/tests/multilingual",
+      "dir": "/media/tarek/FOLLOWIX/projects/medorqis/medorqis-source/tests/multilingual",
       "pattern": "test_multilingual_benchmark.py",
       "module": "core/terminology_normalizer.py",
       "scope": "Negation preservation with clause-stop boundaries across 126 curated test cases (MSA, Egyptian, Gulf, Levantine, Maghrebi, EN, FR, ES), BiDi numeric/unit fidelity (mg, mcg, g), regional trade brand-to-INN mapping.",
@@ -63,7 +63,7 @@
     {
       "id": "4",
       "name": "Security, PHI Redaction, Citation & Platform Adapter Tests",
-      "dir": "/home/tarek/Desktop/\u0627\u0644\u0645\u0634\u0627\u0631\u064a\u0639/MedOrqis \u2014 Medical AI Skills Ecosystem/tests/platform_adapters",
+      "dir": "/media/tarek/FOLLOWIX/projects/medorqis/medorqis-source/tests/platform_adapters",
       "pattern": "test_security_and_adapters.py",
       "module": "core/ & mcp_server/ & adapters/ & skills/",
       "scope": "SHA-256 cryptographic file integrity manifest (45 files: 24 skills, 11 core modules, dictionaries), PHI scrubbing (Egypt NID 14d, Saudi Iqama 10d, MRN), prompt injection defense, 2-stage citation entailment & population mismatch, live stdio MCP JSON-RPC contract, OpenAI strict parameters, scalar allowed-tools frontmatter in all 24 skills.",
@@ -73,7 +73,7 @@
       "errors": 0,
       "pass_rate": 100.0,
       "status": "PASSED",
-      "duration_seconds": 0.108
+      "duration_seconds": 0.082
     }
   ]
 }

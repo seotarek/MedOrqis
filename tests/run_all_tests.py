@@ -153,7 +153,7 @@ def run_all_suites():
             "dir": os.path.join(BASE_DIR, "tests", "unit"),
             "pattern": "test_*.py",
             "module": "core/clinical_calculators.py & core/clinical_documenter.py",
-            "scope": "CHA2DS2-VA (ESC 2024 sex neutrality), CKD-EPI 2021, Bedside Schwartz, Cockcroft-Gault, Pediatric Dose Capping, HAS-BLED, NEWS2, Wells DVT/PE, plus Deterministic SOAP/ISBAR generation, Laboratory Panic Values, and automated risk score embedding."
+            "scope": "CHA2DS2-VA (ESC 2024 sex neutrality), CKD-EPI 2021, Bedside Schwartz, Cockcroft-Gault, Pediatric Dose Capping, HAS-BLED, NEWS2, Wells DVT/PE, MELD-Na (OPTN 2016), Glasgow-Blatchford, ACC/AHA Pooled Cohort ASCVD, plus Deterministic SOAP/ISBAR generation, Laboratory Panic Values, and automated risk score embedding."
         },
         {
             "id": "2",

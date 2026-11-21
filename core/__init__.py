@@ -15,6 +15,14 @@ from core.clinical_documenter import (
     GeneratedDocument
 )
 
+from core.clinical_calculators import (
+    SafeCalculationRefusal,
+    CalculationResult,
+    calculate_meld_na_score,
+    calculate_glasgow_blatchford_score,
+    calculate_ascvd_risk_acc_aha,
+)
+
 __all__ = [
     "ClinicalDocumenter",
     "ClinicalDocumentInput",
@@ -23,5 +31,10 @@ __all__ = [
     "PanicAlert",
     "PanicValueEngine",
     "GeneratedDocument",
+    "SafeCalculationRefusal",
+    "CalculationResult",
+    "calculate_meld_na_score",
+    "calculate_glasgow_blatchford_score",
+    "calculate_ascvd_risk_acc_aha",
     "__version__"
 ]

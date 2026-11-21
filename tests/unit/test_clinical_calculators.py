@@ -17,6 +17,9 @@ from core.clinical_calculators import (
     calculate_bedside_schwartz_egfr,
     calculate_has_bled_score,
     calculate_news2_score,
+    calculate_meld_na_score,
+    calculate_glasgow_blatchford_score,
+    calculate_ascvd_risk_acc_aha,
     SafeCalculationRefusal
 )
 
@@ -279,6 +282,335 @@ class TestClinicalCalculators(unittest.TestCase):
                 systolic_bp_mmhg=15,
                 diastolic_bp_mmhg=10,
                 age_years=50
+            )
+
+    # ------------------------------------------------------------------
+    # MELD-Na (OPTN/UNOS 2016)
+    # ------------------------------------------------------------------
+    def test_meld_na_normal_values(self):
+        # All labs at their OPTN lower bounds: 9.57*ln(1) + 3.78*ln(1) + 11.2*ln(1) + 6.43 = 6.43 -> 6.4
+        # Initial MELD 6.4 <= 11, so no sodium correction applies; floor bound of 6 applies.
+        res = calculate_meld_na_score(
+            serum_bilirubin_mg_dl=1.0,
+            inr=1.0,
+            serum_creatinine_mg_dl=1.0,
+            serum_sodium_meq_l=140.0
+        )
+        self.assertEqual(res.score, 6.0)
+        self.assertEqual(res.raw_inputs["initial_meld"], 6.4)
+        self.assertIn("Low Risk", res.interpretation_band)
+        self.assertTrue(any("Sodium correction is not applied" in w for w in res.warnings))
+
+    def test_meld_na_sodium_effect_above_eleven(self):
+        # Bili 2.0, INR 1.5, Cr 1.5:
+        # 9.57*ln(1.5) + 3.78*ln(2.0) + 11.2*ln(1.5) + 6.43
+        # = 3.879 + 2.620 + 4.541 + 6.43 = 17.47 -> initial MELD 17.5 (> 11, so Na applies)
+        # Na 130 -> 137-130 = 7; MELD-Na = 17.5 + 1.32*7 - 0.033*17.5*7 = 17.5 + 9.24 - 4.0425 = 22.6975 -> 23
+        res = calculate_meld_na_score(
+            serum_bilirubin_mg_dl=2.0,
+            inr=1.5,
+            serum_creatinine_mg_dl=1.5,
+            serum_sodium_meq_l=130.0
+        )
+        self.assertEqual(res.raw_inputs["initial_meld"], 17.5)
+        self.assertEqual(res.score, 23.0)
+        self.assertIn("High Risk", res.interpretation_band)
+
+        # Same labs but normal sodium (140) clamps to 137 -> no correction, MELD-Na = MELD = 17.5 -> 18
+        res_normal_na = calculate_meld_na_score(
+            serum_bilirubin_mg_dl=2.0,
+            inr=1.5,
+            serum_creatinine_mg_dl=1.5,
+            serum_sodium_meq_l=140.0
+        )
+        self.assertEqual(res_normal_na.score, 18.0)
+        self.assertTrue(any("clamped to 137" in w for w in res_normal_na.warnings))
+        self.assertGreater(res.score, res_normal_na.score)
+
+    def test_meld_na_exact_eleven_boundary(self):
+        # Cr 1.0, Bili 1.0, INR 1.5: 0 + 0 + 11.2*ln(1.5) + 6.43 = 4.541 + 6.43 = 10.971 -> 11.0
+        # The sodium correction applies only when initial MELD is strictly > 11, so 11.0 must NOT trigger it.
+        res = calculate_meld_na_score(
+            serum_bilirubin_mg_dl=1.0,
+            inr=1.5,
+            serum_creatinine_mg_dl=1.0,
+            serum_sodium_meq_l=120.0
+        )
+        self.assertEqual(res.raw_inputs["initial_meld"], 11.0)
+        self.assertEqual(res.score, 11.0)
+        self.assertTrue(any("initial MELD is <= 11" in w for w in res.warnings))
+
+    def test_meld_na_dialysis_caps_creatinine(self):
+        # Dialysis forces creatinine to 4.0 regardless of the reported value.
+        # Cr 4.0: 9.57*ln(4) = 13.267; Bili 2.0: 2.620; INR 1.5: 4.541; + 6.43 = 26.858 -> 26.9
+        # Na 135 -> 137-135 = 2; 26.9 + 2.64 - 0.033*26.9*2 = 26.9 + 2.64 - 1.7754 = 27.7646 -> 28
+        res = calculate_meld_na_score(
+            serum_bilirubin_mg_dl=2.0,
+            inr=1.5,
+            serum_creatinine_mg_dl=2.5,
+            serum_sodium_meq_l=135.0,
+            dialysis_within_7_days=True
+        )
+        self.assertEqual(res.raw_inputs["creatinine_used_mg_dl"], 4.0)
+        self.assertEqual(res.raw_inputs["initial_meld"], 26.9)
+        self.assertEqual(res.score, 28.0)
+        self.assertTrue(any("Dialysis within the preceding 7 days" in w for w in res.warnings))
+
+    def test_meld_na_upper_bound_and_bands(self):
+        # Critically deranged labs must saturate the OPTN ceiling of 40 rather than exceeding it.
+        res = calculate_meld_na_score(
+            serum_bilirubin_mg_dl=10.0,
+            inr=5.0,
+            serum_creatinine_mg_dl=8.0,
+            serum_sodium_meq_l=110.0,
+            dialysis_within_7_days=True
+        )
+        self.assertEqual(res.score, 40.0)
+        self.assertIn("Imminent Liver Failure", res.interpretation_band)
+
+    def test_meld_na_refusals(self):
+        # Non-positive bilirubin
+        with self.assertRaises(SafeCalculationRefusal):
+            calculate_meld_na_score(serum_bilirubin_mg_dl=0.0, inr=1.0, serum_creatinine_mg_dl=1.0, serum_sodium_meq_l=135.0)
+        # Negative INR
+        with self.assertRaises(SafeCalculationRefusal):
+            calculate_meld_na_score(serum_bilirubin_mg_dl=1.5, inr=-1.2, serum_creatinine_mg_dl=1.0, serum_sodium_meq_l=135.0)
+        # Negative creatinine
+        with self.assertRaises(SafeCalculationRefusal):
+            calculate_meld_na_score(serum_bilirubin_mg_dl=1.5, inr=1.2, serum_creatinine_mg_dl=-0.4, serum_sodium_meq_l=135.0)
+        # Sodium below plausible range
+        with self.assertRaises(SafeCalculationRefusal):
+            calculate_meld_na_score(serum_bilirubin_mg_dl=1.5, inr=1.2, serum_creatinine_mg_dl=1.0, serum_sodium_meq_l=95.0)
+        # Sodium above plausible range
+        with self.assertRaises(SafeCalculationRefusal):
+            calculate_meld_na_score(serum_bilirubin_mg_dl=1.5, inr=1.2, serum_creatinine_mg_dl=1.0, serum_sodium_meq_l=190.0)
+
+    # ------------------------------------------------------------------
+    # Glasgow-Blatchford Score
+    # ------------------------------------------------------------------
+    def test_glasgow_blatchford_zero_is_very_low_risk(self):
+        # BUN 10 (< 18.2), Hgb 14.5 (no points), SBP 120, pulse 70, no history -> 0 points
+        res = calculate_glasgow_blatchford_score(
+            blood_urea_nitrogen_mg_dl=10.0,
+            hemoglobin_g_dl=14.5,
+            systolic_bp_mmhg=120,
+            pulse_bpm=70
+        )
+        self.assertEqual(res.score, 0.0)
+        self.assertIn("Very Low Risk", res.interpretation_band)
+        self.assertIn("outpatient", res.clinical_recommendation)
+
+    def test_glasgow_blatchford_hemoglobin_sex_thresholds(self):
+        # Hgb 12.5: MALE scores +1 (12.0 - 13.0 band); FEMALE scores 0 (>= 12.0).
+        male = calculate_glasgow_blatchford_score(
+            blood_urea_nitrogen_mg_dl=10.0,
+            hemoglobin_g_dl=12.5,
+            systolic_bp_mmhg=120,
+            pulse_bpm=70,
+            biological_sex="MALE"
+        )
+        female = calculate_glasgow_blatchford_score(
+            blood_urea_nitrogen_mg_dl=10.0,
+            hemoglobin_g_dl=12.5,
+            systolic_bp_mmhg=120,
+            pulse_bpm=70,
+            biological_sex="FEMALE"
+        )
+        self.assertEqual(male.score, 1.0)
+        self.assertEqual(female.score, 0.0)
+        self.assertIn("Low Risk", male.interpretation_band)
+
+        # Hgb 11.0: MALE +3 (10.0 - 12.0), FEMALE +1 (10.0 - 12.0)
+        male_low = calculate_glasgow_blatchford_score(
+            blood_urea_nitrogen_mg_dl=10.0, hemoglobin_g_dl=11.0,
+            systolic_bp_mmhg=120, pulse_bpm=70, biological_sex="MALE"
+        )
+        female_low = calculate_glasgow_blatchford_score(
+            blood_urea_nitrogen_mg_dl=10.0, hemoglobin_g_dl=11.0,
+            systolic_bp_mmhg=120, pulse_bpm=70, biological_sex="FEMALE"
+        )
+        self.assertEqual(male_low.score, 3.0)
+        self.assertEqual(female_low.score, 1.0)
+
+    def test_glasgow_blatchford_multi_risk_accumulation(self):
+        # BUN 30.0 -> +4; Hgb 9.5 (FEMALE) -> +6; SBP 95 -> +2; pulse 105 -> +1;
+        # melena +1, syncope +2, hepatic +2, cardiac +2 = 20
+        res = calculate_glasgow_blatchford_score(
+            blood_urea_nitrogen_mg_dl=30.0,
+            hemoglobin_g_dl=9.5,
+            systolic_bp_mmhg=95,
+            pulse_bpm=105,
+            hx_melena=True,
+            hx_syncope=True,
+            hx_hepatic_disease=True,
+            hx_cardiac_failure=True,
+            biological_sex="FEMALE"
+        )
+        self.assertEqual(res.score, 20.0)
+        self.assertIn("High Risk", res.interpretation_band)
+        self.assertIn("Inpatient admission", res.clinical_recommendation)
+
+        # Maximum severity path: BUN >= 70 (+6), Hgb < 10 male (+6), SBP < 90 (+3),
+        # pulse >= 100 (+1), all history flags (+7) = 23 (the documented ceiling)
+        max_res = calculate_glasgow_blatchford_score(
+            blood_urea_nitrogen_mg_dl=85.0,
+            hemoglobin_g_dl=8.0,
+            systolic_bp_mmhg=80,
+            pulse_bpm=120,
+            hx_melena=True,
+            hx_syncope=True,
+            hx_hepatic_disease=True,
+            hx_cardiac_failure=True,
+            biological_sex="MALE"
+        )
+        self.assertEqual(max_res.score, 23.0)
+
+    def test_glasgow_blatchford_refusals(self):
+        with self.assertRaises(SafeCalculationRefusal):
+            calculate_glasgow_blatchford_score(
+                blood_urea_nitrogen_mg_dl=0.0, hemoglobin_g_dl=13.0,
+                systolic_bp_mmhg=120, pulse_bpm=70
+            )
+        with self.assertRaises(SafeCalculationRefusal):
+            calculate_glasgow_blatchford_score(
+                blood_urea_nitrogen_mg_dl=20.0, hemoglobin_g_dl=-1.0,
+                systolic_bp_mmhg=120, pulse_bpm=70
+            )
+        with self.assertRaises(SafeCalculationRefusal):
+            calculate_glasgow_blatchford_score(
+                blood_urea_nitrogen_mg_dl=20.0, hemoglobin_g_dl=13.0,
+                systolic_bp_mmhg=400, pulse_bpm=70
+            )
+        with self.assertRaises(SafeCalculationRefusal):
+            calculate_glasgow_blatchford_score(
+                blood_urea_nitrogen_mg_dl=20.0, hemoglobin_g_dl=13.0,
+                systolic_bp_mmhg=120, pulse_bpm=70, biological_sex="UNKNOWN"
+            )
+
+    # ------------------------------------------------------------------
+    # ACC/AHA Pooled Cohort Equations (10-year ASCVD)
+    # ------------------------------------------------------------------
+    def test_ascvd_low_risk(self):
+        # 45-year-old White male, TC 180, HDL 60, SBP 120, untreated, non-smoker, no diabetes -> 1.2%
+        res = calculate_ascvd_risk_acc_aha(
+            age_years=45,
+            biological_sex="MALE",
+            race="WHITE",
+            total_cholesterol_mg_dl=180.0,
+            hdl_cholesterol_mg_dl=60.0,
+            systolic_bp_mmhg=120,
+            on_hypertension_meds=False,
+            has_diabetes=False,
+            is_current_smoker=False
+        )
+        self.assertAlmostEqual(res.score, 1.2, delta=0.1)
+        self.assertIn("Low Risk", res.interpretation_band)
+
+    def test_ascvd_intermediate_risk(self):
+        # 55-year-old White male, TC 213, HDL 50, SBP 130 treated, diabetic, non-smoker -> 13.4%
+        res = calculate_ascvd_risk_acc_aha(
+            age_years=55,
+            biological_sex="MALE",
+            race="WHITE",
+            total_cholesterol_mg_dl=213.0,
+            hdl_cholesterol_mg_dl=50.0,
+            systolic_bp_mmhg=130,
+            on_hypertension_meds=True,
+            has_diabetes=True,
+            is_current_smoker=False
+        )
+        self.assertAlmostEqual(res.score, 13.4, delta=0.1)
+        self.assertIn("Intermediate Risk", res.interpretation_band)
+        self.assertIn("Moderate-intensity statin", res.clinical_recommendation)
+
+    def test_ascvd_high_risk(self):
+        # 65-year-old White male, TC 280, HDL 38, SBP 150 treated, smoker, diabetic -> 58.2%
+        res = calculate_ascvd_risk_acc_aha(
+            age_years=65,
+            biological_sex="MALE",
+            race="WHITE",
+            total_cholesterol_mg_dl=280.0,
+            hdl_cholesterol_mg_dl=38.0,
+            systolic_bp_mmhg=150,
+            on_hypertension_meds=True,
+            has_diabetes=True,
+            is_current_smoker=True
+        )
+        self.assertAlmostEqual(res.score, 58.2, delta=0.1)
+        self.assertIn("High Risk", res.interpretation_band)
+        self.assertIn("High-intensity statin", res.clinical_recommendation)
+
+    def test_ascvd_race_and_sex_specific_coefficients(self):
+        # African American male coefficients differ from White male for identical inputs.
+        aa = calculate_ascvd_risk_acc_aha(
+            age_years=60, biological_sex="MALE", race="AFRICAN_AMERICAN",
+            total_cholesterol_mg_dl=220.0, hdl_cholesterol_mg_dl=45.0,
+            systolic_bp_mmhg=140, on_hypertension_meds=True,
+            has_diabetes=False, is_current_smoker=True
+        )
+        white = calculate_ascvd_risk_acc_aha(
+            age_years=60, biological_sex="MALE", race="WHITE",
+            total_cholesterol_mg_dl=220.0, hdl_cholesterol_mg_dl=45.0,
+            systolic_bp_mmhg=140, on_hypertension_meds=True,
+            has_diabetes=False, is_current_smoker=True
+        )
+        self.assertAlmostEqual(aa.score, 26.9, delta=0.1)
+        self.assertNotEqual(aa.score, white.score)
+
+        # 'OTHER' maps to the White coefficient set per AHA guidance.
+        other = calculate_ascvd_risk_acc_aha(
+            age_years=55, biological_sex="MALE", race="OTHER",
+            total_cholesterol_mg_dl=213.0, hdl_cholesterol_mg_dl=50.0,
+            systolic_bp_mmhg=130, on_hypertension_meds=True,
+            has_diabetes=True, is_current_smoker=False
+        )
+        self.assertEqual(other.score, 13.4)
+        self.assertTrue(any("'OTHER' was mapped to the White" in w for w in other.warnings))
+
+    def test_ascvd_refuses_age_outside_validated_range(self):
+        with self.assertRaises(SafeCalculationRefusal):
+            calculate_ascvd_risk_acc_aha(
+                age_years=39, biological_sex="MALE", race="WHITE",
+                total_cholesterol_mg_dl=200.0, hdl_cholesterol_mg_dl=50.0,
+                systolic_bp_mmhg=120, on_hypertension_meds=False,
+                has_diabetes=False, is_current_smoker=False
+            )
+        with self.assertRaises(SafeCalculationRefusal):
+            calculate_ascvd_risk_acc_aha(
+                age_years=80, biological_sex="FEMALE", race="WHITE",
+                total_cholesterol_mg_dl=200.0, hdl_cholesterol_mg_dl=50.0,
+                systolic_bp_mmhg=120, on_hypertension_meds=False,
+                has_diabetes=False, is_current_smoker=False
+            )
+
+    def test_ascvd_refuses_out_of_range_labs(self):
+        with self.assertRaises(SafeCalculationRefusal):
+            calculate_ascvd_risk_acc_aha(
+                age_years=55, biological_sex="MALE", race="WHITE",
+                total_cholesterol_mg_dl=100.0, hdl_cholesterol_mg_dl=50.0,
+                systolic_bp_mmhg=130, on_hypertension_meds=False,
+                has_diabetes=False, is_current_smoker=False
+            )
+        with self.assertRaises(SafeCalculationRefusal):
+            calculate_ascvd_risk_acc_aha(
+                age_years=55, biological_sex="MALE", race="WHITE",
+                total_cholesterol_mg_dl=200.0, hdl_cholesterol_mg_dl=10.0,
+                systolic_bp_mmhg=130, on_hypertension_meds=False,
+                has_diabetes=False, is_current_smoker=False
+            )
+        with self.assertRaises(SafeCalculationRefusal):
+            calculate_ascvd_risk_acc_aha(
+                age_years=55, biological_sex="MALE", race="WHITE",
+                total_cholesterol_mg_dl=200.0, hdl_cholesterol_mg_dl=50.0,
+                systolic_bp_mmhg=220, on_hypertension_meds=False,
+                has_diabetes=False, is_current_smoker=False
+            )
+        with self.assertRaises(SafeCalculationRefusal):
+            calculate_ascvd_risk_acc_aha(
+                age_years=55, biological_sex="MALE", race="ASIAN",
+                total_cholesterol_mg_dl=200.0, hdl_cholesterol_mg_dl=50.0,
+                systolic_bp_mmhg=130, on_hypertension_meds=False,
+                has_diabetes=False, is_current_smoker=False
             )
 
 

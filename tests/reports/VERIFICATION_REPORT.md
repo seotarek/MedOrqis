@@ -1,10 +1,10 @@
 # MedOrqis — Automated Verification Report (v2.1.1)
 
-**Execution Timestamp**: `2026-11-16T10:09:41.709035+00:00`  
-**Release Tag**: `v2.1.2-16-gf3bfdec`  
-**Base Commit**: `f3bfdecadd5471cdc005a92b0a33b7f750592dde`  
+**Execution Timestamp**: `2026-11-21T05:54:29.411953+00:00`  
+**Release Tag**: `v2.1.1-40-ga181d85`  
+**Base Commit**: `a181d85fddda2f3763d4d11c4204c7f3d637ccea`  
 **Overall Automated Status**: **ALL_TESTS_PASSED (100.0% Pass Rate)**  
-**Total Tests**: `42/42` passed  
+**Total Tests**: `58/58` passed  
 **Clinical Review Status**: `PENDING_INSTITUTIONAL_CLINICAL_SIGN_OFF` (Decoupled Governance Policy)
 
 > [!IMPORTANT]
@@ -21,11 +21,11 @@
 
 | Test Suite | Target Module | Scope & Scenarios Verified | Tests Run | Pass Rate | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **1. Deterministic Clinical Engines & Documentation Tests** | `core/clinical_calculators.py & core/clinical_documenter.py` | CHA2DS2-VA (ESC 2024 sex neutrality), CKD-EPI 2021, Bedside Schwartz, Cockcroft-Gault, Pediatric Dose Capping, HAS-BLED, NEWS2, Wells DVT/PE, plus Deterministic SOAP/ISBAR generation, Laboratory Panic Values, and automated risk score embedding. | 18 | 100.0% | **PASSED** |
+| **1. Deterministic Clinical Engines & Documentation Tests** | `core/clinical_calculators.py & core/clinical_documenter.py` | CHA2DS2-VA (ESC 2024 sex neutrality), CKD-EPI 2021, Bedside Schwartz, Cockcroft-Gault, Pediatric Dose Capping, HAS-BLED, NEWS2, Wells DVT/PE, MELD-Na (OPTN 2016), Glasgow-Blatchford, ACC/AHA Pooled Cohort ASCVD, plus Deterministic SOAP/ISBAR generation, Laboratory Panic Values, and automated risk score embedding. | 34 | 100.0% | **PASSED** |
 | **2. Clinical Safety Guardrails & Epistemic Provenance Tests** | `core/safety_guardrails.py & core/context_validator.py` | Epistemic provenance lockdown (hypothesis dosing refusal, empty provenance refusal), missing age gatekeeper, sentinel emergency triggers (Stroke FAST, ACS crushing chest pain, anaphylaxis, match_mode ANY), red-flag female atypical MI, anticoagulation + GI bleed conflict, critical DDI screening (Warfarin + NSAID, Apixaban + Diclofenac, Sildenafil + Nitroglycerin), negated symptom filtering. | 11 | 100.0% | **PASSED** |
 | **3. Multilingual Semantic Invariance & Dialect Benchmark** | `core/terminology_normalizer.py` | Negation preservation with clause-stop boundaries across 126 curated test cases (MSA, Egyptian, Gulf, Levantine, Maghrebi, EN, FR, ES), BiDi numeric/unit fidelity (mg, mcg, g), regional trade brand-to-INN mapping. | 3 | 100.0% | **PASSED** |
 | **4. Security, PHI Redaction, Citation & Platform Adapter Tests** | `core/ & mcp_server/ & adapters/ & skills/` | SHA-256 cryptographic file integrity manifest (45 files: 24 skills, 11 core modules, dictionaries), PHI scrubbing (Egypt NID 14d, Saudi Iqama 10d, MRN), prompt injection defense, 2-stage citation entailment & population mismatch, live stdio MCP JSON-RPC contract, OpenAI strict parameters, scalar allowed-tools frontmatter in all 24 skills. | 10 | 100.0% | **PASSED** |
-| **TOTAL** | **Entire Ecosystem** | **End-to-End Automated Verification** | **42** | **100.0%** | **ALL_TESTS_PASSED** |
+| **TOTAL** | **Entire Ecosystem** | **End-to-End Automated Verification** | **58** | **100.0%** | **ALL_TESTS_PASSED** |
 
 ---
 

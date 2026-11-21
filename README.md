@@ -175,6 +175,9 @@ All medical calculations in MedOrqis execute with **zero LLM API token overhead 
 | **8** | **NEWS2** | `calculate_news2_score` | Royal College of Physicians (2017) | Acute Inpatient Care | Physiological aggregate triage across 6 vital signs; automated sepsis escalation. |
 | **9** | **Wells DVT Criteria** | `calculate_wells_dvt_score` | Wells PS et al. (NEJM 2003) | Suspected DVT | Pre-test probability (Unlikely vs Likely); dictates D-dimer vs Compression Ultrasound. |
 | **10** | **Wells PE Criteria** | `calculate_wells_pe_score` | Wells PS et al. (Ann Intern Med 2001) | Suspected PE | Pre-test probability (Unlikely vs Likely); dictates D-dimer vs CT Pulmonary Angiography. |
+| **11** | **MELD-Na** | `calculate_meld_na_score` | OPTN/UNOS Policy 9.1 (2016) | Adults with end-stage liver disease | Enforces OPTN lower bounds and the 4.0 mg/dL creatinine ceiling; dialysis within 7 days forces creatinine to 4.0. Sodium clamped to 125-137 mEq/L; score bounded 6-40. |
+| **12** | **Glasgow-Blatchford (GBS)** | `calculate_glasgow_blatchford_score` | Blatchford O et al. (Lancet 2000) | Acute upper GI bleeding | Sex-specific hemoglobin thresholds; identifies patients suitable for safe outpatient management (score 0). |
+| **13** | **ASCVD 10-Year Risk** | `calculate_ascvd_risk_acc_aha` | ACC/AHA Pooled Cohort Equations (2018/2019) | Adults 40-79y, primary prevention | Hard refusal outside 40-79 years or out-of-range lipids/SBP; race-specific coefficients with 'OTHER' mapped to White. |
 
 *(Auxiliary dosing & safety engines: `calculate_pediatric_weight_dose` & `calculate_mosteller_bsa` in `core/clinical_calculators.py`, and Contraindicated DDI Screening in `core/safety_guardrails.py`)*.
 
@@ -241,7 +244,7 @@ python3 core/integrity_manifest.py --verify
 python3 tests/run_all_tests.py
 ```
 This automatically verifies:
-1. `tests/unit/test_clinical_calculators.py`: Boundary and formula correctness for all 12 clinical engines.
+1. `tests/unit/test_clinical_calculators.py`: Boundary and formula correctness for all 15 clinical engines.
 2. `tests/safety/test_safety_and_provenance.py`: Epistemic provenance gates, missing age gatekeeper, sentinel emergency red-flags, and contraindicated DDIs.
 3. `tests/multilingual/test_multilingual_benchmark.py`: Negation preservation, BiDi unit fidelity, and brand-to-INN mapping across 126 test cases.
 4. `tests/platform_adapters/test_security_and_adapters.py`: SHA-256 cryptographic file integrity manifest, PHI scrubbing, prompt injection defense, and MCP JSON-RPC protocol.
